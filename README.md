@@ -1,8 +1,8 @@
-# 🧈 Catálogo de Componentes UI
+# 🧈 UI Components Catalog
 
-Bienvenido al catálogo de componentes UI de Astra. Este proyecto es una colección de componentes de copiar y pegar, diseñados para ser suaves, fluidos y fáciles de integrar en cualquier proyecto de Astro con TailwindCSS ✨
+Welcome to the UI Components Catalog of Astra. This project is a collection of copy-and-paste components, designed to be smooth, fluid, and easy to integrate into any Astro project with TailwindCSS. ✨
 
-## 📬 Contacto
+## 📬 Contact
 
-Si tienes alguna pregunta o sugerencia, no dudes en contactarme:
+If you have any questions or suggestions, feel free to reach out to me:
 Twitter: [Heeector](https://x.com/heeector00)
