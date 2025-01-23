@@ -1,11 +1,49 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<Welcome />
+  <div class="radial-gradient"></div>
+  <div class="radial-gradient blur"></div>
+  <h1>Hello</h1>
+  <div class="experience"></div>
 </Layout>
+
+<style>
+  .experience {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .skew {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) skew(-25deg, 12deg) scale(0.8);
+    --rotate: 0deg;
+    --x: 0px;
+    --y: 0px;
+  }
+  .radial-gradient {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 20;
+    background-image: radial-gradient(
+      ellipse at center,
+      transparent 60%,
+      var(--black-700) 90%
+    );
+    pointer-events: none;
+    user-select: none;
+    inset: 0;
+  }
+  .radial-gradient.blur {
+    mask-image: radial-gradient(
+      ellipse at center,
+      transparent 40%,
+      var(--black-700) 100%
+    );
+    backdrop-filter: blur(1px);
+  }
+</style>
