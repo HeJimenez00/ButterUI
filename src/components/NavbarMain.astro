@@ -1,0 +1,26 @@
+---
+import { Icon } from "astro-icon/components";
+import { navigationConfig } from "src/config/ navigation-config";
+
+const mainNavbarItems = navigationConfig.mainNavbar[0].items ?? [];
+---
+
+<header
+  class="fixed top-0 left-0 right-0 max-w-8xl mx-auto z-10 text-white-100"
+>
+  <nav class="flex justify-between items-center">
+    <div class="flex items-center gap-1">
+      <Icon name="logo" width="35" height="35" />
+      <a href="/" class="font-bold text-h3">Astra</a>
+    </div>
+    <ul class="flex gap-5">
+      {
+        mainNavbarItems.map(({ title, href }) => (
+          <li>
+            <a href={href}>{title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

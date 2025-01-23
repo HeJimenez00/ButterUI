@@ -30,7 +30,7 @@ export default {
         },
       },
       maxWidth: {
-        "8xl": "130rem", // 1200px / 10 = 120rem
+        "8xl": "100rem", // 1200px / 10 = 120rem
       },
       fontSize: {
         h1: "3.5rem", // 35px / 10 = 3.5rem

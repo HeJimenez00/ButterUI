@@ -1,34 +1,32 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import LayoutMain from "@layouts/LayoutMain.astro";
+import { Experience } from "@components/experience/Experience";
 ---
 
-<Layout>
+<LayoutMain
+  title="Astra"
+  description="Catalog of UI components as smooth as butter: soft, fluid, and designed for developers."
+>
   <div class="radial-gradient"></div>
   <div class="radial-gradient blur"></div>
-  <h1>Hello</h1>
-  <div class="experience"></div>
-</Layout>
+  <div class="experience">
+    <!-- <Experience client:load /> -->
+  </div>
+</LayoutMain>
 
 <style>
+  :root {
+    --black-700: oklch(11.76% 0.0292 263.44);
+  }
   .experience {
     width: 100%;
     height: 100vh;
-    overflow: hidden;
-  }
-  .skew {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) skew(-25deg, 12deg) scale(0.8);
-    --rotate: 0deg;
-    --x: 0px;
-    --y: 0px;
   }
   .radial-gradient {
     width: 100%;
     height: 100%;
     position: fixed;
-    z-index: 20;
+    z-index: 1;
     background-image: radial-gradient(
       ellipse at center,
       transparent 60%,
@@ -36,8 +34,12 @@ import Layout from "../layouts/Layout.astro";
     );
     pointer-events: none;
     user-select: none;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
+
   .radial-gradient.blur {
     mask-image: radial-gradient(
       ellipse at center,
