@@ -14,7 +14,7 @@ export const Experience = () => {
   return (
     <Canvas
       shadows
-      // frameloop="demand"
+      frameloop="demand"
       dpr={dpr}
       gl={{ powerPreference: "high-performance" }}
     >
