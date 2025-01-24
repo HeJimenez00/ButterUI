@@ -1,26 +1,41 @@
 ---
-import { Icon } from "astro-icon/components";
 import { navigationConfig } from "src/config/ navigation-config";
+import { MenuToggle } from "../components/MenuToggle.jsx";
+import { Icon } from "astro-icon/components";
 
 const mainNavbarItems = navigationConfig.mainNavbar[0].items ?? [];
 ---
 
 <header
-  class="fixed top-0 left-0 right-0 max-w-8xl mx-auto z-10 text-white-100"
+  class="fixed top-3 px-5 md:px-0 left-0 right-0 max-w-8xl mx-auto z-10 text-white-100"
 >
-  <nav class="flex justify-between items-center">
+  <nav class="flex justify-between items-center navbar">
     <div class="flex items-center gap-1">
       <Icon name="logo" width="35" height="35" />
       <a href="/" class="font-bold text-h3">Astra</a>
     </div>
-    <ul class="flex gap-5">
+    <MenuToggle client:load />
+    <ul
+      class="navbar-items hidden gap-5 fixed right-5 left-5 top-16 text-xl p-3 bg-black-600 rounded-xl space-y-2 md:flex"
+    >
       {
         mainNavbarItems.map(({ title, href }) => (
           <li>
-            <a href={href}>{title}</a>
+            <a href={href} class="block hover:bg-black-500 px-4 py-2 rounded-md">{title}</a>
           </li>
         ))
       }
     </ul>
   </nav>
 </header>
+
+<script>
+  const navbar = document.querySelector(".navbar");
+
+  const items = navbar?.querySelector(".navbar-items");
+  const button = navbar?.querySelector(".navbar-icon");
+
+  button?.addEventListener("click", () => {
+    items?.classList.toggle("hidden");
+  });
+</script>
