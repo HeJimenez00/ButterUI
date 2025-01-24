@@ -30,17 +30,17 @@ export default {
         },
       },
       maxWidth: {
-        "8xl": "100rem", // 1200px / 10 = 120rem
+        "8xl": "80rem",
       },
       fontSize: {
-        h1: "3.5rem", // 35px / 10 = 3.5rem
-        h2: "2.7rem", // 27px / 10 = 2.7rem
-        h3: "2rem", // 20px / 10 = 2.0rem
-        subtitle: "1.8rem", // 24px / 10 = 2.4rem
-        body: "1.6rem", // 16px / 10 = 1.6rem
-        cta: "1.6rem", // 16px / 10 = 1.6rem
-        small: "1.4rem", // 14px / 10 = 1.4rem
-        xsmall: "1.2rem", // 12px / 10 = 1.2rem
+        h1: "2.1875rem", // 35px / 16
+        h2: "0.16875rem", // 2.7px / 16
+        h3: "1.25rem", // 20px / 16
+        subtitle: "1.125rem", // 18px / 16
+        body: "1rem", // 16px / 16
+        cta: "1rem", // 16px / 16
+        small: "0.875rem", // 14px / 16
+        xsmall: "0.75rem", // 12px / 16
       },
     },
   },
