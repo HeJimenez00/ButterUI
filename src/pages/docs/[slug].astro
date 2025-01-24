@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import type { GetStaticPaths } from "astro";
+import LayoutDocs from "@layouts/LayoutDocs.astro";
 
 export const getStaticPaths = (async () => {
   const docEntries = await getCollection("docs");
@@ -15,11 +16,13 @@ export const getStaticPaths = (async () => {
 
 const { slug } = Astro.params;
 const { entry } = Astro.props;
-console.log(entry);
 
 const { Content, headings } = await entry.render();
 ---
 
-<div class="bg-black-700">
+<LayoutDocs
+  title={`Astra - ${entry.data.title}`}
+  description={entry.data.description}
+>
   <Content />
-</div>
+</LayoutDocs>

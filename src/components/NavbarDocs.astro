@@ -1,0 +1,46 @@
+---
+import { navigationConfig } from "src/config/ navigation-config";
+import { MenuToggle } from "../components/MenuToggle.jsx";
+import { Icon } from "astro-icon/components";
+
+const mainNavbarItems = navigationConfig.mainNavbar[0].items ?? [];
+---
+
+<header
+  class="fixed top-0 px-5 md:px-0 left-0 right-0 max-w-8xl mx-auto z-10 text-white-100"
+>
+  <nav class="flex justify-between items-center navbar">
+    <div class="flex items-center gap-1">
+      <Icon name="logo" width="35" height="35" />
+      <a href="/" class="font-bold text-h3">Astra</a>
+    </div>
+    <MenuToggle client:load />
+    <ul
+      class="navbar-items hidden gap-5 fixed right-5 left-5 top-16 text-xl p-3 bg-[#0a0d19]/70 backdrop-blur rounded-xl space-y-2 md:space-y-0 md:flex md:relative md:top-0 md:left-0 md:right-0 md:bg-transparent md:text-body"
+    >
+      {
+        mainNavbarItems.map(({ title, href }) => (
+          <li>
+            <a
+              href={href}
+              class="block md:inline hover:bg-black-500 md:hover:bg-transparent px-4 py-2 md:p-0 rounded-md"
+            >
+              {title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const navbar = document.querySelector(".navbar");
+
+  const items = navbar?.querySelector(".navbar-items");
+  const button = navbar?.querySelector(".navbar-icon");
+
+  button?.addEventListener("click", () => {
+    items?.classList.toggle("hidden");
+  });
+</script>

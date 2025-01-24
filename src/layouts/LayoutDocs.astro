@@ -1,0 +1,33 @@
+---
+import NavbarDocs from "@components/NavbarDocs.astro";
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body class="bg-black-700 text-white-100">
+    <NavbarDocs />
+    <div class="content max-w-8xl mx-auto mt-14 grid gap-10 relative">
+      <div>Getting Started</div>
+      <article>
+        <slot />
+      </article>
+      <div>On this page</div>
+    </div>
+  </body>
+</html>
+
+<style>
+  .content {
+    grid-template-columns: 0.25fr 1fr 0.2fr;
+  }
+</style>
