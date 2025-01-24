@@ -5,7 +5,7 @@ const sideNavbarItems = navigationConfig.sidebarNavbar ?? [];
 const {pathname} = Astro.url;
 ---
 
-<nav class="relative pr-8 pt-10 border-r border-black-500">
+<nav class="relative pr-8 pt-10">
     {
       sideNavbarItems.map((section, idx) => (
         <h4 class="text-white-500 pb-2 tracking-wide">{section.title}</h4>

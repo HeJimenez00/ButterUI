@@ -22,7 +22,7 @@ const { title, description } = Astro.props;
       <article class="px-8 pt-5">
         <slot />
       </article>
-      <div class="pl-8 pt-5 border-l border-black-500">On this page</div>
+      <div class="pl-8 pt-5">On this page</div>
     </div>
   </body>
 </html>
@@ -38,7 +38,18 @@ const { title, description } = Astro.props;
     h3 {
       @apply text-h3;
     }
+
+    article {
+      p {
+        @apply text-white-500;
+      }
+
+      & h1 + p {
+        @apply text-subtitle;
+      }
+    }
   }
+
   .content {
     grid-template-columns: 0.25fr 1fr 0.2fr;
   }
