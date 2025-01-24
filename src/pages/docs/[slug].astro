@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+  const docEntries = await getCollection("docs");
+
+  const slug = docEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+
+  return slug;
+}) satisfies GetStaticPaths;
+
+const { slug } = Astro.params;
+const { entry } = Astro.props;
+console.log(entry);
+
+const { Content, headings } = await entry.render();
+---
+
+<div class="bg-black-700">
+  <Content />
+</div>

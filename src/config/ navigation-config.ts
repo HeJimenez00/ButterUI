@@ -1,6 +1,11 @@
-import type { MainNavbarItem } from "../types/index";
+import type {
+  MainNavbarItem,
+  SideBarNavbarItem,
+  SidebarNavbarItem,
+} from "../types/index";
 interface DocsConfig {
   mainNavbar: MainNavbarItem[];
+  sidebarNavbar: SideBarNavbarItem[];
 }
 
 export const navigationConfig: DocsConfig = {
@@ -19,6 +24,23 @@ export const navigationConfig: DocsConfig = {
         {
           title: "Blog",
           href: "/blog",
+        },
+      ],
+    },
+  ],
+  sidebarNavbar: [
+    {
+      title: "Getting Started",
+      items: [
+        {
+          title: "Introduction",
+          icon: "introduction",
+          href: "/docs/introduction",
+        },
+        {
+          title: "Installation",
+          href: "/docs/installation",
+          icon: "installation",
         },
       ],
     },

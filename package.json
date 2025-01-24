@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.0.7",
     "@astrojs/react": "^3.6.3",
     "@astrojs/tailwind": "^5.1.5",
     "@react-three/drei": "^9.117.3",
