@@ -30,17 +30,30 @@ export const navigationConfig: DocsConfig = {
   ],
   sidebarNavbar: [
     {
-      title: "Getting Started",
+      title: "Getting started",
       items: [
         {
           title: "Introduction",
-          icon: "introduction",
           href: "/docs/introduction",
+          icon: "introduction",
         },
         {
           title: "Installation",
           href: "/docs/installation",
           icon: "installation",
+        },
+      ],
+    },
+    {
+      title: "Components",
+      items: [
+        {
+          title: "Avatar",
+          href: "/docs/components/avatar",
+        },
+        {
+          title: "Jelly",
+          href: "/docs/components/jelly",
         },
       ],
     },

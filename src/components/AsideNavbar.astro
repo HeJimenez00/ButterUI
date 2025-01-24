@@ -1,0 +1,21 @@
+---
+import { navigationConfig } from "src/config/ navigation-config";
+
+const sideNavbarItems = navigationConfig.sidebarNavbar ?? [];
+const {pathname} = Astro.url;
+---
+
+<nav class="relative pr-8 pt-5 border-r border-black-100">
+    {
+      sideNavbarItems.map((section, idx) => (
+        <h4 class="text-white-500 pb-2 tracking-wide">{section.title}</h4>
+        <ul class="mb-5 relative">
+          {sideNavbarItems[idx]?.items?.map(({href, title}) => (
+            <li>
+              <a href={href} class="relative block py-1 pl-3 rounded-md text-body hover:bg-black-600 transition-colors duration-75" class:list={[pathname === href ? "bg-black-500 text-blue-400 font-medium active" : ""]}>{title}</a>
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+</nav>
