@@ -22,7 +22,7 @@ const { title, description } = Astro.props;
       <article class="px-8 pt-5">
         <slot />
       </article>
-      <div class="pl-8 pt-5 border-l border-black-100">On this page</div>
+      <div class="pl-8 pt-5 border-l border-black-500">On this page</div>
     </div>
   </body>
 </html>
@@ -30,7 +30,7 @@ const { title, description } = Astro.props;
 <style>
   body {
     h1 {
-      @apply text-h1;
+      @apply text-h1 font-semibold;
     }
     h2 {
       @apply text-h2;
