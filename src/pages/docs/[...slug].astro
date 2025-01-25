@@ -16,14 +16,14 @@ export const getStaticPaths = (async () => {
 
 const { slug } = Astro.params;
 const { entry } = Astro.props;
-console.log(slug)
 
 const { Content, headings } = await entry.render();
 ---
 
 <LayoutDocs
-  title={`Astra - ${entry.data.title}`}
+  title={`Astra - ${slug.charAt(0).toUpperCase() + slug.slice(1)}  `}
   description={entry.data.description}
+  headings={headings}
 >
   <Content />
 </LayoutDocs>
