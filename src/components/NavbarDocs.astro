@@ -7,12 +7,12 @@ const mainNavbarItems = navigationConfig.mainNavbar[0].items ?? [];
 ---
 
 <header
-  class="sticky h-14 top-0 px-5 md:px-0 left-0 right-0 z-10 text-white-100 border-b border-black-500"
+  class="sticky h-14 top-0 px-5 md:px-0 left-0 right-0 z-10 border-b border-black-300"
 >
   <nav class="flex justify-between items-center navbar max-w-8xl mx-auto">
     <div class="flex items-center gap-1">
       <Icon name="logo" width="35" height="35" />
-      <a href="/" class="font-bold text-h3">Astra</a>
+      <a href="/" class="font-bold text-h3 text-blue-100">Astra</a>
     </div>
     <MenuToggle client:load />
     <ul
@@ -23,7 +23,7 @@ const mainNavbarItems = navigationConfig.mainNavbar[0].items ?? [];
           <li>
             <a
               href={href}
-              class="block md:inline hover:bg-black-500 md:hover:bg-transparent px-4 py-2 md:p-0 rounded-md"
+              class="block  md:inline hover:bg-black-500 md:hover:bg-transparent px-4 py-2 md:p-0 rounded-md"
             >
               {title}
             </a>

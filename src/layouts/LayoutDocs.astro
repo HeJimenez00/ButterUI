@@ -1,8 +1,9 @@
 ---
 import AsideNavbar from "@components/AsideNavbar.astro";
 import NavbarDocs from "@components/NavbarDocs.astro";
+import OnThisPage from "@components/OnThisPage.astro";
 
-const { title, description } = Astro.props;
+const { title, description, headings } = Astro.props;
 ---
 
 <!doctype html>
@@ -22,7 +23,7 @@ const { title, description } = Astro.props;
       <article class="px-8 pt-5">
         <slot />
       </article>
-      <div class="pl-8 pt-5">On this page</div>
+      <OnThisPage headings={headings} />
     </div>
   </body>
 </html>
@@ -39,13 +40,25 @@ const { title, description } = Astro.props;
       @apply text-h3;
     }
 
+    h1,
+    h2,
+    h3,
+    h4 {
+      @apply text-white-100;
+    }
+
+    a,
+    p {
+      @apply text-small text-white-600;
+    }
+
     article {
-      p {
-        @apply text-white-500;
+      h1 {
+        @apply mb-3;
       }
 
       & h1 + p {
-        @apply text-subtitle;
+        @apply text-body;
       }
     }
   }
