@@ -19,7 +19,7 @@ export const navigationConfig: DocsConfig = {
         },
         {
           title: "Components",
-          href: "/docs/avatar",
+          href: "/docs/components/avatar",
         },
         {
           title: "Blog",
