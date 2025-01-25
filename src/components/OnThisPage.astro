@@ -1,0 +1,17 @@
+---
+const { headings } = Astro.props;
+const heads = headings ?? [];
+---
+
+<aside class="pl-8 pt-5">
+  <h4 class="font-bold text-small">On this page</h4>
+  <ul>
+    {
+      heads.map(({ slug, text }) => (
+        <li>
+          <a href={`#${slug}`}>{text}</a>
+        </li>
+      ))
+    }
+  </ul>
+</aside>
