@@ -1,0 +1,137 @@
+---
+import { Index } from "../__registry__/index";
+import Grid from "./Grid.astro";
+import CodeBlock from "./CodeBlock.astro";
+import { Icon } from "astro-icon/components";
+
+const { name, meta } = Astro.props;
+
+const entry = Index[name];
+
+let description = entry.description;
+
+let DynamicComponent;
+let codeSnippet;
+
+try {
+  const module = await entry.component();
+  DynamicComponent = module.default;
+  codeSnippet = entry.code;
+} catch (err) {
+  console.error(`El componente ${name} no pudo ser cargado:`, err);
+}
+---
+
+<section class="w-full max-w-[52.563rem] min-w-[18.75rem]">
+  <header class="header flex items-center mb-5">
+    {description && <p set:html={description} />}
+    <div class="switch">
+      <button
+        type="button"
+        class="button switch-active flex items-center"
+        data-action="preview"
+      >
+        <Icon name="code" />
+        <span>Preview</span>
+      </button>
+      <button type="button" data-action="code" class="flex items-center">
+        <Icon name="preview" />
+        <span>Code</span>
+      </button>
+    </div>
+  </header>
+  <div class="preview">
+    <div class="component">
+      {
+        DynamicComponent ? (
+          <DynamicComponent />
+        ) : (
+          <p>Error: No se pudo cargar el componente "{name}".</p>
+        )
+      }
+    </div>
+    <div class="radial-gradient"></div>
+    <div class="radial-gradient blur"></div>
+    <Grid
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.65]"
+    />
+  </div>
+  <div class="code">
+    <CodeBlock name={name} code={codeSnippet} meta={meta} />
+  </div>
+</section>
+
+<script>
+  const $switches = document.querySelectorAll(".switch");
+  const $preview = document.querySelectorAll(".preview");
+  const $code = document.querySelectorAll(".code");
+
+  const SWITCH = "switch-active";
+  const HIDDEN = "hidden";
+
+  $switches.forEach(($switch, idx) => {
+    $switch.addEventListener("click", (ev) => {
+      const target = ev.target as HTMLElement | null;
+      const btnActive = target?.closest("button") as HTMLButtonElement;
+
+      if (!btnActive || btnActive?.classList.contains(SWITCH)) return;
+
+      const currentActive = $switch.querySelector(`.${SWITCH}`);
+      currentActive?.classList.remove(SWITCH);
+      btnActive?.classList.add(SWITCH);
+
+      if (btnActive.dataset.action === "preview") {
+        $preview[idx].classList.remove(HIDDEN);
+        $code[idx].classList.add(HIDDEN);
+      } else if (btnActive.dataset.action === "code") {
+        $preview[idx].classList.add(HIDDEN);
+        $code[idx].classList.remove(HIDDEN);
+      }
+    });
+  });
+</script>
+
+<style>
+  .header:has(p + .switch) {
+    @apply justify-between;
+  }
+  .header:not(:has(p)) {
+    @apply justify-end;
+  }
+  .preview,
+  .code {
+    @apply overflow-hidden relative w-full max-w-[52.563rem] min-w-[18.75rem] h-[28.125rem] border border-black-300 rounded-xl;
+  }
+  .component {
+    @apply absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-full;
+  }
+  .radial-gradient {
+    @apply w-full h-full absolute z-10 bottom-0 right-0 left-0 pointer-events-auto select-none inset-0;
+    background-image: radial-gradient(
+      ellipse at center,
+      transparent 20%,
+      oklch(11.76% 0.0292 263.44) 90%
+    );
+  }
+  .radial-gradient.blur {
+    mask-image: radial-gradient(
+      ellipse at center,
+      transparent 20%,
+      oklch(11.76% 0.0292 263.44) 100%
+    );
+    backdrop-filter: blur(10px);
+  }
+
+  .switch {
+    @apply flex gap-[5px] p-[3px] bg-black-500 border border-black-100 rounded-xl w-max;
+  }
+  .switch > button {
+    @apply bg-transparent border border-transparent rounded-[8px] px-[5px] py-[7px] gap-[5px];
+    svg {
+      @apply w-5;
+    }
+  }
+  .switch > .switch-active {
+    @apply bg-black-200 text-blue-700 rounded-[8px];
+  }
+</style>

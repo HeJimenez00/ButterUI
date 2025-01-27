@@ -1,0 +1,42 @@
+---
+import { Icon } from "astro-icon/components";
+import { Code } from "astro:components";
+import { transformerMetaHighlight } from "@shikijs/transformers";
+
+import BtnCopy from "./BtnCopy.astro";
+
+const { code, name, meta } = Astro.props;
+
+const hasFileName = !!name;
+---
+
+<figure
+  class="absolute z-20 rounded-xl overflow-hidden flex flex-col max-w-[51.125rem] min-w-[18.75rem] w-full h-[28.125rem] bg-black-400"
+>
+  <div class="flex items-center justify-between bg-black-500 px-[3px] h-11">
+    <figcaption
+      class="px-[7px] py-[17px] sticky top-0 flex items-center gap-2 text-xsmall text-blue-300"
+    >
+      <Icon name="astro" />
+      {hasFileName && <span class="filename">{name}.astro</span>}
+    </figcaption>
+    <BtnCopy aria-label="Copiar código al portapapeles" />
+  </div>
+  <Code
+    lang="astro"
+    code={code}
+    transformers={[transformerMetaHighlight()]}
+    meta={meta}
+  />
+</figure>
+
+<style>
+  pre {
+    @apply grow px-[10px] text-small !bg-black-500 overflow-y-scroll;
+    code {
+      span {
+        @apply pl-[5px];
+      }
+    }
+  }
+</style>
