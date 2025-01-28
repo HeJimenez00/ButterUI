@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@theme {
+  --color-blue: oklch(69% 0.17 279);
+  --color-primary: oklch(90.9% 0.033 266);
+  --color-default: oklch(73.48% 0.0421 266);
+  --color-black: oklch(10.76% 0.023 266);
+  --color-block-code: oklch(16.19% 0.023 266);
+  --border-color: oklch(24.84% 0.018 266);
+
+  --container-8xl: 80rem;
+
+  --text-h1: 2.1875rem;
+  --text-h2: 1.688rem;
+  --text-h3: 1.25rem;
+  --text-subtitle: 1.125rem;
+  --text-body: 1rem;
+  --text-cta: 1rem;
+  --text-small: 0.875rem;
+  --text-xsmall: 0.75rem;
+
+  --radius-xl: 0.75rem;
+
+  --shadow-custom: 0 10px 13px rgba(0, 0, 0, 0.5);
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+  body {
+    @apply bg-black;
+    h1 {
+      @apply text-h1 font-semibold;
+    }
+    h2 {
+      @apply text-h2;
+    }
+    h3 {
+      @apply text-h3;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      @apply text-primary;
+    }
+
+    button,
+    p,
+    a,
+    p,
+    span {
+      @apply text-default;
+    }
+
+    p,
+    a,
+    pre {
+      @apply text-small;
+    }
+
+    article {
+      h1 {
+        @apply mb-3;
+      }
+
+      & h1 + p {
+        @apply text-body;
+      }
+    }
+
+    /* PreviewComponent.astro */
+    .header:has(p + .switch) {
+      @apply justify-between;
+    }
+    .header:not(:has(p)) {
+      @apply justify-end;
+    }
+    .preview,
+    .code {
+      @apply overflow-hidden relative w-full max-w-[52.563rem] min-w-[18.75rem] h-[28.125rem] border border-(--border-color) rounded-[20px];
+    }
+    .component {
+      @apply absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-full;
+    }
+
+    .radial-gradient {
+      @apply w-full h-full absolute z-10 bottom-0 right-0 left-0 pointer-events-auto select-none inset-0;
+    }
+
+    .switch {
+      @apply flex gap-[5px] p-[3px] bg-blue/5 border border-(--border-color) rounded-[15px] w-max text-small;
+    }
+    .switch > button {
+      @apply bg-transparent border border-transparent rounded-[10px] pl-[5px] pr-[7px] py-[3px] gap-[5px];
+      svg {
+        @apply w-5;
+      }
+      svg,
+      span {
+        @apply text-primary;
+      }
+    }
+    .switch > .switch-active {
+      @apply bg-blue/10;
+      svg,
+      span {
+        @apply text-blue;
+      }
+    }
+
+    /* CodeBloc.astro */
+    pre {
+      @apply grow px-[10px] !bg-block-code overflow-y-scroll text-(length:--text-sm);
+      code {
+        span {
+          @apply pl-[5px];
+        }
+      }
+    }
+  }
+}

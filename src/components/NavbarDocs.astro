@@ -7,16 +7,18 @@ const mainNavbarItems = navigationConfig.mainNavbar[0].items ?? [];
 ---
 
 <header
-  class="sticky h-14 top-0 px-5 md:px-0 left-0 right-0 z-10 border-b border-black-300"
+  class="sticky h-14 top-0 px-5 md:px-0 left-0 right-0 z-50 bg-black border-b border-(--border-color) flex"
 >
-  <nav class="flex justify-between items-center navbar max-w-8xl mx-auto">
-    <div class="flex items-center gap-1">
+  <nav
+    class="flex justify-between items-center navbar max-w-8xl w-full mx-auto"
+  >
+    <li class="flex items-center gap-1">
       <Icon name="logo" width="35" height="35" />
-      <a href="/" class="font-bold text-h3 text-blue-100">Astra</a>
-    </div>
+      <a href="/" class="font-bold text-h3 text-primary">Astra</a>
+    </li>
     <MenuToggle client:load />
     <ul
-      class="navbar-items hidden gap-5 fixed right-5 left-5 top-16 text-xl p-3 bg-[#0a0d19]/70 backdrop-blur rounded-xl space-y-2 md:space-y-0 md:flex md:relative md:top-0 md:left-0 md:right-0 md:bg-transparent md:text-body"
+      class="navbar-items hidden gap-5 fixed right-5 left-5 top-16 text-xl p-3 bg-black/70 backdrop-blur-sm rounded-xl space-y-2 md:space-y-0 md:flex md:relative md:top-0 md:left-0 md:right-0 md:bg-transparent md:text-body"
     >
       {
         mainNavbarItems.map(({ title, href }) => (

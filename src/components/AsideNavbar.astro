@@ -8,11 +8,15 @@ const {pathname} = Astro.url;
 <nav class="relative pr-8 pt-10">
     {
       sideNavbarItems.map((section, idx) => (
-        <h4 class="text-blue-100 pb-2 font-bold text-small">{section.title}</h4>
-          <ul class="mb-6 relative items border-l border-[#ecf1fe]/30 flex flex-col gap-2">
+        <h4 class="pb-2 font-bold text-small">{section.title}</h4>
+          <ul class="mb-6 relative items border-l border-(--border-color) flex flex-col gap-1">
           {sideNavbarItems[idx]?.items?.map(({href, title}) => (
-           <li>
-              <a href={href} class="relative z-10 block pl-3 py-[2px] ml-[-1px] border-l border-[#ecf1fe]/0" class:list={[pathname === href ? "!border-blue-700 text-blue-700 font-medium" : ""], [pathname !== href ? "hover:text-blue-300 hover:!border-[#b1c8fb]/60" : ""]}>{title}</a>
+          <li class="py-[4px]" class:list={[pathname === href ? "pl-3 bg-blue/10 rounded-[10px] relative right-3" : ""]}>
+              <a href={href} class="relative z-10 block pl-3 py-[2px] ml-[-1px] border-l border-(--border-color) transition-colors"
+                class:list={
+                [pathname === href ? "!border-blue text-blue font-medium" : ""],
+                [pathname !== href ? "hover:text-primary hover:border-primary/50" : ""]}
+              >{title}</a>
             </li>
           ))}
         </ul>

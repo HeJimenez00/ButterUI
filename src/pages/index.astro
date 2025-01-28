@@ -8,7 +8,7 @@ import { Experience } from "@components/experience/Experience";
   description="Catalog of UI components as smooth as butter: soft, fluid, and designed for developers."
 >
   <div class="radial-gradient"></div>
-  <div class="radial-gradient blur"></div>
+  <div class="radial-gradient blur-sm"></div>
   <div class="experience">
     <Experience client:load />
   </div>
@@ -16,7 +16,7 @@ import { Experience } from "@components/experience/Experience";
 
 <style>
   :root {
-    --black-700: oklch(11.76% 0.0292 263.44);
+    --primary-700: oklch(11.76% 0.0292 263.44);
   }
   .experience {
     width: 100%;
@@ -30,7 +30,7 @@ import { Experience } from "@components/experience/Experience";
     background-image: radial-gradient(
       ellipse at center,
       transparent 60%,
-      var(--black-700) 90%
+      var(--primary-700) 90%
     );
     pointer-events: none;
     user-select: none;
@@ -44,7 +44,7 @@ import { Experience } from "@components/experience/Experience";
     mask-image: radial-gradient(
       ellipse at center,
       transparent 40%,
-      var(--black-700) 100%
+      var(--primary-700) 100%
     );
     backdrop-filter: blur(1px);
   }
