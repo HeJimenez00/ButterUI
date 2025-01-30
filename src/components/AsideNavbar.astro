@@ -11,7 +11,7 @@ const {pathname} = Astro.url;
         <h4 class="pb-2 font-bold text-small">{section.title}</h4>
           <ul class="mb-6 relative items border-l border-(--border-color) flex flex-col gap-1">
           {sideNavbarItems[idx]?.items?.map(({href, title}) => (
-          <li class="py-[4px]" class:list={[pathname === href ? "pl-3 bg-blue/10 rounded-[10px] relative right-3" : ""]}>
+          <li class="py-1" class:list={[pathname === href ? "pl-3 bg-[#101224] rounded-[10px] relative right-3" : ""]}>
               <a href={href} class="relative z-10 block pl-3 py-[2px] ml-[-1px] border-l border-(--border-color) transition-colors"
                 class:list={
                 [pathname === href ? "!border-blue text-blue font-medium" : ""],

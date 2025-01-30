@@ -2,10 +2,10 @@
 
 @theme {
   --color-blue: oklch(69% 0.17 279);
-  --color-primary: oklch(90.9% 0.033 266);
+  --color-primary: oklch(93.67% 0.0208 266);
   --color-default: oklch(73.48% 0.0421 266);
   --color-black: oklch(10.76% 0.023 266);
-  --color-block-code: oklch(16.19% 0.023 266);
+  --color-block-code: oklch(14.19% 0.023 266);
   --border-color: oklch(24.84% 0.018 266);
 
   --container-8xl: 80rem;
@@ -22,6 +22,8 @@
   --radius-xl: 0.75rem;
 
   --shadow-custom: 0 10px 13px rgba(0, 0, 0, 0.5);
+
+  --mask-avatar: "radial-gradient(circle 9px at -4px 50%, transparent 99%, #fff 100%)";
 }
 
 /*
@@ -92,7 +94,7 @@
     }
     .preview,
     .code {
-      @apply overflow-hidden relative w-full max-w-[52.563rem] min-w-[18.75rem] h-[28.125rem] border border-(--border-color) rounded-[20px];
+      @apply overflow-hidden relative w-full max-w-[52.563rem] min-w-[18.75rem] h-[28.125rem] border border-(--border-color) rounded-[15px];
     }
     .component {
       @apply absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-full;
@@ -103,10 +105,10 @@
     }
 
     .switch {
-      @apply flex gap-[5px] p-[3px] bg-blue/5 border border-(--border-color) rounded-[15px] w-max text-small;
+      @apply flex gap-[5px] p-[3px] bg-block-code border border-(--border-color) rounded-xl w-max text-small;
     }
     .switch > button {
-      @apply bg-transparent border border-transparent rounded-[10px] pl-[5px] pr-[7px] py-[3px] gap-[5px];
+      @apply bg-transparent border border-transparent rounded-[8px] pl-[5px] pr-[7px] py-[3px] gap-[5px];
       svg {
         @apply w-5;
       }
@@ -123,14 +125,44 @@
       }
     }
 
-    /* CodeBloc.astro */
+    /* CodeBlock.astro */
     pre {
-      @apply grow px-[10px] !bg-block-code overflow-y-scroll text-(length:--text-sm);
-      code {
-        span {
-          @apply pl-[5px];
-        }
-      }
+      @apply grow px-1 !bg-block-code overflow-y-scroll text-(length:--text-sm);
     }
+  }
+  /* code */
+  code {
+    counter-reset: lineNumbers;
+    counter-increment: lineNumbers 0;
+  }
+  code .line::before {
+    content: counter(lineNumbers);
+    counter-increment: lineNumbers;
+    width: 1.5rem;
+    margin-right: 0.938rem;
+    display: inline-block;
+    text-align: right;
+    color: var(--color-default);
+  }
+
+  ::-webkit-scrollbar {
+    width: 7px; /* Grosor de la barra vertical */
+    height: 8px; /* Grosor de la barra horizontal */
+  }
+
+  /* Estilo del track (fondo) */
+  ::-webkit-scrollbar-track {
+    background: transparent; /* Color del track */
+  }
+
+  /* Estilo del thumb (deslizador) */
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-color); /* Color del thumb */
+    border-radius: 8px;
+  }
+
+  /* Hover del thumb */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555555; /* Color en hover */
   }
 }
