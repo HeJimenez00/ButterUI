@@ -1,0 +1,7 @@
+---
+const { href }: Record<string, any> = Astro.props;
+---
+
+<a href={href} class="external-link" target="_blank" rel="noopener noreferrer">
+  <slot />
+</a>
