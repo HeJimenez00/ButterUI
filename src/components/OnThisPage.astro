@@ -1,17 +1,29 @@
 ---
 const { headings } = Astro.props;
-const heads = headings ?? [];
+const heads = headings.slice(1) ?? [];
 ---
 
-<aside class="pl-8 pt-5">
-  <h4 class="font-bold text-small">On this page</h4>
-  <ul>
+<aside class="aside pl-8 pt-5">
+  <h4 class="font-bold text-small pb-2">On this page</h4>
+  <ul class="border-l border-(--border-color) flex flex-col gap-2">
     {
-      heads.map(({ slug, text }) => (
-        <li>
-          <a href={`#${slug}`}>{text}</a>
-        </li>
-      ))
+      heads.map(
+        ({
+          depth,
+          slug,
+          text,
+        }: {
+          depth: number;
+          slug: string;
+          text: string;
+        }) => (
+          <li class:list={[depth !== 2 ? "ml-3" : ""]}>
+            <a href={`#${slug}`} class="block pl-3">
+              {text}
+            </a>
+          </li>
+        ),
+      )
     }
   </ul>
 </aside>
