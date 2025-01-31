@@ -44,11 +44,16 @@
   }
   body {
     @apply bg-black;
+    h1,
+    h2,
+    h3 {
+      @apply font-bold;
+    }
     h1 {
-      @apply text-h1 font-semibold;
+      @apply text-h1;
     }
     h2 {
-      @apply text-h2;
+      @apply text-h2 mt-10 mb-5;
     }
     h3 {
       @apply text-h3;
@@ -75,13 +80,104 @@
       @apply text-small;
     }
 
+    p {
+      @apply text-sm/7;
+    }
+
     article {
-      h1 {
-        @apply mb-3;
+      & h1 ~ p {
+        @apply text-body;
+        & a {
+          @apply text-body;
+        }
+      }
+      & h1 ~ span:first-of-type {
+        @apply text-small inline-block py-1 px-2 rounded-md mt-1 mb-4 bg-blue/10 text-blue;
+        &:first-of-type::before {
+          content: "Create on: ";
+        }
       }
 
-      & h1 + p {
-        @apply text-body;
+      & ol {
+        counter-reset: listNumbers;
+        counter-increment: listNumbers 0;
+      }
+      & ol > li {
+        @apply text-default flex gap-3 items-center mb-3;
+        &::before {
+          content: counter(listNumbers);
+          counter-increment: listNumbers;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: right;
+          color: var(--color-blue);
+          background-color: oklch(69% 0.17 279 / 10%);
+          border: 1px solid oklch(69% 0.17 279 / 20%);
+          border-radius: 50%;
+          font-size: var(--text-small);
+        }
+      }
+      .external-link {
+        color: var(--color-blue);
+        position: relative;
+        display: inline-block;
+      }
+      .external-link::after {
+        content: "";
+        width: 100%;
+        height: 1.5px;
+        background-color: var(--color-blue);
+        display: block;
+        bottom: 1px;
+        opacity: 0;
+        position: absolute;
+        transition: opacity 0.2s ease;
+      }
+      .external-link:hover::after {
+        opacity: 1;
+      }
+
+      /* API Reference table */
+      table {
+        width: 100%;
+        display: table;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-top: 2rem;
+        code {
+          background-color: oklch(69% 0.17 279 / 10%);
+          border: 0.1rem solid oklch(69% 0.17 279 / 10%);
+          color: var(--color-blue);
+          padding: 3px 5px;
+          border-radius: 6px;
+          font-size: var(--text-xsmall);
+          margin-bottom: 4px;
+        }
+      }
+      th:first-child {
+        border-top-left-radius: 1.2rem;
+        border-bottom-left-radius: 1.2rem;
+      }
+      th:last-child {
+        border-top-right-radius: 1.2rem;
+        border-bottom-right-radius: 1.2rem;
+      }
+      th {
+        text-align: left;
+        color: var(--color-blue);
+        background-color: oklch(69% 0.17 279 / 10%);
+        font-weight: 500;
+        padding: 1rem 1.5rem;
+        font-size: var(--text-small);
+      }
+      tbody:has(> tr > td) td {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        font-size: var(--text-small);
+        color: var(--color-default);
       }
     }
 
@@ -108,7 +204,7 @@
       @apply flex gap-[5px] p-[3px] bg-block-code border border-(--border-color) rounded-xl w-max text-small;
     }
     .switch > button {
-      @apply bg-transparent border border-transparent rounded-[8px] pl-[5px] pr-[7px] py-[3px] gap-[5px];
+      @apply bg-transparent border border-transparent rounded-[8px] pl-[5px] pr-2 py-[5px] gap-[7px];
       svg {
         @apply w-5;
       }
@@ -145,6 +241,7 @@
     color: var(--color-default);
   }
 
+  /* scrollbar */
   ::-webkit-scrollbar {
     width: 7px; /* Grosor de la barra vertical */
     height: 8px; /* Grosor de la barra horizontal */
