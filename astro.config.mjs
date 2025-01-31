@@ -28,6 +28,12 @@ export default defineConfig({
             ["default", "PreviewComponent"],
           ],
         },
+        {
+          "./src/components/ExternalLink.astro": [["default", "ExternalLink"]],
+        },
+        {
+          "./src/components/HTMLRender.astro": [["default", "HTMLRender"]],
+        },
       ],
     }),
     MDXCodeBlocks(),
