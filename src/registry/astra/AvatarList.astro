@@ -1,0 +1,157 @@
+---
+import { cva } from "class-variance-authority";
+
+const avatar = cva("avatar", {
+  variants: {
+    position: {
+      horizontal: [""],
+      vertical: ["flex-col h-full"],
+    },
+    size: {
+      small: ["w-9 h-9"],
+      medium: ["w-16 h-16"],
+    },
+  },
+});
+
+interface AvatarItem {
+  name: string;
+  src: string;
+  alt: string;
+}
+
+interface AvatarList {
+  data: AvatarItem[];
+  position: "horizontal" | "vertical";
+  size: "medium" | "small";
+}
+
+const example: AvatarItem[] = [
+  {
+    name: "Svelte",
+    src: "https://pbs.twimg.com/profile_images/1121395911849062400/7exmJEg4_400x400.png",
+    alt: "Svelte Logo",
+  },
+  {
+    name: "Three.js",
+    src: "https://pbs.twimg.com/profile_images/1510259524271173638/lgTEVmRi_400x400.jpg",
+    alt: "Three.js Logo",
+  },
+  {
+    name: "Midulive",
+    src: "https://pbs.twimg.com/profile_images/1824773087323111424/-S3LUmjQ_400x400.jpg",
+    alt: "Midulive Avatar",
+  },
+  {
+    name: "Astro",
+    src: "https://pbs.twimg.com/profile_images/1632785343433908224/SnMGR19O_400x400.png",
+    alt: "Astro Logo",
+  },
+  {
+    name: "Fedewolf",
+    src: "https://yt3.googleusercontent.com/ytc/AIdro_lkP2acLLShEwqF_wWyEE_3E1g77xcm4BhPnEEuWkfng_w=s160-c-k-c0x00ffffff-no-rj",
+    alt: "Fedewolf Avatar",
+  },
+];
+
+const {
+  data = example,
+  position = "horizontal",
+  size = "medium",
+} = Astro.props as AvatarList;
+---
+
+<ul
+  class:list={[
+    "avatar flex",
+    position !== "horizontal" && avatar({ position }),
+  ]}
+>
+  {
+    data.map(({ name, src }) => (
+      <li
+        class:list={[
+          "avatar-item relative first:ml-0 first:mt-0",
+          position === "horizontal" && size === "medium" && "-ml-5",
+          position === "horizontal" && size === "small" && "-ml-3",
+          position === "vertical" && size === "medium" && "-mt-5",
+          position === "vertical" && size === "small" && "-mt-3",
+        ]}
+      >
+        <img
+          class:list={[
+            "avatar-image rounded-full border-[3px] border-white-100",
+            avatar({ size }),
+          ]}
+          src={src}
+          alt={name}
+        />
+        <span
+          class:list={[
+            "avatar-name absolute opacity-0 -translate-y-1/2 px-[6px] py-[2px] rounded-full text-blue-100 bg-slate-950 border border-slate-800",
+            size === "medium" ? "text-small" : "text-xs",
+            position === "horizontal" && "left-1/2 -translate-x-1/2",
+            position === "vertical" && "right-full top-1/2 mr-2",
+            position === "horizontal" && size === "small" && "-top-4",
+            position === "horizontal" && size === "medium" && "-top-5",
+          ]}
+        >
+          {name}
+        </span>
+      </li>
+    ))
+  }
+</ul>
+
+<script>
+  import { gsap } from "gsap";
+
+  function initAvatar() {
+    const $avatarList = document.querySelectorAll(".avatar");
+    if (!$avatarList.length) return;
+
+    $avatarList.forEach(($avatarItem) => {
+      const handleAvatar = (ev: Event, isEnter: boolean) => {
+        const $item = (ev.target as HTMLElement).closest(".avatar-item");
+        if ($item && $avatarItem.contains($item)) {
+          const $name = $item.querySelector(".avatar-name") as HTMLElement;
+
+          gsap.to($item, {
+            y: isEnter ? -10 : 0,
+            duration: 0.6,
+            ease: "elastic.out(1, 0.5)",
+          });
+
+          gsap.to($name, {
+            opacity: isEnter ? 1 : 0,
+            filter: isEnter ? " blur(0px)" : "blur(7px)",
+            duration: 0.3,
+            ease: "power1",
+          });
+        }
+      };
+
+      $avatarItem.addEventListener(
+        "mouseenter",
+        (ev) => handleAvatar(ev, true),
+        true,
+      );
+      $avatarItem.addEventListener(
+        "mouseleave",
+        (ev) => handleAvatar(ev, false),
+        true,
+      );
+    });
+  }
+  initAvatar();
+</script>
+
+<style>
+  .avatar-name {
+    visibility: hidden;
+    transition: visibility 0.3s ease;
+  }
+  .avatar-item:hover .avatar-name {
+    visibility: visible;
+  }
+</style>
