@@ -58,9 +58,7 @@ function generateRegistryCode(existingRegistry) {
 
       updatedRegistry[componentName] = {
         name: componentName,
-        description: escapeString(
-          entry.description || `Generated entry for ${componentName}`,
-        ),
+        description: escapeString(entry.description || ``),
         type: entry.type,
         files: entry.files.map((file) => file.path),
         component: `async () => import("${componentImportPath}")`,
