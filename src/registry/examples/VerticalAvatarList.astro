@@ -1,0 +1,23 @@
+---
+import AvatarList from "../astra/AvatarList.astro";
+
+const example = [
+  {
+    name: "Svelte",
+    src: "https://pbs.twimg.com/profile_images/1121395911849062400/7exmJEg4_400x400.png",
+    alt: "Svelte Logo",
+  },
+  {
+    name: "Three.js",
+    src: "https://pbs.twimg.com/profile_images/1510259524271173638/lgTEVmRi_400x400.jpg",
+    alt: "Three.js Logo",
+  },
+  {
+    name: "Astro",
+    src: "https://pbs.twimg.com/profile_images/1632785343433908224/SnMGR19O_400x400.png",
+    alt: "Astro Logo",
+  },
+];
+---
+
+<AvatarList data={example} position="vertical" size="medium" />

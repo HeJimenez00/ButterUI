@@ -1,8 +1,8 @@
 import { registrySchema } from "./schema";
-import { gladeRegistry } from "./registry-astra";
+import { astraRegistry } from "./registry-astra";
 import { examplesRegistry } from "./registry-examples";
 
-export const registry = [...gladeRegistry, ...examplesRegistry];
+export const registry = [...astraRegistry, ...examplesRegistry];
 
 registrySchema.parse(registry);
 

@@ -1,9 +1,9 @@
 import type { RegistryEntry } from "./schema";
 
-export const gladeRegistry: RegistryEntry[] = [
+export const astraRegistry: RegistryEntry[] = [
   {
-    name: "Avatar",
+    name: "AvatarList",
     type: "astra",
-    files: [{ path: "src/registry/astra/Avatar.astro" }],
+    files: [{ path: "src/registry/astra/AvatarList.astro" }],
   },
 ];
