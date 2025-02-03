@@ -1,0 +1,58 @@
+---
+import AvatarList from "../astra/AvatarList.astro";
+
+const avatars = [
+  {
+    name: "Gsap",
+    src: "https://pbs.twimg.com/profile_images/1713633504431394816/h28jJ1qM_400x400.jpg",
+    alt: "Gsap logo",
+  },
+  {
+    name: "FredKSchott",
+    src: "https://pbs.twimg.com/profile_images/1272979356529221632/sxvncugt_400x400.jpg",
+    alt: "Heeector logo",
+  },
+];
+
+let text = "";
+
+function getNames() {
+  for (let i = 0; i < avatars.length; i++) {
+    if (avatars.length > 1 && i === avatars.length - 1) {
+      text += ` and <span class="text-white">${avatars[i].name}</span>`;
+    } else if (i > 0 && i < avatars.length - 1) {
+      text += `, <span class="text-white">${avatars[i].name}</span>`;
+    } else {
+      text += `<span class="text-white">${avatars[i].name}</span>`;
+    }
+  }
+}
+getNames();
+---
+
+<section class="max-w-[80%] p-5 bg-gray-900 rounded-3xl">
+  <h1 class="text-white">Create animated avatars for stunning UI 😎</h1>
+  <p class="py-5 text-gray-400">
+    Learn how to design and animate <span class="text-white">avatars</span> that
+    bring life to your UI. Using <span class="text-white">GSAP</span>, you can
+    create <span class="text-white">dynamic hover effects, smooth scaling</span
+    >, and <span class="text-white">interactive transitions</span>. These
+    animated avatars are perfect for adding <span class="text-white"
+      >personality</span
+    > to your project, whether it's a website, app, or portfolio. Stand out with
+    engaging and <span class="text-white">visually appealing animations</span> that
+    captivate your audience!
+  </p>
+  <div class="flex items-center gap-3">
+    <AvatarList
+      data={avatars}
+      size="small"
+      imageStyles="ring-[3px] ring-gray-900"
+      nameStyles="text-gray-900 bg-white ring ring-gray-900"
+    />
+    <div>
+      <p class="text-xs/snug text-gray-400">Created by</p>
+      <p class="text-xs/snug text-gray-400" set:html={text} />
+    </div>
+  </div>
+</section>

@@ -1,37 +1,41 @@
 ---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 import { cva } from "class-variance-authority";
 
-const avatar = cva("avatar", {
+const avatar = cva("", {
   variants: {
-    position: {
+    direction: {
       horizontal: [""],
-      vertical: ["flex-col h-full"],
+      vertical: ["flex-col"],
     },
     size: {
       small: ["w-9 h-9"],
-      medium: ["w-16 h-16"],
+      medium: ["w-16 h-16 max-sm:w-14 max-sm:h-14"],
+    },
+    shape: {
+      circle: ["rounded-full"],
+      rounded: ["rounded-xl"],
     },
   },
 });
 
 interface AvatarItem {
   name: string;
-  src: string;
+  src: string | ImageMetadata;
   alt: string;
 }
 
 interface AvatarList {
   data: AvatarItem[];
-  position: "horizontal" | "vertical";
-  size: "medium" | "small";
+  direction?: "horizontal" | "vertical";
+  size?: "medium" | "small";
+  shape?: "circle" | "rounded";
+  imageStyles?: string;
+  nameStyles?: string;
 }
 
 const example: AvatarItem[] = [
-  {
-    name: "Svelte",
-    src: "https://pbs.twimg.com/profile_images/1121395911849062400/7exmJEg4_400x400.png",
-    alt: "Svelte Logo",
-  },
   {
     name: "Three.js",
     src: "https://pbs.twimg.com/profile_images/1510259524271173638/lgTEVmRi_400x400.jpg",
@@ -40,7 +44,12 @@ const example: AvatarItem[] = [
   {
     name: "Midulive",
     src: "https://pbs.twimg.com/profile_images/1824773087323111424/-S3LUmjQ_400x400.jpg",
-    alt: "Midulive Avatar",
+    alt: "Midulive Logo",
+  },
+  {
+    name: "Svelte",
+    src: "https://pbs.twimg.com/profile_images/1121395911849062400/7exmJEg4_400x400.png",
+    alt: "Svelte Logo",
   },
   {
     name: "Astro",
@@ -48,52 +57,59 @@ const example: AvatarItem[] = [
     alt: "Astro Logo",
   },
   {
-    name: "Fedewolf",
-    src: "https://yt3.googleusercontent.com/ytc/AIdro_lkP2acLLShEwqF_wWyEE_3E1g77xcm4BhPnEEuWkfng_w=s160-c-k-c0x00ffffff-no-rj",
-    alt: "Fedewolf Avatar",
+    name: "Gsap",
+    src: "https://pbs.twimg.com/profile_images/1713633504431394816/h28jJ1qM_400x400.jpg",
+    alt: "Gsap Logo",
   },
 ];
 
 const {
   data = example,
-  position = "horizontal",
+  direction = "horizontal",
   size = "medium",
+  shape = "circle",
+  nameStyles = "bg-white text-gray-950",
+  imageStyles = "ring-[3px] md:ring-[4px] ring-white",
 } = Astro.props as AvatarList;
 ---
 
 <ul
   class:list={[
     "avatar flex",
-    position !== "horizontal" && avatar({ position }),
+    direction !== "horizontal" && avatar({ direction }),
   ]}
 >
   {
-    data.map(({ name, src }) => (
+    data.map(({ name, src, alt }) => (
       <li
         class:list={[
           "avatar-item relative first:ml-0 first:mt-0",
-          position === "horizontal" && size === "medium" && "-ml-5",
-          position === "horizontal" && size === "small" && "-ml-3",
-          position === "vertical" && size === "medium" && "-mt-5",
-          position === "vertical" && size === "small" && "-mt-3",
+          direction === "horizontal" && size === "medium" && "-ml-5",
+          direction === "horizontal" && size === "small" && "-ml-3",
+          direction === "vertical" && size === "medium" && "-mt-5",
+          direction === "vertical" && size === "small" && "-mt-3",
         ]}
       >
-        <img
+        <Image
+          src={typeof src === "string" ? src : (src as ImageMetadata)}
+          alt={alt}
+          width={size === "small" ? 36 : 64}
+          height={size === "small" ? 36 : 64}
           class:list={[
-            "avatar-image rounded-full border-[3px] border-white-100",
-            avatar({ size }),
+            "avatar-image object-cover aspect-square",
+            avatar({ size, shape }),
+            imageStyles,
           ]}
-          src={src}
-          alt={name}
         />
         <span
           class:list={[
-            "avatar-name absolute opacity-0 -translate-y-1/2 px-[6px] py-[2px] rounded-full text-blue-100 bg-slate-950 border border-slate-800",
-            size === "medium" ? "text-small" : "text-xs",
-            position === "horizontal" && "left-1/2 -translate-x-1/2",
-            position === "vertical" && "right-full top-1/2 mr-2",
-            position === "horizontal" && size === "small" && "-top-4",
-            position === "horizontal" && size === "medium" && "-top-5",
+            "avatar-name absolute opacity-0 -translate-y-1/2 px-[6px] py-[1px] rounded-full",
+            nameStyles,
+            size === "medium" ? "text-sm" : "text-xs",
+            direction === "horizontal" && "left-1/2 -translate-x-1/2",
+            direction === "vertical" && "right-full top-1/2 mr-3",
+            direction === "horizontal" && size === "small" && "-top-5",
+            direction === "horizontal" && size === "medium" && "-top-6",
           ]}
         >
           {name}
@@ -124,8 +140,8 @@ const {
 
           gsap.to($name, {
             opacity: isEnter ? 1 : 0,
-            filter: isEnter ? " blur(0px)" : "blur(7px)",
-            duration: 0.3,
+            filter: isEnter ? " blur(0px)" : "blur(4px)",
+            duration: 0.2,
             ease: "power1",
           });
         }
