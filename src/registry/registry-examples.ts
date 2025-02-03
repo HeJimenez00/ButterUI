@@ -3,7 +3,12 @@ import type { RegistryEntry } from "./schema";
 export const examplesRegistry: RegistryEntry[] = [
   {
     name: "VerticalAvatarList",
-    type: "astra",
+    type: "example",
     files: [{ path: "src/registry/examples/VerticalAvatarList.astro" }],
+  },
+  {
+    name: "AvatarBlog",
+    type: "example",
+    files: [{ path: "src/registry/examples/AvatarBlog.astro" }],
   },
 ];
