@@ -113,6 +113,15 @@
       }
       & ol > li {
         @apply text-default flex gap-3 items-center mb-3;
+        & span > code {
+          background-color: oklch(69% 0.17 279 / 10%);
+          border: 0.1rem solid oklch(69% 0.17 279 / 10%);
+          color: var(--color-blue);
+          padding: 3px 5px;
+          border-radius: 6px;
+          font-size: var(--text-xsmall);
+          margin-bottom: 4px;
+        }
         &::before {
           content: counter(listNumbers);
           counter-increment: listNumbers;
