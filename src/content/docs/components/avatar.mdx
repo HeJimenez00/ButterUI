@@ -1,5 +1,45 @@
 ---
-title: Avatar
-description: "Avatar ui"
-date: "2025-01-23"
+title: Avatar List
+description: "Interactive avatar list with horizontal or vertical layout, support for custom sizes, and smooth hover animations powered by <a class='external-link' href='https://gsap.com/' target='_blank'>Gsap</a>. Perfect for showcasing users or profiles"
+date: "January 30, 2025"
 ---
+# {frontmatter.title}
+
+<span>{frontmatter.date}</span>
+
+<HTMLRender text={frontmatter.description} />
+
+<PreviewComponent name="AvatarList" />
+
+## Features
+1. Interactivity
+2. Smooth animations
+3. Easy configuration
+4. Reusability
+5. It supports the `Image` component from <ExternalLink href="https://docs.astro.build/en/guides/images/">Astro</ExternalLink>
+
+## API Reference
+### Root
+
+| Prop         | Default                                      | Type                                  | Description                                              |
+|-------------|---------------------------------------------|--------------------------------------|----------------------------------------------------------|
+| `data`      | `[]`                                   | `AvatarItem[]`                      | List of avatars with `name`, `src`, and `alt`.          |
+| `direction` | `"horizontal"`                              | `"horizontal" \| "vertical"`        | Direction of the avatars.                               |
+| `size`      | `"medium"`                                  | `"small" \| "medium"`               | Avatar size.                                            |
+| `shape`     | `"circle"`                                  | `"circle" \| "rounded"`             | Avatar shape.                                           |
+| `nameStyles`  | `""` | `string` | Additional classes for the avatar name. |
+| `imageStyles` | `""`      | `string`                            | Additional classes for the image.                      |
+
+
+
+## Examples
+
+### Vertical
+
+En este ejemplo se agregaron clases de Tailwind y la dirección de los avatares cambio a `vertical`
+<PreviewComponent name="VerticalAvatarList" meta="{23-29}" />
+
+### Blog
+
+Este sería un ejemplo de como se podria ver en algun blog (inspiración <ExternalLink href="https://framer.university/resources/netflix-love-this-animation-in-framer">Framer University</ExternalLink>)
+<PreviewComponent name="AvatarBlog" meta="{47-52}" />
