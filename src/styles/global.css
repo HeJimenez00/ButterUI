@@ -3,10 +3,10 @@
 @theme {
   --color-blue: oklch(69% 0.17 279);
   --color-primary: oklch(93.67% 0.0208 266);
-  --color-default: oklch(73.48% 0.0421 266);
+  --color-default: oklch(73.48% 0.0521 266);
   --color-black: oklch(10.76% 0.023 266);
   --color-block-code: oklch(14.19% 0.023 266);
-  --border-color: oklch(24.84% 0.018 266);
+  --border-color: oklch(20.48% 0.0321 266);
 
   --container-8xl: 80rem;
 
@@ -101,10 +101,14 @@
         }
       }
       & h1 ~ span:first-of-type {
-        @apply text-small inline-block py-1 px-2 rounded-md mt-1 mb-4 bg-blue/10 text-blue;
+        @apply text-small inline-block py-1 px-2 rounded-md mt-1 mb-5 bg-blue/10 text-blue;
         &:first-of-type::before {
           content: "Create on: ";
         }
+      }
+
+      & hr {
+        @apply border-(--border-color) border-[0.5px] mt-10 mb-10;
       }
 
       & ol {
@@ -209,7 +213,7 @@
     }
     .preview,
     .code {
-      @apply overflow-hidden relative w-full max-w-[52.563rem] min-w-[18.75rem] h-[28.125rem] border-[1.5px] border-(--border-color) rounded-[15px];
+      @apply overflow-hidden relative w-full max-w-[52.563rem] min-w-[18.75rem] h-[28.125rem] border-1 border-(--border-color) rounded-[15px];
     }
     .component {
       @apply absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-full;
