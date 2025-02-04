@@ -3,6 +3,8 @@ import AsideNavbar from "@components/AsideNavbar.astro";
 import NavbarDocs from "@components/NavbarDocs.astro";
 import OnThisPage from "@components/OnThisPage.astro";
 import "../styles/global.css";
+import Footer from "@components/Footer.astro";
+import Route from "@components/Route.astro";
 
 const { title, description, headings } = Astro.props;
 ---
@@ -22,7 +24,9 @@ const { title, description, headings } = Astro.props;
     <div class="max-w-8xl mx-auto grid grid-cols-[0.25fr_1fr_0.2fr] relative">
       <AsideNavbar />
       <article class="px-8 pt-5">
+        <Route />
         <slot />
+        <Footer />
       </article>
       <OnThisPage headings={headings} />
     </div>

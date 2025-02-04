@@ -1,0 +1,13 @@
+---
+import { Icon } from "astro-icon/components";
+
+const { pathname } = Astro.url;
+const separate = pathname.split("/");
+console.log(separate);
+---
+
+<p class="flex items-center gap-2 capitalize mb-2">
+  <span>{separate[separate.length - 2]}</span>
+  <span> <Icon name="arrowRight" /> </span>
+  <span class="text-blue">{separate[separate.length - 1]}</span>
+</p>
