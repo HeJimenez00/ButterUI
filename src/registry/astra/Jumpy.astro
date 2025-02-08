@@ -1,0 +1,191 @@
+---
+export interface Image {
+  src: string;
+  alt: string;
+  href?: string;
+}
+
+interface Props {
+  images: Image[];
+  minRotation?: number;
+  maxRotation?: number;
+  wrapperStyles?: string;
+  imageStyles?: string;
+  gap?: string;
+  separation?: number;
+  initEase?: gsap.EaseFunction | string;
+  hoverEase?: gsap.EaseFunction | string;
+  duration?: number;
+}
+
+let rotations: number[] = [];
+
+const generateRotations = function (min: number, max: number) {
+  for (let i = 0; i < images.length; i++) {
+    const rotation = Math.random() * (max - min) + min;
+
+    let getValue = Math.random() > 0.5 ? rotation : -rotation;
+    rotations = [...rotations, getValue];
+  }
+};
+
+const example = [
+  {
+    src: "https://a0.muscache.com/im/pictures/hosting/Hosting-1124010734237889235/original/5d19481e-59be-49ab-a820-4af2ef1052aa.jpeg?im_w=720&im_format=avif",
+    alt: "Imagen 1",
+  },
+  {
+    src: "https://a0.muscache.com/im/pictures/hosting/Hosting-1124010734237889235/original/0dedcab2-8e2d-4aa9-9209-41abaa775b26.jpeg?im_w=720&im_format=avif",
+    alt: "Imagen 2",
+  },
+  {
+    src: "https://a0.muscache.com/im/pictures/hosting/Hosting-1124010734237889235/original/d97467a3-fe5a-4a2d-a15b-9870257eec66.jpeg?im_w=720&im_format=avif",
+    alt: "Imagen 3",
+  },
+  {
+    src: "https://a0.muscache.com/im/pictures/hosting/Hosting-1124010734237889235/original/7c1d094c-8e8d-4e5d-83e8-7fca80de7486.jpeg?im_w=720&im_format=avif",
+    alt: "Imagen 4",
+  },
+  {
+    src: "https://a0.muscache.com/im/pictures/hosting/Hosting-1124010734237889235/original/4449af5d-53a5-4909-b416-db802314894b.jpeg?im_w=720&im_format=avif",
+    alt: "Imagen 5",
+  },
+];
+
+const {
+  images = example,
+  minRotation = 7,
+  maxRotation = 8,
+  separation = 40,
+  wrapperStyles = "w-20 h-20 rounded-xl ring-[4px] ring-white overflow-hidden",
+  gap = "-ml-5",
+  imageStyles = "",
+  initEase = "elastic.out(0.5, 0.3)",
+  hoverEase = "power4.out",
+  duration = 0.5,
+} = Astro.props;
+
+generateRotations(minRotation, maxRotation);
+---
+
+<div
+  class="flex image-gallery"
+  data-jumpy-rotations={rotations.join(",")}
+  data-jumpy-separation={separation}
+  data-jumpy-init-ease={initEase}
+  data-jumpy-hover-ease={hoverEase}
+  data-jumpy-duration={duration}
+>
+  {
+    images &&
+      images.map(({ src, alt, href }, idx) => (
+        <>
+          {href ? (
+            <a
+              href={href}
+              target="_blank"
+              class:list={["relative first:ml-0", wrapperStyles, gap]}
+              style={`transform: rotate(${rotations[idx]}deg)`}
+            >
+              <img
+                src={src}
+                alt={alt}
+                loading="lazy"
+                class:list={["h-full w-full object-cover", imageStyles]}
+              />
+            </a>
+          ) : (
+            <div
+              class:list={["relative first:ml-0", wrapperStyles, gap]}
+              style={`transform: rotate(${rotations[idx]}deg)`}
+            >
+              <img
+                src={src}
+                alt={alt}
+                loading="lazy"
+                class:list={["h-full w-full object-cover", imageStyles]}
+              />
+            </div>
+          )}
+        </>
+      ))
+  }
+</div>
+
+<script>
+  import { gsap } from "gsap";
+
+  function initJumpy(container: HTMLElement) {
+    const rotations =
+      container?.dataset.jumpyRotations
+        ?.split(",")
+        .map((value) => Number(value)) ?? [];
+
+    const separation = Number(container?.dataset.jumpySeparation);
+    const initEase = container?.dataset.jumpyInitEase;
+    const hoverEase = container?.dataset.jumpyHoverEase;
+    const duration = Number(container?.dataset.jumpyDuration);
+
+    const images = container?.children ?? [];
+    let lastHoveredRotation: number | null = null;
+
+    gsap.fromTo(
+      images,
+      { scale: 0 },
+      { scale: 1, stagger: 0.05, ease: initEase },
+    );
+
+    function moveImages(idx: number) {
+      if (lastHoveredRotation !== null && lastHoveredRotation !== idx) {
+        gsap.to(images[lastHoveredRotation], {
+          duration: 0.6,
+          rotation: rotations[lastHoveredRotation],
+          ease: hoverEase,
+        });
+      }
+
+      lastHoveredRotation = idx;
+
+      const SEPARATION = separation;
+
+      [...images].forEach((image, i) => {
+        gsap.to(image, {
+          x: idx < i ? SEPARATION : idx > i ? -SEPARATION : 0,
+          duration,
+          ease: hoverEase,
+          rotation: idx === i ? 0 : rotations[i],
+        });
+      });
+    }
+
+    function leaveImages() {
+      [...images].forEach((image, idx) => {
+        gsap.to(image, {
+          rotate: rotations[idx],
+          x: 0,
+          duration: duration + 0.2,
+          ease: initEase,
+        });
+      });
+    }
+    Array.from(images).forEach((image, idx) => {
+      image.addEventListener("mouseenter", () => moveImages(idx));
+    });
+
+    container?.addEventListener("mouseleave", () => leaveImages());
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const galleries = document.querySelectorAll(".image-gallery");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.target instanceof HTMLElement) {
+          initJumpy(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+    galleries.forEach((gallery) => observer.observe(gallery));
+  });
+</script>

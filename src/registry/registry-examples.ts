@@ -11,4 +11,9 @@ export const examplesRegistry: RegistryEntry[] = [
     type: "example",
     files: [{ path: "src/registry/examples/AvatarBlog.astro" }],
   },
+  {
+    name: "JumpyText",
+    type: "example",
+    files: [{ path: "src/registry/examples/JumpyText.astro" }],
+  },
 ];

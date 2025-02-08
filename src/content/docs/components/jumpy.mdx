@@ -1,0 +1,45 @@
+---
+title: Jumpy
+description: "componente de tarjetas animadas con un efecto elástico y escalado en cascada al mostrarse. Su animación fluida, potenciada por GSAP, añade dinamismo y atractivo visual a cualquier diseño. Ideal para destacar información con estilo"
+date: "Febraury 3, 2025"
+---
+
+# {frontmatter.title}
+
+<span>{frontmatter.date}</span>
+
+{frontmatter.description}.
+Insipirated by <ExternalLink href="https://x.com/ajfreed_design/status/1863857943177028052">@ajfreed_design</ExternalLink> & <ExternalLink href="https://x.com/GibsonSMurray/status/1811979754087628807">@GibsonSMurray</ExternalLink>
+
+<hr />
+
+<PreviewComponent name="Jumpy" />
+
+## Features
+1. <span>Rotación aleatoria de imágenes</span>
+2. <span>Animaciones suaves con GSAP</span>
+3. <span>Interactividad al pasar el mouse</span>
+4. <span>Personalización flexible</span>
+5. <span>Carga perezosa de imágenes 🦥</span>
+7. <span>Compatibilidad con enlaces `anchor`</span>
+
+## API Reference
+### Root
+
+| Prop           | Default                                                   | Type                            | Description                                                  |
+|:---------------|:----------------------------------------------------------|:--------------------------------|-------------------------------------------------------------|
+| `images`       | []                                                         | `Image[]`                       | Array of image objects with `src`, `alt` and `href` (optional) properties      |
+| `minRotation`  | 7                                                         | `number`                        | Minimum rotation angle for images in degrees                |
+| `maxRotation`  | 8                                                         | `number`                        | Maximum rotation angle for images in degrees                |
+| `wrapperStyles`| "w-20 h-20 rounded-xl ring-[4px] ring-white overflow-hidden" | `string`                     | Additional classes for the image wrapper                    |
+| `imageStyles`  | ""                                                        | `string`                        | Additional classes for the image                            |
+| `gap`          | "-ml-5"                                                   | `string`                        | Gap between images (as a Tailwind class)                    |
+| `separation`   | 40                                                        | `number`                        | Separation distance when hovering over images               |
+| `initEase`     | "elastic.out(0.5, 0.3)"                                   | `gsap.EaseFunction \| string`   | GSAP easing function for initial animation                  |
+| `hoverEase`    | "power4.out"                                              | `gsap.EaseFunction \| string`   | GSAP easing function for hover animation                    |
+| `duration`     | 0.5                                                       | `number`                        | Duration of the animations in seconds                       |
+
+## Examples
+### Whith text
+
+<PreviewComponent name="JumpyText" />

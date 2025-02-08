@@ -52,6 +52,10 @@ export const navigationConfig: DocsConfig = {
           href: "/docs/components/avatar",
         },
         {
+          title: "Jumpy",
+          href: "/docs/components/jumpy",
+        },
+        {
           title: "Jelly",
           href: "/docs/components/jelly",
         },
