@@ -1,0 +1,34 @@
+---
+import { Code } from "astro:components";
+import { Icon } from "astro-icon/components";
+import BtnCopy from "./BtnCopy.jsx";
+
+interface Props {
+  code: string;
+  name: string;
+}
+
+const { code, name = "Terminal" } = Astro.props;
+
+const hasFileName = !!name;
+---
+
+<div class="rounded-xl overflow-hidden my-4 border border-(--border-color)">
+  <div class="flex items-center justify-between bg-black px-2 py-2">
+    <div>
+      <figcaption class="flex items-center gap-1">
+        <Icon name="terminal" class="text-default" />
+        {hasFileName && <span class="filename text-small">{name}</span>}
+      </figcaption>
+    </div>
+    <BtnCopy code={code} client:load />
+  </div>
+  <div class="p-1 bg-black">
+    <Code
+      code={code}
+      lang="bash"
+      class="rounded-[6px] terminal px-2 py-2 shadow"
+      style="background-color: oklch(69% 0.17 279 / 10%) !important"
+    />
+  </div>
+</div>
