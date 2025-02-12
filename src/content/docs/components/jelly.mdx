@@ -1,0 +1,54 @@
+---
+title: Jelly
+description: "A <span class='desc-highlight'>fluid</span> and <span class='desc-highlight'>interactive</span> UI element that adds a playful <span class='desc-highlight'>blob-like animation</span> to your Astro projects. Perfect for creating <span class='desc-highlight'>engaging hover effects</span> or <span class='desc-highlight'>dynamic backgrounds</span>, the Jelly component brings a touch of organic movement to your web designs"
+date: "February 8, 2025"
+---
+import TerminalBlock from "../../../components/TerminalBlock.astro";
+
+# {frontmatter.title}
+
+<span>{frontmatter.date}</span>
+
+<HTMLRender text={frontmatter.description} />
+
+<hr />
+
+<PreviewComponent name="JellyReveal" />
+
+## Installation
+
+To use this component, you first need to install the <ExternalLink href="https://github.com/natemoo-re/astro-icon">Astro Icon</ExternalLink> package:
+<TerminalBlock code="npx astro add astro-icon" />
+
+## API Reference
+### Root
+
+| Prop             | Default                | Type      | Description                                                                |
+|:-----------------|:-----------------------|:----------|:---------------------------------------------------------------------------|
+| `title`          | -                      | `string`  | Title of the card.                                                         |
+| `owner`          | -                      | `string`  | Name of the owner or author.                                               |
+| `location`       | -                      | `string`  | Location associated with the card.                                         |
+| `src`            | -                      | `string`  | URL of the background image.                                               |
+| `alt`            | -                      | `string`  | Alternative text for the image.                                            |
+| `iconLocation`   | "location"             | `string`  | Name of the icon for the location.                                         |
+| `width`          | "w-60"                 | `string`  | Tailwind class for the container width.                                    |
+| `height`         | "h-72"                 | `string`  | Tailwind class for the container height.                                   |
+| `animate`        | true                   | `boolean` | Determines if the reveal animation is applied on hover.                    |
+| `containerClass` | ""                     | `string`  | Additional classes for the main container.                                 |
+| `titleClass`     | ""                     | `string`  | Additional classes for the title.                                          |
+| `ownerClass`     | ""                     | `string`  | Additional classes for the owner name.                                     |
+| `locationClass`  | ""                     | `string`  | Additional classes for the location.                                       |
+
+## Features
+1. <span>Customizable image display</span>
+2. <span>Flexible content structure</span>
+3. <span>Stylish design with rounded corners</span>
+4. <span>Optional hover animations</span>
+5. <span>GSAP-powered smooth animations</span>
+6. <span>Customizable CSS classes</span>
+7. <span>Icon integration with <ExternalLink href="https://github.com/natemoo-re/astro-icon">Astro Icon</ExternalLink></span>
+8. <span>Responsive layout</span>
+
+## Example
+### Card Gallery
+<PreviewComponent name="JellyCards" />
