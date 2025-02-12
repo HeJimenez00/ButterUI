@@ -111,6 +111,10 @@
         @apply border-(--border-color) border-[0.5px] mt-10 mb-10;
       }
 
+      & .desc-highlight {
+        @apply text-primary;
+      }
+
       & ol {
         counter-reset: listNumbers;
         counter-increment: listNumbers 0;
@@ -258,11 +262,12 @@
     }
   }
   /* code */
-  code {
+  pre:not(.terminal) code {
     counter-reset: lineNumbers;
     counter-increment: lineNumbers 0;
   }
-  code .line::before {
+
+  pre:not(.terminal) code .line::before {
     content: counter(lineNumbers);
     counter-increment: lineNumbers;
     width: 1.5rem;
