@@ -16,4 +16,9 @@ export const examplesRegistry: RegistryEntry[] = [
     type: "example",
     files: [{ path: "src/registry/examples/JumpyText.astro" }],
   },
+  {
+    name: "JellyCards",
+    type: "example",
+    files: [{ path: "src/registry/examples/JellyCards.astro" }],
+  },
 ];

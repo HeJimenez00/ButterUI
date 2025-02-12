@@ -1,0 +1,54 @@
+---
+import JellyReveal from "../astra/JellyReveal.astro";
+
+const cardsData = [
+  {
+    title: "Iglesia en Frankfurt",
+    owner: "@heeector on Twitter",
+    location: "Dreikonigskirche, Alemania",
+    src: "https://www.expedia.mx/stories/wp-content/uploads/2021/11/Aerial-view-of-Cologne-Germany.jpg",
+    alt: "Iglesia en Frankfurt",
+  },
+  {
+    title: "Castillo de Neuschwanstein",
+    owner: "@travelphotographer on Instagram",
+    location: "Baviera, Alemania",
+    src: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Schloss_Neuschwanstein_2013.jpg",
+    alt: "Castillo de Neuschwanstein en los Alpes bávaros",
+  },
+  {
+    title: "Puerta de Brandenburgo",
+    owner: "@berlinlover on Twitter",
+    location: "Berlín, Alemania",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Brandenburger_Tor_abends.jpg/1200px-Brandenburger_Tor_abends.jpg",
+    alt: "Puerta de Brandenburgo iluminada por la noche",
+  },
+  {
+    title: "Puerto de Hamburgo",
+    owner: "@maritimephotography on Instagram",
+    location: "Hamburgo, Alemania",
+    src: "https://a.cdn-hotels.com/gdcs/production143/d1112/c4fedab1-4041-4db5-9245-97439472cf2c.jpg",
+    alt: "Vista panorámica del Puerto de Hamburgo",
+  },
+];
+---
+
+<div class="grid grid-cols-2 gap-4 mx-auto max-w-[27rem] place-items-center">
+  {
+    cardsData.map(({ title, owner, location, src, alt }) => (
+      <JellyReveal
+        title={title}
+        owner={owner}
+        location={location}
+        src={src}
+        alt={alt}
+        width="w-52"
+        height="h-52"
+        containerClass="shadow-lg"
+        titleClass="!text-body"
+        ownerClass="italic"
+        locationClass="font-semibold"
+      />
+    ))
+  }
+</div>

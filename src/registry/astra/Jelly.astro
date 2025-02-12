@@ -1,0 +1,133 @@
+---
+import { Icon } from "astro-icon/components";
+
+export interface Props {
+  title: string;
+  owner: string;
+  location: string;
+  src: string;
+  alt: string;
+  iconLocation?: string;
+  width?: string;
+  height?: string;
+  containerClass?: string;
+  titleClass?: string;
+  ownerClass?: string;
+  locationClass?: string;
+  durationInfo?: number;
+  easeInfo?: string | gsap.EaseFunction;
+  durationImage?: number;
+  easeImage?: string | gsap.EaseFunction;
+}
+
+const {
+  title = "iglesia en Frankfurt",
+  owner = "@heeector on Twitter",
+  location = "Dreikonigskirche, Alemania",
+  iconLocation = "location",
+  alt = "Sunset over the Bavarian Alps",
+  src = "https://www.expedia.mx/stories/wp-content/uploads/2021/11/Aerial-view-of-Cologne-Germany.jpg",
+  width = "w-60",
+  height = "h-72",
+  containerClass = "",
+  titleClass = "",
+  ownerClass = "",
+  locationClass = "",
+  durationInfo = 0.5,
+  easeInfo = "power4.out",
+  durationImage = 0.4,
+  easeImage = "power4",
+} = Astro.props;
+---
+
+<div
+  class:list={["rounded-3xl overflow-hidden", width, height, containerClass]}
+>
+  <div
+    class:list={["jelly relative", width, height]}
+    data-duration-info={durationInfo}
+    data-ease-info={easeInfo}
+    data-duration-image={durationImage}
+    data-ease-image={easeImage}
+  >
+    <img
+      class="jelly-image size-full object-cover absolute inset-0"
+      src={src}
+      alt={alt}
+    />
+    <div class="flex flex-col justify-end h-full">
+      <div
+        class="jelly-info relative bg-black/60 backdrop-blur-md saturate-150 contrast-125"
+      >
+        <div class="p-4 block">
+          <h4 class:list={["text-xl font-bold text-white", titleClass]}>
+            {title}
+          </h4>
+          <span class:list={["text-sm block text-white/50", ownerClass]}
+            >{owner}</span
+          >
+        </div>
+        <footer class="jelly-footer p-4 block">
+          <span
+            class:list={[
+              "text-sm flex items-center gap-1 text-white",
+              locationClass,
+            ]}
+          >
+            <span><Icon name={iconLocation} class="text-white" /></span>{
+              location
+            }</span
+          >
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import gsap from "gsap";
+
+  function initJelly() {
+    const info = document.querySelectorAll(".jelly");
+
+    if (info.length === 0) throw new Error("Requeried data");
+
+    info.forEach((el) => {
+      const element = el as HTMLElement;
+
+      const info = element.querySelector(".jelly-info") as HTMLElement;
+      const footer = element.querySelector(".jelly-footer") as HTMLElement;
+      const image = element.querySelector(".jelly-image") as HTMLElement;
+
+      // props
+      const durationInfo = Number(element.dataset.durationInfo);
+      const easeInfo = element.dataset.easeInfo;
+      const durationImage = Number(element.dataset.durationImage);
+      const easeImage = element.dataset.easeImage;
+
+      const compStyles = window
+        .getComputedStyle(footer)
+        .getPropertyValue("height");
+
+      info.style.transform = `translate(0, ${compStyles})`;
+
+      function jellyAnimation(isAnimate: boolean) {
+        gsap.to(info, {
+          y: isAnimate ? 0 : compStyles,
+          duration: durationInfo,
+          ease: easeInfo,
+        });
+        gsap.to(image, {
+          scaleY: isAnimate ? 1.2 : 1,
+          duration: durationImage,
+          ease: easeImage,
+        });
+      }
+
+      element.addEventListener("mouseenter", () => jellyAnimation(true));
+      element.addEventListener("mouseleave", () => jellyAnimation(false));
+    });
+  }
+
+  initJelly();
+</script>

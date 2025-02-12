@@ -16,4 +16,9 @@ export const astraRegistry: RegistryEntry[] = [
     type: "astra",
     files: [{ path: "src/registry/astra/Jelly.astro" }],
   },
+  {
+    name: "JellyReveal",
+    type: "astra",
+    files: [{ path: "src/registry/astra/JellyReveal.astro" }],
+  },
 ];
