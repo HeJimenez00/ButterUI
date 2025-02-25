@@ -2,24 +2,75 @@
 import { navigationConfig } from "src/config/navigation-config";
 
 const sideNavbarItems = navigationConfig.sidebarNavbar ?? [];
-const {pathname} = Astro.url;
+import { SidebarToggle } from "../components/SidebarToggle.jsx";
+const { pathname } = Astro.url;
 ---
 
-<nav class="aside pr-8 pt-5">
+<nav
+  class="sidebar bg-g-1000 border-b border-g-500/20 md:border-0 md:bg-transparent"
+>
+  <SidebarToggle client:load> Menu </SidebarToggle>
+  <div class="sidebar-items hidden md:block">
     {
       sideNavbarItems.map((section, idx) => (
-        <h4 class="pb-2 font-bold text-small">{section.title}</h4>
-          <ul class="mb-6 relative items border-l border-(--border-color) flex flex-col gap-1">
-          {sideNavbarItems[idx]?.items?.map(({href, title}) => (
-          <li class="py-1" class:list={[pathname === href ? "pl-3 bg-[#101224] rounded-[10px] relative right-3" : ""]}>
-              <a href={href} class="relative z-10 block pl-3 py-[2px] ml-[-1px] border-l border-(--border-color) transition-colors"
-                class:list={
-                [pathname === href ? "!border-blue text-blue font-medium" : ""],
-                [pathname !== href ? "hover:text-primary hover:border-primary/50" : ""]}
-              >{title}</a>
-            </li>
-          ))}
-        </ul>
+        <div class="px-5 md:px-0 mt-5 md:mt-0">
+          <h4 class="pb-2 text-small dark:text-g-100 font-medium">
+            {section.title}
+          </h4>
+          <ul class="items flex flex-col gap-1 mb-5">
+            {sideNavbarItems[idx]?.items?.map(({ href, title }) => (
+              <li class:list={[pathname === href && "bg-y-400/10 rounded-xl"]}>
+                <a
+                  href={href}
+                  class="relative z-10 block py-[6px] rounded-xl"
+                  class:list={[
+                    pathname === href && "text-y-400 pl-3 sidebar-item-active",
+                    pathname !== href &&
+                      "dark:text-g-500 dark:hover:text-y-400 transition-colors duration-200 sidebar-item",
+                  ]}
+                >
+                  {title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       ))
     }
+  </div>
 </nav>
+
+<script>
+  import gsap from "gsap";
+
+  const sidebarLeft = document.querySelector(".sidebar") as HTMLElement;
+  const items = sidebarLeft?.querySelector(".sidebar-items");
+  const button = sidebarLeft?.querySelector(".sidebar-icon");
+
+  const computedStyle = window.getComputedStyle(sidebarLeft);
+
+  button?.addEventListener("click", () => {
+    items?.classList.toggle("hidden");
+    if (computedStyle.height === "41px") {
+      sidebarLeft.style.height = "100%";
+    } else {
+      sidebarLeft.style.height = "41px";
+    }
+  });
+
+  function foo(ev: Event, isEnter: Boolean) {
+    const element = ev.target as HTMLElement;
+    const item = element.closest(".sidebar-item");
+
+    if (item) {
+      gsap.to(item, {
+        x: isEnter ? 12 : 0,
+        duration: 0.3,
+        ease: "power4.out",
+      });
+    }
+  }
+
+  sidebarLeft?.addEventListener("mouseenter", (ev) => foo(ev, true), true);
+  sidebarLeft?.addEventListener("mouseleave", (ev) => foo(ev, false), true);
+</script>

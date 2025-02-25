@@ -1,14 +1,27 @@
-// BtnCopy.jsx
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
+import gsap from "gsap";
 
 const BtnCopy = ({ code }) => {
   const [isCopied, setIsCopied] = useState(false);
   const [copyTimeout, setCopyTimeout] = useState(null);
+  const buttonRef = useRef(null);
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(code);
       setIsCopied(true);
+      gsap.fromTo(
+        buttonRef.current,
+        {
+          scale: 0.8,
+        },
+        {
+          scale: 1,
+          duration: 0.8,
+          ease: "elastic.out(0.8, 0.5)",
+        },
+      );
+
       clearTimeout(copyTimeout);
       setCopyTimeout(setTimeout(() => setIsCopied(false), 2000));
     } catch (error) {
@@ -16,14 +29,11 @@ const BtnCopy = ({ code }) => {
     }
   };
 
-  useEffect(() => {
-    return () => clearTimeout(copyTimeout);
-  }, [copyTimeout]);
-
   return (
     <button
+      ref={buttonRef}
       onClick={handleCopy}
-      className={`btn ${!isCopied ? "text-default" : "text-blue"} p-[5px] text-body transition-all duration-200 hover:shadow-[inset_0_0_0_1.5px_var(--color-blue),0px_0px_10px_3px_oklch(69%_0.17_279_/50%)] rounded-md`}
+      className={`btn p-[5px] text-body rounded-lg bg-y-400/10 text-y-400 transition-shadow inset-ring-y-400 ${isCopied ? "inset-ring-2" : "inset-ring-0"}`}
       aria-label={isCopied ? "Código copiado" : "Copiar código al portapapeles"}
     >
       {isCopied ? (

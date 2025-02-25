@@ -6,11 +6,11 @@ export const Shadows = () => {
       position={[0, -0.01, 0]}
       temporal
       frames={10}
-      color={"#020510"}
+      color={"#453a00"}
       colorBlend={1.0}
       toneMapped
       alphaTest={0.8}
-      opacity={0.95}
+      opacity={0.9}
       scale={13}
     >
       <RandomizedLight

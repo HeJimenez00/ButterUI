@@ -7,25 +7,24 @@ const mainNavbarItems = navigationConfig.mainNavbar[0].items ?? [];
 ---
 
 <header
-  class="sticky h-14 top-0 px-5 md:px-0 left-0 right-0 z-50 bg-black border-b border-(--border-color) flex"
+  class="sticky h-14 inset-0 z-50 bg-light dark:bg-dark bg-bg flex border-b border-g-500/20 px-5 md:px-0"
 >
   <nav
-    class="flex justify-between items-center navbar max-w-8xl w-full mx-auto"
+    class="flex justify-between items-center navbar w-full max-w-7xl mx-auto"
   >
-    <li class="flex items-center gap-1">
+    <a href="/" class="flex items-center gap-1">
       <Icon name="logo" width="35" height="35" />
-      <a href="/" class="font-bold text-h3 text-primary">Astra</a>
-    </li>
+    </a>
     <MenuToggle client:load />
     <ul
-      class="navbar-items hidden gap-5 fixed right-5 left-5 top-16 text-xl p-3 bg-black/70 backdrop-blur-sm rounded-xl space-y-2 md:space-y-0 md:flex md:relative md:top-0 md:left-0 md:right-0 md:bg-transparent md:text-body"
+      class="navbar-items hidden gap-5 fixed right-0 left-0 top-16 text-xl border-b bg-g-1000 border-g-800 md:border-0 p-3 space-y-2 md:space-y-0 md:flex md:relative md:top-0 md:left-0 md:right-0 md:bg-transparent md:text-body"
     >
       {
         mainNavbarItems.map(({ title, href }) => (
           <li>
             <a
               href={href}
-              class="block  md:inline hover:bg-black-500 md:hover:bg-transparent px-4 py-2 md:p-0 rounded-md"
+              class="block md:inline hover:bg-y-400/10 md:hover:bg-transparent hover:text-y-400 px-4 py-2 md:p-0 rounded-xl text-lg md:text-small"
             >
               {title}
             </a>

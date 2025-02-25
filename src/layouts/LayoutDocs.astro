@@ -2,9 +2,9 @@
 import AsideNavbar from "@components/AsideNavbar.astro";
 import NavbarDocs from "@components/NavbarDocs.astro";
 import OnThisPage from "@components/OnThisPage.astro";
-import "../styles/global.css";
 import Footer from "@components/Footer.astro";
 import Route from "@components/Route.astro";
+import "../styles/global.css";
 
 const { title, description, headings } = Astro.props;
 ---
@@ -21,12 +21,15 @@ const { title, description, headings } = Astro.props;
   </head>
   <body>
     <NavbarDocs />
-    <div class="max-w-8xl mx-auto grid grid-cols-[0.25fr_1fr_0.2fr] relative">
+    <div
+      class="max-w-7xl mx-auto gap-12 grid md:grid-cols-[0.25fr_1fr_0.25fr] relative"
+    >
       <AsideNavbar />
-      <article class="px-8 pt-5">
+      <article class="pt-[4.563rem] md:pt-[2rem] px-5 md:0">
         <Route />
         <slot />
         <Footer />
+        <div class="gradient-blur"></div>
       </article>
       <OnThisPage headings={headings} />
     </div>
@@ -34,9 +37,65 @@ const { title, description, headings } = Astro.props;
 </html>
 
 <style is:global>
-  .aside {
-    position: sticky;
-    height: calc(100vh - 10rem);
-    top: 4rem;
+  .sidebar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 41px;
+    width: 100%;
+    z-index: 30;
+  }
+  @media (min-width: 768px) {
+    .sidebar {
+      position: sticky;
+      height: calc(100vh - 56px);
+      width: auto;
+      left: auto;
+      right: auto;
+      padding-top: 2rem;
+      top: 3.5rem;
+    }
+  }
+  .gradient-blur {
+    position: fixed;
+    inset: auto 0 0 0;
+    height: 80px;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  .gradient-blur::before,
+  .gradient-blur::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  .gradient-blur::before {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    mask: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 60%);
+    -webkit-mask: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 60%
+    );
+    z-index: 51;
+  }
+
+  .gradient-blur::after {
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    mask: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 60%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    -webkit-mask: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 60%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    z-index: 52;
   }
 </style>

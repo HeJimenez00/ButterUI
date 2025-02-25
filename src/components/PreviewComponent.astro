@@ -1,6 +1,5 @@
 ---
 import { Index } from "../__registry__/index";
-import Grid from "./Grid.astro";
 import CodeBlock from "./CodeBlock.astro";
 import { Icon } from "astro-icon/components";
 
@@ -22,39 +21,32 @@ try {
 }
 ---
 
-<section class="w-full max-w-[52.563rem] min-w-[18.75rem] mt-5">
+<section class="w-full max-w-[43.75rem] min-w-[18.75rem] mt-5">
   <header class="header flex items-center mb-5">
     {description && <p set:html={description} />}
     <div class="switch">
-      <button
-        type="button"
-        class="button switch-active flex items-center"
-        data-action="preview"
-      >
+      <button type="button" class="button switch-active" data-action="preview">
         <Icon name="code" />
-        <span>Preview</span>
       </button>
-      <button type="button" data-action="code" class="flex items-center">
+      <button type="button" data-action="code">
         <Icon name="preview" />
-        <span>Code</span>
       </button>
     </div>
   </header>
   <div class="preview">
-    <div class="component">
-      {
-        DynamicComponent ? (
-          <DynamicComponent />
-        ) : (
-          <p>Error: No se pudo cargar el componente "{name}".</p>
-        )
-      }
+    <div class="preview-wrapper">
+      <div class="component">
+        {
+          DynamicComponent ? (
+            <DynamicComponent />
+          ) : (
+            <p>Error: No se pudo cargar el componente "{name}".</p>
+          )
+        }
+      </div>
+      <!-- <div class="radial-gradient"></div> -->
+      <!-- <div class="radial-gradient blur-sm"></div> -->
     </div>
-    <div class="radial-gradient"></div>
-    <div class="radial-gradient blur-sm"></div>
-    <Grid
-      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.65]"
-    />
   </div>
   <div class="code hidden">
     <CodeBlock name={name} code={codeSnippet} meta={meta} />
@@ -92,18 +84,35 @@ try {
 </script>
 
 <style>
+  :root {
+    --light-color: var(--color-light);
+    --dark-color: var(--color-t-700);
+    --gradient-color: var(--light-color);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --gradient-color: var(--dark-color);
+    }
+  }
+
   .radial-gradient {
+    position: absolute;
+    z-index: 10;
     background-image: radial-gradient(
       ellipse at center,
       transparent 20%,
-      oklch(10.76% 0.023 266) 90%
+      var(--gradient-color) 100%
     );
   }
+
   .radial-gradient.blur {
+    position: absolute;
+    z-index: 10;
     mask-image: radial-gradient(
       ellipse at center,
       transparent 20%,
-      oklch(10.76% 0.023 266) 100%
+      var(--gradient-color) 100%
     );
     backdrop-filter: blur(10px);
   }

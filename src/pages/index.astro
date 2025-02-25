@@ -15,9 +15,6 @@ import { Experience } from "@components/experience/Experience";
 </LayoutMain>
 
 <style>
-  :root {
-    --primary-700: oklch(11.76% 0.0292 263.44);
-  }
   .experience {
     width: 100%;
     height: 100vh;
@@ -30,7 +27,7 @@ import { Experience } from "@components/experience/Experience";
     background-image: radial-gradient(
       ellipse at center,
       transparent 60%,
-      var(--primary-700) 90%
+      var(--color-dark) 90%
     );
     pointer-events: none;
     user-select: none;
@@ -44,7 +41,7 @@ import { Experience } from "@components/experience/Experience";
     mask-image: radial-gradient(
       ellipse at center,
       transparent 40%,
-      var(--primary-700) 100%
+      var(--color-dark) 100%
     );
     backdrop-filter: blur(1px);
   }

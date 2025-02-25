@@ -2,6 +2,7 @@ import { MeshTransmissionMaterial, Text3D } from "@react-three/drei";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { RGBELoader } from "three/examples/jsm/Addons.js";
+import { useControls } from "leva";
 import * as THREE from "three";
 
 export const Text = ({
@@ -9,7 +10,26 @@ export const Text = ({
   font = "./Inter_ExtraBold_Regular.json",
   ...props
 }) => {
-  const texture = useLoader(RGBELoader, "./HDR/modern_buildings_night_1k.hdr");
+  // const controls = useControls("MeshTransmissionMaterial", {
+  //   backside: true,
+  //   backsideThickness: { value: 0.91, min: 0, max: 2 },
+  //   samples: { value: 16, min: 1, max: 32, step: 1 },
+  //   resolution: { value: 1024, min: 64, max: 2048, step: 64 },
+  //   transmission: { value: 1, min: 0, max: 1 },
+  //   clearcoat: { value: 0.77, min: 0.1, max: 1 },
+  //   clearcoatRoughness: { value: 0.28, min: 0, max: 1 },
+  //   thickness: { value: 2.85, min: 0, max: 5 },
+  //   chromaticAberration: { value: 0.1, min: -5, max: 5 },
+  //   anisotropy: { value: 0.09, min: 0, max: 1, step: 0.01 },
+  //   roughness: { value: 0.21, min: 0, max: 1, step: 0.01 },
+  //   distortion: { value: 0.57, min: 0, max: 4, step: 0.01 },
+  //   distortionScale: { value: 0.07, min: 0.01, max: 1, step: 0.01 },
+  //   temporalDistortion: { value: 0.13, min: 0, max: 1, step: 0.01 },
+  //   ior: { value: 1.05, min: 0, max: 2, step: 0.01 },
+  //   color: "#ffeb74",
+  // });
+
+  const texture = useLoader(RGBELoader, "./HDR/aerodynamics_workshop_1k.hdr");
   const ref = useRef();
 
   const [letter, setLetter] = useState(false);
@@ -21,7 +41,7 @@ export const Text = ({
     setLetter(false);
   };
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
     const t = state.clock.getElapsedTime();
 
     if (letter) {
@@ -75,21 +95,22 @@ export const Text = ({
         {children}
         <MeshTransmissionMaterial
           background={texture}
-          backside
-          backsideThickness={0.15}
+          backside={true}
+          backsideThickness={0.91}
           samples={16}
-          resolution={600}
-          transmission={0.64}
-          clearcoat={0.45}
-          clearcoatRoughness={0.0}
-          thickness={0.25}
+          resolution={1024}
+          transmission={1}
+          clearcoat={0.77}
+          clearcoatRoughness={0.28}
+          thickness={2.85}
           chromaticAberration={0.1}
-          anisotropy={0.85}
-          roughness={0.38}
-          distortion={0.5}
-          distortionScale={0.1}
-          temporalDistortion={0.09}
-          ior={1.25}
+          anisotropy={0.09}
+          roughness={0.21}
+          distortion={0.57}
+          distortionScale={0.07}
+          temporalDistortion={0.13}
+          ior={1.05}
+          color="#ffeb74"
         />
       </Text3D>
     </group>

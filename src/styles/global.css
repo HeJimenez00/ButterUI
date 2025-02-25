@@ -1,14 +1,62 @@
 @import "tailwindcss";
 
-@theme {
-  --color-blue: oklch(69% 0.17 279);
-  --color-primary: oklch(93.67% 0.0208 266);
-  --color-default: oklch(73.48% 0.0521 266);
-  --color-black: oklch(10.76% 0.023 266);
-  --color-block-code: oklch(14.19% 0.023 266);
-  --border-color: oklch(20.48% 0.0321 266);
+@font-face {
+  font-family: "geist-mono";
+  src: url("/fonts/Geist-mono.woff2") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
 
-  --container-8xl: 80rem;
+@theme {
+  --font-custom: "-apple-system, BlinkMacSystemFont, " Segoe UI ", " Roboto ", "
+    Oxygen ", " Ubuntu ", " Cantarell ", " Fira Sans ", " Droid Sans ", "
+    Helvetica Neue ", sans-serif";
+
+  --font-geist-code: "geist-mono", sans-serif;
+
+  --hue: 266;
+
+  /*blue */
+  --color-blue: oklch(69% 0.17 279);
+  /*yellow*/
+  --color-y-100: oklch(97.31% 0.0717 105.96);
+  --color-y-200: oklch(95.82% 0.1212 106.46);
+  --color-y-300: oklch(93.56% 0.1599 106.03);
+  --color-y-400: oklch(92.55% 0.1925 106.09);
+  --color-y-500: oklch(93.71% 0.1988 105.01);
+  --color-y-600: oklch(83.06% 0.176873 105.7341);
+  --color-y-700: oklch(77.79% 0.1702 105.7341);
+
+  /*gray*/
+  --color-g-100: oklch(95.81% 0 0);
+  --color-g-200: oklch(89.75% 0 0);
+  --color-g-300: oklch(83.9% 0 0);
+  --color-g-400: oklch(71.87% 0 0);
+  --color-g-500: oklch(62.01% 0 0);
+  --color-g-600: oklch(49.97% 0 0);
+  --color-g-700: oklch(39.04% 0 0);
+  --color-g-800: oklch(28.91% 0 0);
+  --color-g-900: oklch(23.08% 0 0);
+  --color-g-1000: oklch(20.02% 0 0);
+  --color-g-1100: oklch(15.91% 0 0);
+
+  --color-primary: var(--color-t-200);
+  --color-primary-dark: var(--color-g-100);
+
+  --color-default: var(--color-s-600);
+  --color-default-dark: var(--color-g-300);
+
+  --color-yellow: var(--color-p-600);
+
+  --color-light: var(--color-t-100);
+  --color-dark: var(--color-g-1000);
+
+  --color-block-code: var(--color-t-700);
+
+  --container-7xl: 70rem;
+
+  --shadow-cus: 0px 0px 25px rgba(0, 0, 0, 0.07);
 
   --text-h1: 2.1875rem;
   --text-h2: 1.688rem;
@@ -21,7 +69,7 @@
 
   --radius-xl: 0.75rem;
 
-  --shadow-custom: 0 10px 13px rgba(0, 0, 0, 0.5);
+  --shadow-custom-yellow: 0px 0px 20px 2px oklch(92.55% 0.1925 106.09 / 0.5);
 
   --mask-avatar: "radial-gradient(circle 9px at -4px 50%, transparent 99%, #fff 100%)";
 }
@@ -43,11 +91,11 @@
     border-color: var(--color-gray-200, currentColor);
   }
   body {
-    @apply bg-black;
+    @apply bg-light dark:bg-dark font-(family-name:--font-custom);
     h1,
     h2,
     h3 {
-      @apply font-bold;
+      @apply font-medium;
     }
     h1 {
       @apply text-h1;
@@ -63,7 +111,7 @@
     h2,
     h3,
     h4 {
-      @apply text-primary;
+      @apply text-primary dark:text-g-100;
     }
 
     button,
@@ -71,7 +119,7 @@
     a,
     p,
     span {
-      @apply text-default;
+      @apply text-default dark:text-default-dark font-light;
     }
 
     p,
@@ -85,34 +133,25 @@
     }
 
     article {
+      @apply w-full max-w-[43.75rem] min-w-[18.75rem] mx-auto;
       & h1 ~ p {
-        @apply text-body;
+        @apply text-body text-default dark:text-default-dark;
         & > code {
-          background-color: oklch(69% 0.17 279 / 10%);
-          border: 0.1rem solid oklch(69% 0.17 279 / 10%);
-          color: var(--color-blue);
-          padding: 3px 5px;
-          border-radius: 6px;
-          font-size: var(--text-xsmall);
-          margin-bottom: 4px;
+          @apply dark:bg-g-800 rounded-[6px]  dark:text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
         }
         & a {
           @apply text-body;
         }
       }
       & h1 ~ span:first-of-type {
-        @apply text-small inline-block py-1 px-2 rounded-md mt-1 mb-5 bg-blue/10 text-blue;
+        @apply text-small inline-block mt-1 mb-5 text-g-500;
         &:first-of-type::before {
           content: "Create on: ";
         }
       }
 
-      & hr {
-        @apply border-(--border-color) border-[0.5px] mt-10 mb-10;
-      }
-
       & .desc-highlight {
-        @apply text-primary;
+        @apply text-primary dark:text-light;
       }
 
       & ol {
@@ -122,89 +161,45 @@
       & ol > li {
         @apply text-default flex gap-3 items-center mb-3;
         & span > code {
-          background-color: oklch(69% 0.17 279 / 10%);
-          border: 0.1rem solid oklch(69% 0.17 279 / 10%);
-          color: var(--color-blue);
-          padding: 3px 5px;
-          border-radius: 6px;
-          font-size: var(--text-xsmall);
-          margin-bottom: 4px;
+          @apply dark:bg-g-800 rounded-[6px] dark:text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
         }
         &::before {
           content: counter(listNumbers);
           counter-increment: listNumbers;
-          width: 30px;
-          height: 30px;
+          width: 28px;
+          height: 28px;
           display: flex;
           align-items: center;
           justify-content: center;
           text-align: right;
-          color: var(--color-blue);
-          background-color: oklch(69% 0.17 279 / 10%);
-          border: 1px solid oklch(69% 0.17 279 / 20%);
+          color: var(--color-g-400);
+          background-color: var(--color-g-800);
+          border: 1px solid var(--color-g-700);
           border-radius: 50%;
-          font-size: var(--text-small);
+          font-size: var(--text-xsmall);
         }
       }
       .external-link {
-        color: var(--color-blue);
-        position: relative;
-        display: inline-block;
-        font-size: var(--text-body) !important;
-      }
-      .external-link::after {
-        content: "";
-        width: 100%;
-        height: 1.5px;
-        background-color: var(--color-blue);
-        display: block;
-        bottom: 1px;
-        opacity: 0;
-        position: absolute;
-        transition: opacity 0.2s ease;
-      }
-      .external-link:hover::after {
-        opacity: 1;
+        @apply dark:text-g-100 relative inline-block text-body after:content-[""] dark:after:bg-g-100 after:w-full after:h-[1px] after:block after:bottom-[2px] after:absolute;
       }
 
       /* API Reference table */
       table {
-        width: 100%;
-        display: table;
         border-collapse: separate;
         border-spacing: 0;
-        margin-top: 2rem;
+        @apply bg-g-900 border border-g-800 rounded-xl w-full table mt-5;
         code {
-          background-color: oklch(69% 0.17 279 / 10%);
-          border: 0.1rem solid oklch(69% 0.17 279 / 10%);
-          color: var(--color-blue);
-          padding: 3px 5px;
-          border-radius: 6px;
-          font-size: var(--text-xsmall);
-          margin-bottom: 4px;
+          @apply dark:bg-g-800 rounded-[6px] text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
         }
       }
-      th:first-child {
-        border-top-left-radius: 1.2rem;
-        border-bottom-left-radius: 1.2rem;
-      }
-      th:last-child {
-        border-top-right-radius: 1.2rem;
-        border-bottom-right-radius: 1.2rem;
-      }
       th {
-        text-align: left;
-        color: var(--color-blue);
-        background-color: oklch(69% 0.17 279 / 10%);
-        font-weight: 500;
-        padding: 1rem 1rem;
-        font-size: var(--text-small);
+        @apply text-left dark:text-g-100 font-bold p-[15px] text-small border-b border-g-800;
+      }
+      tbody:has(> tr) tr {
+        @apply bg-light dark:bg-transparent;
       }
       tbody:has(> tr > td) td {
-        padding: 1rem;
-        border-bottom: 1px solid var(--border-color);
-        font-size: var(--text-small);
-        color: var(--color-default);
+        @apply p-[15px] dark:text-small text-default dark:text-g-400 text-small;
       }
     }
 
@@ -217,46 +212,51 @@
     }
     .preview,
     .code {
-      @apply overflow-hidden relative w-full max-w-[52.563rem] min-w-[18.75rem] h-[28.125rem] border-1 border-(--border-color) rounded-[15px];
+      @apply z-20 relative w-full max-w-[43.75rem] min-w-[18.75rem] h-[28.125rem] rounded-2xl overflow-hidden bg-g-900 border-1 dark:border-g-800;
+    }
+    .preview {
+      @apply p-[6px] bg-g-1100;
     }
     .component {
       @apply absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-full;
     }
-
     .radial-gradient {
       @apply w-full h-full absolute z-10 bottom-0 right-0 left-0 pointer-events-auto select-none inset-0;
     }
 
     .switch {
-      @apply flex gap-[5px] p-[3px] bg-block-code border border-(--border-color) rounded-xl w-max text-small;
+      @apply flex gap-[5px] p-1 bg-light dark:bg-g-900 border dark:border-g-800 rounded-xl w-max text-small;
     }
     .switch > button {
-      @apply bg-transparent border border-transparent rounded-[8px] pl-[5px] pr-2 py-[5px] gap-[7px];
+      @apply bg-transparent border border-transparent rounded-[8px] p-2 gap-[7px];
       svg {
         @apply w-5;
       }
       svg,
       span {
-        @apply text-primary;
+        @apply text-g-500;
       }
     }
     .switch > .switch-active {
-      @apply bg-blue/10;
+      @apply bg-y-400/10;
       svg,
       span {
-        @apply text-blue;
+        @apply text-y-400;
       }
     }
 
     /* CodeBlock.astro */
+    .astro-code code span {
+      @apply font-(family-name:--font-geist-code);
+    }
     pre {
-      @apply grow !bg-block-code overflow-y-scroll text-(length:--text-sm) py-3;
+      @apply grow !bg-transparent dark:!bg-transparent text-(length:--text-sm);
       code {
         .line {
           @apply border-l-[3px] border-l-transparent text-small/[1.8];
         }
         .line.highlighted {
-          @apply bg-blue/[7%] inline-block w-full border-blue;
+          @apply bg-blue/10 inline-block w-full border-blue;
         }
       }
     }
@@ -265,6 +265,7 @@
   pre:not(.terminal) code {
     counter-reset: lineNumbers;
     counter-increment: lineNumbers 0;
+    font-family: var(--font-geist-code);
   }
 
   pre:not(.terminal) code .line::before {
@@ -274,13 +275,13 @@
     margin-right: 0.938rem;
     display: inline-block;
     text-align: right;
-    color: var(--color-default);
+    color: var(--color-g-600);
   }
 
   /* scrollbar */
   ::-webkit-scrollbar {
-    width: 7px; /* Grosor de la barra vertical */
-    height: 8px; /* Grosor de la barra horizontal */
+    width: 8px; /* Grosor de la barra vertical */
+    height: 6px; /* Grosor de la barra horizontal */
   }
 
   /* Estilo del track (fondo) */
@@ -290,12 +291,26 @@
 
   /* Estilo del thumb (deslizador) */
   ::-webkit-scrollbar-thumb {
-    background: var(--border-color); /* Color del thumb */
+    background: var(--color-gray-200); /* Color del thumb */
     border-radius: 8px;
   }
 
   /* Hover del thumb */
   ::-webkit-scrollbar-thumb:hover {
-    background: #555555; /* Color en hover */
+    background: var(--color-gray-200); /* Color en hover */
+  }
+
+  @media (prefers-color-scheme: dark) {
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-g-700); /* Color del thumb */
+    }
+
+    /* Hover del thumb */
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-g-100); /* Color en hover */
+    }
+  }
+  ::selection {
+    @apply bg-y-200 text-g-1000;
   }
 }
