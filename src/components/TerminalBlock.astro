@@ -1,5 +1,7 @@
 ---
 import { Code } from "astro:components";
+import { codeToHtml } from "shiki";
+import { transformerMetaHighlight } from "@shikijs/transformers";
 import BtnCopy from "./BtnCopy.jsx";
 
 interface Props {
@@ -7,12 +9,28 @@ interface Props {
 }
 
 const { code } = Astro.props;
+
+const textCode = await codeToHtml(code, {
+  lang: "bash",
+  themes: {
+    light: "snazzy-light",
+    dark: "ayu-dark",
+  },
+  transformers: [
+    {
+      code(node) {
+        this.addClassToHast(node, "astro");
+      },
+    },
+    transformerMetaHighlight(),
+  ],
+});
 ---
 
 <div
-  class="rounded-[15px] my-4 bg-g-900 border border-g-800 flex items-center justify-between p-[15px]"
+  class="rounded-[15px] my-4 bg-white dark:bg-g-900 border border-g-200 dark:border-g-800 flex items-center justify-between py-[15px] pl-0 pr-[15px]"
 >
-  <Code code={code} lang="bash" class="rounded-[8px] terminal" />
+  <div class="terminal" lang={"astro"} set:html={textCode} />
   <div>
     <BtnCopy code={code} client:load />
   </div>

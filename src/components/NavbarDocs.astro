@@ -15,14 +15,14 @@ const mainNavbarItems = navigationConfig.mainNavbar[0].items ?? [];
     </a>
     <MenuToggle client:load />
     <ul
-      class="navbar-items hidden gap-5 fixed right-0 left-0 top-16 border-b bg-g-50 dark:bg-g-1000 border-g-200 md:border-0 p-3 space-y-2 md:space-y-0 md:flex md:relative md:top-0 md:left-0 md:right-0 md:bg-transparent md:text-body"
+      class="navbar-items hidden gap-5 fixed right-0 left-0 top-16 border-b bg-g-50 dark:bg-g-1000 border-g-800 md:border-0 p-3 space-y-2 md:space-y-0 md:flex md:relative md:top-0 md:left-0 md:right-0 md:bg-transparent md:text-body"
     >
       {
         mainNavbarItems.map(({ title, href }) => (
           <li>
             <a
               href={href}
-              class="block md:inline md:bg-transparent  dark:hover:bg-y-500/10 md:hover:bg-transparent text-g-500 hover:text-g-900 px-4 py-2 md:p-0 rounded-xl text-lg md:text-small transition-colors"
+              class="block md:inline dark:hover:bg-y-500/10 md:hover:bg-transparent text-g-500 hover:text-g-900 dark:hover:text-y-500 px-4 py-2 md:p-0 rounded-xl text-lg md:text-small transition-colors"
             >
               {title}
             </a>

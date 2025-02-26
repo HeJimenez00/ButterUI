@@ -46,5 +46,5 @@ const textCode = await codeToHtml(code, {
     </figcaption>
     <BtnCopy code={code} client:load />
   </div>
-  <pre class="overflow-scroll" lang={"astro"} set:html={textCode} />
+  <pre class="overflow-scroll" set:html={textCode} />
 </figure>

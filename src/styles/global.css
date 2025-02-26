@@ -178,7 +178,11 @@
       table {
         border-collapse: separate;
         border-spacing: 0;
-        @apply bg-white dark:bg-g-900 border border-g-200 dark:border-g-800 rounded-xl w-full table mt-5;
+        @apply bg-white dark:bg-g-900 border border-g-200 dark:border-g-800 rounded-xl w-full mt-5 block overflow-x-auto;
+
+        @screen sm {
+          @apply table;
+        }
         code {
           @apply bg-g-100 dark:bg-g-800 rounded-[6px] text-g-600 dark:text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
         }
