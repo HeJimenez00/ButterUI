@@ -2,7 +2,6 @@ import { MeshTransmissionMaterial, Text3D } from "@react-three/drei";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { RGBELoader } from "three/examples/jsm/Addons.js";
-import { useControls } from "leva";
 import * as THREE from "three";
 
 export const Text = ({

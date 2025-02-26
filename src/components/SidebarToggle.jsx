@@ -9,13 +9,12 @@ export const SidebarToggle = ({ children }) => {
 
   return (
     <button
-      className="sidebar-icon flex w-full items-center gap-1 border-b border-g-800 py-2 px-5 md:px-0 md:hidden"
+      className="sidebar-icon flex w-full items-center gap-1 border-y border-g-200 dark:border-g-800 py-2 px-5 md:px-0 md:hidden"
       onClick={toggleMenu}
     >
       {!isOpen ? (
         <>
           <svg
-            xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"

@@ -33,7 +33,7 @@ const BtnCopy = ({ code }) => {
     <button
       ref={buttonRef}
       onClick={handleCopy}
-      className={`btn p-[5px] text-body rounded-lg bg-y-400/10 text-y-400 transition-shadow inset-ring-y-400 ${isCopied ? "inset-ring-2" : "inset-ring-0"}`}
+      className={`btn p-[5px] text-body rounded-lg bg-g-100 dark:bg-y-500/10 text-dark dark:text-y-500 transition-shadow dark:inset-ring-y-500 ${isCopied ? "dark:inset-ring-2" : "dark:inset-ring-0"}`}
       aria-label={isCopied ? "Código copiado" : "Copiar código al portapapeles"}
     >
       {isCopied ? (

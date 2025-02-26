@@ -6,9 +6,7 @@ import { SidebarToggle } from "../components/SidebarToggle.jsx";
 const { pathname } = Astro.url;
 ---
 
-<nav
-  class="sidebar bg-g-1000 border-b border-g-500/20 md:border-0 md:bg-transparent"
->
+<nav class="sidebar bg-g-50 dark:bg-g-1000 md:border-0 md:bg-transparent">
   <SidebarToggle client:load> Menu </SidebarToggle>
   <div class="sidebar-items hidden md:block">
     {
@@ -19,14 +17,19 @@ const { pathname } = Astro.url;
           </h4>
           <ul class="items flex flex-col gap-1 mb-5">
             {sideNavbarItems[idx]?.items?.map(({ href, title }) => (
-              <li class:list={[pathname === href && "bg-y-400/10 rounded-xl"]}>
+              <li
+                class:list={[
+                  pathname === href && "bg-g-100 dark:bg-y-500/10 rounded-xl",
+                ]}
+              >
                 <a
                   href={href}
                   class="relative z-10 block py-[6px] rounded-xl"
                   class:list={[
-                    pathname === href && "text-y-400 pl-3 sidebar-item-active",
+                    pathname === href &&
+                      "text-dark dark:text-y-500 pl-3 sidebar-item-active",
                     pathname !== href &&
-                      "dark:text-g-500 dark:hover:text-y-400 transition-colors duration-200 sidebar-item",
+                      "text-g-500 hover:text-g-800 dark:text-g-500 dark:hover:text-y-500 transition-colors duration-200 sidebar-item",
                   ]}
                 >
                   {title}

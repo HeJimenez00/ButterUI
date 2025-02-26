@@ -9,8 +9,8 @@
 }
 
 @theme {
-  --font-custom: "-apple-system, BlinkMacSystemFont, " Segoe UI ", " Roboto ", "
-    Oxygen ", " Ubuntu ", " Cantarell ", " Fira Sans ", " Droid Sans ", "
+  --font-custom: "X, -apple-system, BlinkMacSystemFont, " Segoe UI ", " Roboto
+    ", " Oxygen ", " Ubuntu ", " Cantarell ", " Fira Sans ", " Droid Sans ", "
     Helvetica Neue ", sans-serif";
 
   --font-geist-code: "geist-mono", sans-serif;
@@ -20,7 +20,7 @@
   /*blue */
   --color-blue: oklch(69% 0.17 279);
   /*yellow*/
-  --color-y-100: oklch(97.31% 0.0717 105.96);
+  --color-y-100: oklch(96.86% 0.1013 104.51);
   --color-y-200: oklch(95.82% 0.1212 106.46);
   --color-y-300: oklch(93.56% 0.1599 106.03);
   --color-y-400: oklch(92.55% 0.1925 106.09);
@@ -29,6 +29,7 @@
   --color-y-700: oklch(77.79% 0.1702 105.7341);
 
   /*gray*/
+  --color-g-50: oklch(98.81% 0 0);
   --color-g-100: oklch(95.81% 0 0);
   --color-g-200: oklch(89.75% 0 0);
   --color-g-300: oklch(83.9% 0 0);
@@ -41,10 +42,10 @@
   --color-g-1000: oklch(20.02% 0 0);
   --color-g-1100: oklch(15.91% 0 0);
 
-  --color-primary: var(--color-t-200);
+  --color-primary: var(--color-g-1000);
   --color-primary-dark: var(--color-g-100);
 
-  --color-default: var(--color-s-600);
+  --color-default: var(--color-g-800);
   --color-default-dark: var(--color-g-300);
 
   --color-yellow: var(--color-p-600);
@@ -91,7 +92,7 @@
     border-color: var(--color-gray-200, currentColor);
   }
   body {
-    @apply bg-light dark:bg-dark font-(family-name:--font-custom);
+    @apply bg-g-50 dark:bg-dark font-(family-name:--font-custom);
     h1,
     h2,
     h3 {
@@ -111,7 +112,7 @@
     h2,
     h3,
     h4 {
-      @apply text-primary dark:text-g-100;
+      @apply text-dark dark:text-g-100;
     }
 
     button,
@@ -137,7 +138,7 @@
       & h1 ~ p {
         @apply text-body text-default dark:text-default-dark;
         & > code {
-          @apply dark:bg-g-800 rounded-[6px]  dark:text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
+          @apply bg-g-100 dark:bg-g-800 rounded-[6px] text-g-600 dark:text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
         }
         & a {
           @apply text-body;
@@ -161,39 +162,29 @@
       & ol > li {
         @apply text-default flex gap-3 items-center mb-3;
         & span > code {
-          @apply dark:bg-g-800 rounded-[6px] dark:text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
+          @apply bg-g-100 dark:bg-g-800 rounded-[6px] text-g-600 dark:text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
         }
         &::before {
           content: counter(listNumbers);
           counter-increment: listNumbers;
-          width: 28px;
-          height: 28px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: right;
-          color: var(--color-g-400);
-          background-color: var(--color-g-800);
-          border: 1px solid var(--color-g-700);
-          border-radius: 50%;
-          font-size: var(--text-xsmall);
+          @apply w-7 h-7 flex items-center justify-center text-right dark:text-g-400 bg-g-100 dark:bg-g-800 dark:border dark:border-g-700 rounded-full text-xsmall;
         }
       }
       .external-link {
-        @apply dark:text-g-100 relative inline-block text-body after:content-[""] dark:after:bg-g-100 after:w-full after:h-[1px] after:block after:bottom-[2px] after:absolute;
+        @apply text-primary dark:text-g-100 relative inline-block text-body after:content-[""] after:bg-g-1000 dark:after:bg-g-100 after:w-full after:h-[1px] after:block after:bottom-[2px] after:absolute;
       }
 
       /* API Reference table */
       table {
         border-collapse: separate;
         border-spacing: 0;
-        @apply bg-g-900 border border-g-800 rounded-xl w-full table mt-5;
+        @apply bg-white dark:bg-g-900 border border-g-200 dark:border-g-800 rounded-xl w-full table mt-5;
         code {
-          @apply dark:bg-g-800 rounded-[6px] text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
+          @apply bg-g-100 dark:bg-g-800 rounded-[6px] text-g-600 dark:text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
         }
       }
       th {
-        @apply text-left dark:text-g-100 font-bold p-[15px] text-small border-b border-g-800;
+        @apply text-left text-primary dark:text-g-100 font-semibold p-[15px] text-small border-b border-g-200 dark:border-g-800;
       }
       tbody:has(> tr) tr {
         @apply bg-light dark:bg-transparent;
@@ -212,10 +203,13 @@
     }
     .preview,
     .code {
-      @apply z-20 relative w-full max-w-[43.75rem] min-w-[18.75rem] h-[28.125rem] rounded-2xl overflow-hidden bg-g-900 border-1 dark:border-g-800;
+      @apply z-20 relative w-full max-w-[43.75rem] min-w-[18.75rem] h-[28.125rem] rounded-2xl overflow-hidden border-1 border-g-200 dark:border-g-800;
     }
     .preview {
-      @apply p-[6px] bg-g-1100;
+      @apply p-[6px] bg-white dark:bg-g-1100;
+    }
+    .code {
+      @apply bg-white;
     }
     .component {
       @apply absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-full;
@@ -225,10 +219,10 @@
     }
 
     .switch {
-      @apply flex gap-[5px] p-1 bg-light dark:bg-g-900 border dark:border-g-800 rounded-xl w-max text-small;
+      @apply flex gap-[5px] p-1 bg-light dark:bg-g-900 border border-g-200 dark:border-g-800 rounded-xl w-max text-small;
     }
     .switch > button {
-      @apply bg-transparent border border-transparent rounded-[8px] p-2 gap-[7px];
+      @apply bg-transparent border border-transparent rounded-[8px] p-2;
       svg {
         @apply w-5;
       }
@@ -238,10 +232,10 @@
       }
     }
     .switch > .switch-active {
-      @apply bg-y-400/10;
+      @apply bg-g-100 dark:bg-y-500/10;
       svg,
       span {
-        @apply text-y-400;
+        @apply text-g-800 dark:text-y-500;
       }
     }
 
@@ -250,7 +244,7 @@
       @apply font-(family-name:--font-geist-code);
     }
     pre {
-      @apply grow !bg-transparent dark:!bg-transparent text-(length:--text-sm);
+      @apply !bg-transparent text-small;
       code {
         .line {
           @apply border-l-[3px] border-l-transparent text-small/[1.8];
@@ -312,5 +306,15 @@
   }
   ::selection {
     @apply bg-y-200 text-g-1000;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .shiki,
+    .shiki span {
+      color: var(--shiki-dark) !important;
+      font-style: var(--shiki-dark-font-style) !important;
+      font-weight: var(--shiki-dark-font-weight) !important;
+      text-decoration: var(--shiki-dark-text-decoration) !important;
+    }
   }
 }

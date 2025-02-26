@@ -1,40 +1,50 @@
 ---
 import { Icon } from "astro-icon/components";
-import { Code } from "astro:components";
+import { codeToHtml } from "shiki";
 import { transformerMetaHighlight } from "@shikijs/transformers";
 import BtnCopy from "./BtnCopy.jsx";
 
 const { code, name, meta } = Astro.props;
 
 const hasFileName = !!name;
+
+const textCode = await codeToHtml(code, {
+  lang: "astro",
+  themes: {
+    light: "snazzy-light",
+    dark: "ayu-dark",
+  },
+  transformers: [
+    {
+      code(node) {
+        this.addClassToHast(node, "astro");
+      },
+    },
+    transformerMetaHighlight(),
+  ],
+  meta: {
+    __raw: meta,
+  },
+});
 ---
 
-<figure
-  class="absolute z-20 bg-t-600 flex flex-col gap-1 w-full h-full overflow-hidden"
->
+<figure class="dark:bg-dark flex flex-col gap-1 w-full h-full overflow-hidden">
   <div
-    class="flex items-center justify-between dark:bg-transparent px-[15px] py-[10px] border-b border-g-800"
+    class="flex items-center justify-between dark:bg-dark px-[15px] py-[10px] border-b border-g-200 dark:border-g-800"
   >
     <figcaption class="sticky top-0 flex items-center gap-2">
       <Icon name="astro" class="text-small" />
       {
         hasFileName && (
-          <p class="filename text-small text-g-500 flex">
+          <p class="filename text-small dark:text-g-500 flex">
             <span>/src/components/ui/</span>
-            <span class="-ml-[1px] text-g-100">{name}</span>
-            <span class="text-g-100">.astro</span>
+            <span class="-ml-[1px] text-dark dark:text-g-100">{name}</span>
+            <span class="text-dark dark:text-g-100">.astro</span>
           </p>
         )
       }
     </figcaption>
     <BtnCopy code={code} client:load />
   </div>
-  <Code
-    class="rounded-xl"
-    lang="astro"
-    theme="material-theme-darker"
-    code={code}
-    transformers={[transformerMetaHighlight()]}
-    meta={meta}
-  />
+  <pre class="overflow-scroll" lang={"astro"} set:html={textCode} />
 </figure>

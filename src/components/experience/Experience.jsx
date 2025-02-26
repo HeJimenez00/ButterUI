@@ -5,26 +5,32 @@ import { Controls } from "./Controls";
 import { Shadows } from "./Shadows";
 import { Effects } from "./Effects";
 import { Text } from "./Text";
-import { useState } from "react";
-import { Center, PerformanceMonitor } from "@react-three/drei";
+import { useEffect, useState } from "react";
+import { Center } from "@react-three/drei";
 import { HueSaturation } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 
 export const Experience = () => {
   const [dpr, setDpr] = useState(1.5);
 
+  useEffect(() => {
+    const deviceCapability = window.devicePixelRatio || 1;
+    const optimalPdr =
+      deviceCapability > 2 ? 2 : deviceCapability > 1 ? 1.5 : 1;
+    setDpr(optimalPdr);
+  });
+
   return (
     <Canvas
       shadows
-      // frameloop="demand"
       dpr={dpr}
-      gl={{ powerPreference: "high-performance", antialias: dpr > 1.5 }}
+      gl={{
+        powerPreference: "high-performance",
+        antialias: true,
+        stencil: false,
+        depth: true,
+      }}
     >
-      <PerformanceMonitor
-        flipflops={5}
-        onIncline={() => setDpr((prev) => Math.min(2, prev + 0.2))}
-        onDecline={() => setDpr((prev) => Math.max(1, prev - 0.2))}
-      />
       <Camera />
       <Effects />
       <ambientLight intensity={0.3} color="#fff" />
