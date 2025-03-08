@@ -184,7 +184,7 @@
           @apply table;
         }
         code {
-          @apply bg-g-100 dark:bg-g-800 rounded-[6px] text-g-600 dark:text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
+          @apply bg-g-100 inline-block dark:bg-g-800 rounded-[6px] text-g-600 dark:text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
         }
       }
       th {

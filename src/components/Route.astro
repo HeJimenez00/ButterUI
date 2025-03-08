@@ -2,7 +2,7 @@
 import { Icon } from "astro-icon/components";
 
 const { pathname } = Astro.url;
-const separate = pathname.split("/");
+const separate = pathname.split("/").filter(Boolean);
 ---
 
 <p class="flex items-center gap-2 capitalize mb-2">
