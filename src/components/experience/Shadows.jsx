@@ -5,19 +5,19 @@ export const Shadows = () => {
     <AccumulativeShadows
       position={[0, -0.01, 0]}
       temporal
-      frames={10}
-      color={"#453a00"}
+      frames={20}
+      color={"#74470f"}
       colorBlend={1.0}
       toneMapped
       alphaTest={0.8}
-      opacity={0.9}
-      scale={13}
+      opacity={0.8}
+      scale={20}
     >
       <RandomizedLight
         intensity={4.1}
-        amount={10}
-        radius={5.8}
-        ambient={0.45}
+        amount={13}
+        radius={7}
+        ambient={0.7}
         position={[-8, 5, -10.0]}
         bias={0.001}
       />

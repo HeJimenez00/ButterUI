@@ -9,7 +9,7 @@ export const SidebarToggle = ({ children }) => {
 
   return (
     <button
-      className="sidebar-icon flex w-full items-center gap-1 border-y border-g-200 dark:border-g-800 py-2 px-5 md:px-0 md:hidden"
+      className="sidebar-icon flex w-full items-center gap-1 border-y border-border dark:border-g-800 py-2 px-5 lg:px-0 lg:hidden"
       onClick={toggleMenu}
     >
       {!isOpen ? (

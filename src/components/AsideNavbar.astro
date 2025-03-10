@@ -8,31 +8,28 @@ const { pathname } = Astro.url;
 const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 ---
 
-<nav class="sidebar bg-g-50 dark:bg-g-1000 md:border-0 md:bg-transparent">
+<nav class="sidebar bg-neutral-white md:border-0 lg:bg-transparent">
   <SidebarToggle client:load> Menu </SidebarToggle>
-  <div class="sidebar-items hidden md:block">
+  <div class="sidebar-items hidden lg:block">
     {
       sideNavbarItems.map((section, idx) => (
-        <div class="px-5 md:px-0 mt-5 md:mt-0">
-          <h4 class="pb-2 text-small dark:text-g-100 font-medium">
-            {section.title}
-          </h4>
-          <ul class="items flex flex-col gap-1 mb-5">
+        <div class="px-5 lg:px-0 mt-5 md:mt-0">
+          <h4 class="pb-2 text-small">{section.title}</h4>
+          <ul class="items flex flex-col gap-1 mb-6">
             {sideNavbarItems[idx]?.items?.map(({ href, title }) => (
               <li
                 class:list={[
-                  cleanPathname === href &&
-                    "bg-g-100 dark:bg-y-500/10 rounded-xl",
+                  cleanPathname === href && "bg-fg-secondary rounded-xl",
                 ]}
               >
                 <a
                   href={href}
-                  class="relative z-10 block py-[6px] rounded-xl"
+                  class="relative z-10 block text-small py-[5px]"
                   class:list={[
                     cleanPathname === href &&
-                      "text-dark dark:text-y-500 pl-3 sidebar-item-active",
+                      "text-default pl-[10px] sidebar-item-active",
                     cleanPathname !== href &&
-                      "text-g-500 hover:text-g-800 dark:text-g-500 dark:hover:text-y-500 transition-colors duration-200 sidebar-item",
+                      "text-ghost hover:text-default transition-colors duration-200 sidebar-item",
                   ]}
                 >
                   {title}
@@ -70,7 +67,7 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 
     if (item) {
       gsap.to(item, {
-        x: isEnter ? 12 : 0,
+        x: isEnter ? 10 : 0,
         duration: 0.35,
         ease: "power4.out",
       });

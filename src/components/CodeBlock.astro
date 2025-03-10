@@ -11,8 +11,8 @@ const hasFileName = !!name;
 const textCode = await codeToHtml(code, {
   lang: "astro",
   themes: {
-    light: "snazzy-light",
-    dark: "ayu-dark",
+    light: "vitesse-light",
+    dark: "vitesse-dark",
   },
   transformers: [
     {
@@ -28,18 +28,18 @@ const textCode = await codeToHtml(code, {
 });
 ---
 
-<figure class="dark:bg-dark flex flex-col gap-1 w-full h-full overflow-hidden">
+<figure class="flex flex-col gap-1 w-full h-full overflow-hidden">
   <div
-    class="flex items-center justify-between dark:bg-dark px-[15px] py-[10px] border-b border-g-200 dark:border-g-800"
+    class="flex items-center justify-between px-[15px] py-[10px] border-b border-g-200"
   >
     <figcaption class="sticky top-0 flex items-center gap-2">
       <Icon name="astro" class="text-small" />
       {
         hasFileName && (
-          <p class="filename text-small dark:text-g-500 flex">
-            <span>/src/components/ui/</span>
-            <span class="-ml-[1px] text-dark dark:text-g-100">{name}</span>
-            <span class="text-dark dark:text-g-100">.astro</span>
+          <p class="filename text-small flex">
+            <span>./src/components/ui/</span>
+            <span class="text-ghost">{name}</span>
+            <span class="text-ghost">.astro</span>
           </p>
         )
       }

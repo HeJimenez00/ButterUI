@@ -30,16 +30,17 @@ export const Experience = () => {
         stencil: false,
         depth: true,
       }}
+      color="#fbfafa"
     >
       <Camera />
       <Effects />
-      <ambientLight intensity={0.3} color="#fff" />
+      <ambientLight intensity={0.3} color="#fbfafa" />
       <spotLight
         position={[0, -3, 3]}
         intensity={1.2}
         angle={Math.PI / 6}
         penumbra={0.5}
-        color="#fff"
+        color="#fbfafa"
         castShadow
       />
       <pointLight position={[2, 1, 2]} intensity={0.8} color="#ffdd99" />

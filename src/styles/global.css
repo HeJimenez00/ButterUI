@@ -15,21 +15,34 @@
 
   --font-geist-code: "geist-mono", sans-serif;
 
-  --hue: 266;
+  /* blue */
+  --color-b-50: oklch(97.69% 0.0153 222.68);
+  --color-b-100: oklch(94.48% 0.0342 227.41);
+  --color-b-200: oklch(90.74% 0.0612 224.17);
+  --color-b-300: oklch(85.78% 0.0984 222.56);
+  --color-b-400: oklch(79.24% 0.1334 228.76);
+  --color-b-500: oklch(71.4% 0.1633 242.31);
+  --color-b-600: oklch(64.53% 0.1948 252.59);
+  --color-b-700: oklch(60.28% 0.2177 257.42);
+  --color-b-800: oklch(49.79% 0.1781 257.87);
+  --color-b-900: oklch(43.94% 0.1363 255.16);
+  --color-b-1000: oklch(31.5% 0.0881 256.06);
 
-  /*blue */
-  --color-blue: oklch(69% 0.17 279);
   /*yellow*/
-  --color-y-100: oklch(96.86% 0.1013 104.51);
-  --color-y-200: oklch(95.82% 0.1212 106.46);
-  --color-y-300: oklch(93.56% 0.1599 106.03);
-  --color-y-400: oklch(92.55% 0.1925 106.09);
-  --color-y-500: oklch(93.71% 0.1988 105.01);
-  --color-y-600: oklch(83.06% 0.176873 105.7341);
-  --color-y-700: oklch(77.79% 0.1702 105.7341);
+  --color-y-50: oklch(99.37% 0.0313 106.96);
+  --color-y-100: oklch(98.45% 0.0789 108.54);
+  --color-y-200: oklch(97.17% 0.1415 107.91);
+  --color-y-300: oklch(94.71% 0.1847 105.79);
+  --color-y-400: oklch(91.49% 0.1894 100.94);
+  --color-y-500: oklch(88.48% 0.1816 94.9);
+  --color-y-600: oklch(72.53% 0.1487 84.71);
+  --color-y-700: oklch(58.89% 0.1231 76.14);
+  --color-y-800: oklch(50.09% 0.1049 69.83);
+  --color-y-900: oklch(44.08% 0.0906 65.88);
+  --color-y-1000: oklch(29.91% 0.0644 62.03);
 
   /*gray*/
-  --color-g-50: oklch(98.81% 0 0);
+  --color-g-50: oklch(98.59% 0.0011 0);
   --color-g-100: oklch(95.81% 0 0);
   --color-g-200: oklch(89.75% 0 0);
   --color-g-300: oklch(83.9% 0 0);
@@ -42,37 +55,39 @@
   --color-g-1000: oklch(20.02% 0 0);
   --color-g-1100: oklch(15.91% 0 0);
 
-  --color-primary: var(--color-g-1000);
-  --color-primary-dark: var(--color-g-100);
-
-  --color-default: var(--color-g-800);
-  --color-default-dark: var(--color-g-300);
-
-  --color-yellow: var(--color-p-600);
-
-  --color-light: var(--color-t-100);
-  --color-dark: var(--color-g-1000);
-
-  --color-block-code: var(--color-t-700);
-
-  --container-7xl: 70rem;
-
-  --shadow-cus: 0px 0px 25px rgba(0, 0, 0, 0.07);
-
-  --text-h1: 2.1875rem;
-  --text-h2: 1.688rem;
-  --text-h3: 1.25rem;
-  --text-subtitle: 1.125rem;
+  --text-h1: 1.375rem;
+  --text-h2: 1.25rem;
+  --text-h3: 1.125rem;
+  --text-h4: 0.875rem;
   --text-body: 1rem;
   --text-cta: 1rem;
   --text-small: 0.875rem;
   --text-xsmall: 0.75rem;
 
-  --radius-xl: 0.75rem;
+  --max-w-5xl: 1100px;
 
-  --shadow-custom-yellow: 0px 0px 20px 2px oklch(92.55% 0.1925 106.09 / 0.5);
+  /* --spacing-4: 0.25rem; */
+  /* --spacing-8: 0.5rem; */
+  /* --spacing-12: 0.75rem; */
+  /* --spacing-16: 1rem; */
+  /* --spacing-24: 1.5rem; */
+  /* --spacing-32: 2rem; */
+  /* --spacing-40: 2.5rem; */
+  /* --spacing-64: 4rem; */
+  /* --spacing-128: 8rem; */
 
-  --mask-avatar: "radial-gradient(circle 9px at -4px 50%, transparent 99%, #fff 100%)";
+  --color-neutral-white: #ffffff;
+  --color-neutral-black: #000000;
+
+  /* lightmode */
+  --color-primary: var(--color-y-400);
+  --color-default: var(--color-g-1000);
+  --color-ghost: var(--color-g-600);
+  --color-fg-primary: var(--color-neutral-white);
+  --color-fg-secondary: oklch(89.75% 0 0 / 50%);
+  --color-fg-tertiary: var(--color-y-400);
+  --color-border: oklch(92.8% 0 0);
+  --color-b-light: var(--color-b-600);
 }
 
 /*
@@ -92,27 +107,22 @@
     border-color: var(--color-gray-200, currentColor);
   }
   body {
-    @apply bg-g-50 dark:bg-dark font-(family-name:--font-custom);
-    h1,
-    h2,
-    h3 {
-      @apply font-medium;
-    }
+    @apply bg-g-50 font-(family-name:--font-custom);
     h1 {
       @apply text-h1;
     }
     h2 {
-      @apply text-h2 mt-10 mb-5;
+      @apply text-h2 mt-10 mb-4;
     }
     h3 {
-      @apply text-h3 mt-5;
+      @apply text-body pb-3;
     }
 
     h1,
     h2,
     h3,
     h4 {
-      @apply text-dark dark:text-g-100;
+      @apply text-default font-semibold;
     }
 
     button,
@@ -120,39 +130,35 @@
     a,
     p,
     span {
-      @apply text-default dark:text-default-dark font-light;
+      @apply text-default font-normal;
     }
 
+    button,
     p,
     a,
-    pre {
-      @apply text-small;
-    }
-
-    p {
-      @apply text-sm/7;
+    p,
+    span,
+    h1,
+    h2,
+    h3,
+    h4 {
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      -webkit-text-size-adjust: 100%;
     }
 
     article {
-      @apply w-full max-w-[43.75rem] min-w-[18.75rem] mx-auto;
       & h1 ~ p {
-        @apply text-body text-default dark:text-default-dark;
+        @apply text-body text-default;
         & > code {
-          @apply bg-g-100 dark:bg-g-800 rounded-[6px] text-g-600 dark:text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
+          @apply bg-fg-secondary rounded-[6px] text-ghost px-[5px] py-[2px] text-small font-(family-name:--font-geist-code);
         }
         & a {
           @apply text-body;
         }
       }
       & h1 ~ span:first-of-type {
-        @apply text-small inline-block mt-1 mb-5 text-g-500;
-        &:first-of-type::before {
-          content: "Create on: ";
-        }
-      }
-
-      & .desc-highlight {
-        @apply text-primary dark:text-light;
+        @apply text-small inline-block mt-2 mb-6 text-ghost;
       }
 
       & ol {
@@ -162,58 +168,55 @@
       & ol > li {
         @apply text-default flex gap-3 items-center mb-3;
         & span > code {
-          @apply bg-g-100 dark:bg-g-800 rounded-[6px] text-g-600 dark:text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
+          @apply bg-fg-secondary rounded-[6px] text-ghost px-[5px] py-[2px] text-small font-(family-name:--font-geist-code);
         }
         &::before {
           content: counter(listNumbers);
           counter-increment: listNumbers;
-          @apply w-7 h-7 flex items-center justify-center text-right dark:text-g-400 bg-g-100 dark:bg-g-800 dark:border dark:border-g-700 rounded-full text-xsmall;
+          @apply w-6 h-6 flex items-center justify-center text-right text-ghost bg-fg-primary border border-border rounded-[8px] text-xsmall;
         }
       }
       .external-link {
-        @apply text-primary dark:text-g-100 relative inline-block text-body after:content-[""] after:bg-g-1000 dark:after:bg-g-100 after:w-full after:h-[1px] after:block after:bottom-[2px] after:absolute;
+        @apply text-default relative inline-block text-body after:content-[""] after:bg-default after:w-full after:h-[1px] after:block after:bottom-0 after:absolute;
       }
 
       /* API Reference table */
       table {
         border-collapse: separate;
         border-spacing: 0;
-        @apply bg-white dark:bg-g-900 border border-g-200 dark:border-g-800 rounded-xl w-full mt-5 block overflow-x-auto;
+        @apply bg-neutral-white border border-border rounded-xl w-full block overflow-x-auto;
 
         @screen sm {
           @apply table;
         }
         code {
-          @apply bg-g-100 inline-block dark:bg-g-800 rounded-[6px] text-g-600 dark:text-g-400 px-[5px] py-[3px] text-xsmall font-(family-name:--font-geist-code);
+          @apply bg-fg-secondary inline-block rounded-[6px] text-ghost px-[5px] py-[2px] text-xsmall font-(family-name:--font-geist-code);
         }
       }
       th {
-        @apply text-left text-primary dark:text-g-100 font-semibold p-[15px] text-small border-b border-g-200 dark:border-g-800;
+        @apply text-left text-default font-semibold p-[15px] text-small border-b border-border;
       }
       tbody:has(> tr) tr {
-        @apply bg-light dark:bg-transparent;
+        /* @apply bg-light; */
       }
       tbody:has(> tr > td) td {
-        @apply p-[15px] dark:text-small text-default dark:text-g-400 text-small;
+        @apply p-[15px] text-default text-small;
       }
     }
 
     /* PreviewComponent.astro */
-    .header:has(p + .switch) {
-      @apply justify-between;
-    }
     .header:not(:has(p)) {
       @apply justify-end;
     }
     .preview,
     .code {
-      @apply z-20 relative w-full max-w-[43.75rem] min-w-[18.75rem] h-[28.125rem] rounded-2xl overflow-hidden border-1 border-g-200 dark:border-g-800;
+      @apply z-20 w-full max-w-[42rem] min-w-full relative h-[28.125rem] rounded-[15px] overflow-hidden border-1 border-border;
     }
     .preview {
-      @apply p-[6px] bg-white dark:bg-g-1100;
+      @apply p-[6px] bg-fg-primary;
     }
     .code {
-      @apply bg-white;
+      @apply bg-fg-primary;
     }
     .component {
       @apply absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-full;
@@ -223,7 +226,7 @@
     }
 
     .switch {
-      @apply flex gap-[5px] p-1 bg-light dark:bg-g-900 border border-g-200 dark:border-g-800 rounded-xl w-max text-small;
+      @apply flex gap-[5px] p-1 bg-fg-primary border border-border rounded-xl w-max text-small;
     }
     .switch > button {
       @apply bg-transparent border border-transparent rounded-[8px] p-2;
@@ -232,14 +235,14 @@
       }
       svg,
       span {
-        @apply text-g-500;
+        @apply text-ghost;
       }
     }
     .switch > .switch-active {
-      @apply bg-g-100 dark:bg-y-500/10;
+      @apply bg-fg-secondary;
       svg,
       span {
-        @apply text-g-800 dark:text-y-500;
+        @apply text-default;
       }
     }
 
@@ -251,10 +254,10 @@
       @apply !bg-transparent text-small;
       code {
         .line {
-          @apply border-l-[3px] border-l-transparent text-small/[1.8];
+          @apply border-l-3 border-l-transparent text-small/[1.8];
         }
         .line.highlighted {
-          @apply bg-blue/10 inline-block w-full border-blue;
+          @apply bg-b-light/10 inline-block w-full border-b-light;
         }
       }
     }
@@ -270,10 +273,11 @@
     content: counter(lineNumbers);
     counter-increment: lineNumbers;
     width: 1.5rem;
-    margin-right: 0.938rem;
+    margin-right: 1.2rem;
+    margin-left: 0.25rem;
     display: inline-block;
     text-align: right;
-    color: var(--color-g-600);
+    color: var(--color-ghost);
   }
 
   /* scrollbar */
@@ -309,7 +313,7 @@
     }
   }
   ::selection {
-    @apply bg-y-200 text-g-1000;
+    @apply bg-y-400 text-g-1000;
   }
 
   @media (prefers-color-scheme: dark) {

@@ -6,9 +6,9 @@ const { pathname } = Astro.url;
 const heads = headings.slice(1) ?? [];
 ---
 
-<aside class="sidebar hidden md:block">
-  <h4 class="font-medium text-small pb-2">Content</h4>
-  <ul class="border-l border-g-200 dark:border-g-500/15 flex flex-col">
+<aside class="sidebar hidden lg:block">
+  <h4 class="text-h4 pb-2">Content</h4>
+  <ul class="flex flex-col gap-1">
     {
       heads.map(
         ({
@@ -20,10 +20,10 @@ const heads = headings.slice(1) ?? [];
           slug: string;
           text: string;
         }) => (
-          <li class:list={[depth !== 2 ? "ml-3" : "", "py-[6px]"]}>
+          <li class:list={[depth !== 2 ? "ml-2" : "", "py-[2px]"]}>
             <a
               href={`#${slug}`}
-              class="block pl-3 text-g-500 hover:text-g-800 dark:text-g-500 dark:hover:text-g-300 transition-colors"
+              class="block text-small text-ghost hover:text-default transition-colors py-[2px]"
             >
               {text}
             </a>
@@ -32,15 +32,15 @@ const heads = headings.slice(1) ?? [];
       )
     }
   </ul>
-  <ul class="mt-5">
+  <ul class="pt-6">
     <li>
       <a
         href={`https://github.com/HeJimenez00/AstraUI/tree/main/src/content${pathname}.mdx`}
         target="_blank"
-        class="flex items-center gap-2"
+        class="flex items-center gap-1 text-small"
       >
-        <Icon name="edit" class="text-primary dark:text-g-100" />
-        <span class="text-primary dark:text-g-100">Edit this page</span>
+        <Icon name="edit" class="text-default" />
+        <span class="text-default">Edit this page</span>
       </a>
     </li>
   </ul>

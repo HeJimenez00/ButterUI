@@ -6,9 +6,11 @@ import { Icon } from "astro-icon/components";
 const mainNavbarItems = navigationConfig.mainNavbar[0].items ?? [];
 ---
 
-<header class="sticky h-14 inset-0 z-50 bg-g-50 dark:bg-dark flex px-5 md:px-0">
+<header
+  class="sticky h-14 inset-0 z-55 flex px-5 lg:px-0 bg-neutral-white lg:bg-transparent"
+>
   <nav
-    class="flex justify-between items-center navbar w-full max-w-7xl mx-auto"
+    class="flex justify-between items-center navbar w-full max-w-[1100px] mx-auto"
   >
     <a href="/" class="flex items-center gap-1">
       <Icon name="logo" width="35" height="35" />

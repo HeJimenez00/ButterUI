@@ -12,29 +12,21 @@ const BtnCopy = ({ code }) => {
       await navigator.clipboard.writeText(code);
       setIsCopied(true);
 
-      // Animación del botón (zoom + blur)
       gsap.fromTo(
         buttonRef.current,
-        { scale: 0.8, filter: "blur(0px)" },
+        { scale: 0.8 },
         {
           scale: 1,
-          filter: "blur(20px)",
           duration: 0.4,
           ease: "power2.out",
           onComplete: () => {
-            gsap.to(buttonRef.current, { filter: "blur(0px)", duration: 0.4 });
+            gsap.to(buttonRef.current, { duration: 0.4 });
           },
         },
       );
 
-      gsap.fromTo(
-        iconRef.current,
-        { filter: "blur(20px)" },
-        { filter: "blur(0px)", duration: 0.3, ease: "power2.out" },
-      );
-
       clearTimeout(copyTimeout);
-      setCopyTimeout(setTimeout(() => setIsCopied(false), 2000));
+      setCopyTimeout(setTimeout(() => setIsCopied(false), 1700));
     } catch (error) {
       console.error("Error al copiar:", error);
     }
@@ -48,10 +40,10 @@ const BtnCopy = ({ code }) => {
     <button
       ref={buttonRef}
       onClick={handleCopy}
-      className={`btn p-[5px] text-body rounded-lg bg-g-100 dark:bg-y-500/10 text-dark dark:text-y-500 transition-shadow dark:inset-ring-y-500 ${isCopied ? "dark:inset-ring-2" : "dark:inset-ring-0"}`}
+      className="btn p-[5px] text-body rounded-lg text-default bg-fg-primary transition-shadow"
       aria-label={isCopied ? "Código copiado" : "Copiar código al portapapeles"}
     >
-      <span ref={iconRef}>
+      <span ref={iconRef} className="text-default">
         {isCopied ? (
           <svg
             viewBox="0 0 24 24"
