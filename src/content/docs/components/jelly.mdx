@@ -1,6 +1,6 @@
 ---
 title: Jelly
-description: "A <span class='desc-highlight'>fluid</span> and <span class='desc-highlight'>interactive</span> UI element that adds a playful <span class='desc-highlight'>blob-like animation</span> to your Astro projects. Perfect for creating <span class='desc-highlight'>engaging hover effects</span> or <span class='desc-highlight'>dynamic backgrounds</span>, the Jelly component brings a touch of organic movement to your web designs"
+description: "A fluid and interactive UI element that adds a playful blob-like animation to your Astro projects. Perfect for creating engaging hover effects or dynamic backgrounds, the Jelly component brings a touch of organic movement to your web designs"
 date: "February 8, 2025"
 ---
 import TerminalBlock from "../../../components/TerminalBlock.astro";
@@ -9,9 +9,7 @@ import TerminalBlock from "../../../components/TerminalBlock.astro";
 
 <span>{frontmatter.date}</span>
 
-<HTMLRender text={frontmatter.description} />
-
-<hr />
+{frontmatter.description}.
 
 <PreviewComponent name="JellyReveal" />
 
@@ -20,8 +18,7 @@ import TerminalBlock from "../../../components/TerminalBlock.astro";
 To use this component, you first need to install the <ExternalLink href="https://github.com/natemoo-re/astro-icon">Astro Icon</ExternalLink> package:
 <TerminalBlock code="npx astro add astro-icon" />
 
-## API Reference
-### Root
+## Root
 
 | Prop             | Default                | Type      | Description                                                                |
 |:-----------------|:-----------------------|:----------|:---------------------------------------------------------------------------|
@@ -30,14 +27,14 @@ To use this component, you first need to install the <ExternalLink href="https:/
 | `location`       | -                      | `string`  | Location associated with the card.                                         |
 | `src`            | -                      | `string`  | URL of the background image.                                               |
 | `alt`            | -                      | `string`  | Alternative text for the image.                                            |
-| `iconLocation`   | "location"             | `string`  | Name of the icon for the location.                                         |
-| `width`          | "w-60"                 | `string`  | Tailwind class for the container width.                                    |
-| `height`         | "h-72"                 | `string`  | Tailwind class for the container height.                                   |
+| `iconLocation`   | 'location'             | `string`  | Name of the icon for the location.                                         |
+| `width`          | 'w-60'                 | `string`  | Tailwind class for the container width.                                    |
+| `height`         | 'h-72'                 | `string`  | Tailwind class for the container height.                                   |
 | `animate`        | true                   | `boolean` | Determines if the reveal animation is applied on hover.                    |
-| `containerClass` | ""                     | `string`  | Additional classes for the main container.                                 |
-| `titleClass`     | ""                     | `string`  | Additional classes for the title.                                          |
-| `ownerClass`     | ""                     | `string`  | Additional classes for the owner name.                                     |
-| `locationClass`  | ""                     | `string`  | Additional classes for the location.                                       |
+| `containerClass` | -                     | `string`  | Additional classes for the main container.                                 |
+| `titleClass`     | -                     | `string`  | Additional classes for the title.                                          |
+| `ownerClass`     | -                     | `string`  | Additional classes for the owner name.                                     |
+| `locationClass`  | -                     | `string`  | Additional classes for the location.                                       |
 
 ## Features
 1. <span>Customizable image display</span>
@@ -51,4 +48,4 @@ To use this component, you first need to install the <ExternalLink href="https:/
 
 ## Example
 ### Card Gallery
-<PreviewComponent name="JellyCards" />
+<PreviewComponent name="JellyCards" meta="{39-51}" />

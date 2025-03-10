@@ -192,6 +192,9 @@
         code {
           @apply bg-fg-secondary inline-block rounded-[6px] text-ghost px-[5px] py-[2px] text-xsmall font-(family-name:--font-geist-code);
         }
+        .external-link {
+          @apply text-small;
+        }
       }
       th {
         @apply text-left text-default font-semibold p-[15px] text-small border-b border-border;

@@ -9,8 +9,6 @@ date: "January 30, 2025"
 
 <HTMLRender text={frontmatter.description} />
 
-<hr />
-
 <PreviewComponent name="AvatarList" />
 
 ## Features
@@ -20,28 +18,25 @@ date: "January 30, 2025"
 4. <span>Reusability</span>
 5. <span>It supports the `Image` component from <ExternalLink href="https://docs.astro.build/en/guides/images/">Astro</ExternalLink></span>
 
-## API Reference
-### Root
+## Root
 
 | Prop         | Default                                      | Type                                  | Description                                              |
 |:-------------|:---------------------------------------------|:--------------------------------------|:----------------------------------------------------------|
-| `data`      | []                                   | `AvatarItem[]`                      | List of avatars with `name`, `src`, and `alt`.          |
-| `direction` | "horizontal"                              | `"horizontal" \| "vertical"`        | Direction of the avatars.                               |
-| `size`      | "medium"                                  | `"small" \| "medium"`               | Avatar size.                                            |
-| `shape`     | "circle"                                  | `"circle" \| "rounded"`             | Avatar shape.                                           |
-| `nameStyles`  | "" | `string` | Additional classes for the avatar name. |
-| `imageStyles` | ""      | `string`                            | Additional classes for the image.                      |
-
-
+| `data`      | []                                   | `AvatarItem[]`                      | List of avatars with `name`, `src`, and `alt`          |
+| `direction` | 'horizontal'                              | `'horizontal' \| 'vertical-right' \| 'vertical-left'`        | Direction of the avatars                               |
+| `size`      | 'medium'                                  | `'small' \| 'medium'`               | Avatar size                                            |
+| `shape`     | 'circle'                                  | `'circle' \| 'rounded'`             | Avatar shape                                           |
+| `nameStyles`  | - | `string` | Additional classes for the avatar name |
+| `imageStyles` | -      | `string`                            | Additional classes for the image                      |
 
 ## Examples
 
 ### Vertical
 
-En este ejemplo se agregaron clases de Tailwind y la dirección de los avatares cambio a `vertical`
-<PreviewComponent name="VerticalAvatarList" meta="{23-29}" />
+In this example, Tailwind classes were added, and the direction of the avatars changed to `vertical`
+<PreviewComponent name="VerticalAvatarList" meta="{23}" />
 
 ### Blog
 
-Este sería un ejemplo de como se podria ver en algun blog (inspiración <ExternalLink href="https://framer.university/resources/netflix-love-this-animation-in-framer">Framer University</ExternalLink>)
-<PreviewComponent name="AvatarBlog" meta="{47-52}" />
+This would be an example of how it could look in a blog
+<PreviewComponent name="AvatarBlog" meta="{50-54}" />

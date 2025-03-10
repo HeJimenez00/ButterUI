@@ -59,6 +59,10 @@ export const navigationConfig: DocsConfig = {
           title: "Jelly",
           href: "/docs/components/jelly",
         },
+        {
+          title: "Deep focus",
+          href: "/docs/components/deepfocus",
+        },
       ],
     },
   ],
