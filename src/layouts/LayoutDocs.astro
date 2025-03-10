@@ -3,7 +3,6 @@ import AsideNavbar from "@components/AsideNavbar.astro";
 import NavbarDocs from "@components/NavbarDocs.astro";
 import OnThisPage from "@components/OnThisPage.astro";
 import Footer from "@components/Footer.astro";
-import Route from "@components/Route.astro";
 import "../styles/global.css";
 
 const { title, description, headings } = Astro.props;
@@ -14,19 +13,19 @@ const { title, description, headings } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <link rel="icon" href="/src/icons/logo.svg" />
     <title>{title}</title>
   </head>
   <body>
     <NavbarDocs />
     <div
-      class="max-w-7xl mx-auto gap-12 grid md:grid-cols-[0.25fr_1fr_0.25fr] relative"
+      class="max-w-[1100px] min-w-[300px] gap-16 mx-auto lg:grid md:grid-cols-[0.22fr_1fr_0.22fr] relative"
     >
+      <div class="gradient-blur-top"></div>
       <AsideNavbar />
-      <article class="pt-[4.563rem] md:pt-[2rem] px-5 md:0">
-        <Route />
+      <article class="pt-[4.563rem] lg:pt-[1.8rem] px-5 lg:px-0 max-w-full">
         <slot />
         <Footer />
         <div class="gradient-blur"></div>
@@ -45,7 +44,7 @@ const { title, description, headings } = Astro.props;
     width: 100%;
     z-index: 30;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .sidebar {
       position: sticky;
       height: calc(100vh - 56px);
@@ -56,10 +55,49 @@ const { title, description, headings } = Astro.props;
       top: 3.5rem;
     }
   }
+
+  .gradient-blur-top {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 60px;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  .gradient-blur-top::before,
+  .gradient-blur-top::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  .gradient-blur-top::before {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    mask: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 60%);
+    -webkit-mask: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 60%
+    );
+    z-index: 51;
+  }
+
+  .gradient-blur-top::after {
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    mask: linear-gradient(to top, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 1) 100%);
+    -webkit-mask: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 60%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    z-index: 52;
+  }
   .gradient-blur {
     position: fixed;
     inset: auto 0 0 0;
-    height: 80px;
+    height: 60px;
     pointer-events: none;
     z-index: 50;
   }
