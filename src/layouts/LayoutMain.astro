@@ -13,9 +13,10 @@ const { title, description } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <link rel="icon" href="/src/icons/logo.svg" />
     <title>{title}</title>
   </head>
-  <body class="bg-dark text-primary">
+  <body>
     <NavbarMain />
     <slot />
   </body>

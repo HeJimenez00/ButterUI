@@ -2,8 +2,8 @@
 
 @font-face {
   font-family: "geist-mono";
-  src: url("/fonts/Geist-mono.woff2") format("woff");
-  font-weight: 500;
+  src: url("/fonts/SFMono-Medium.woff2") format("woff");
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
@@ -62,7 +62,7 @@
   --text-body: 1rem;
   --text-cta: 1rem;
   --text-small: 0.875rem;
-  --text-xsmall: 0.75rem;
+  --text-xsmall: 0.813rem;
 
   --max-w-5xl: 1100px;
 
@@ -84,7 +84,7 @@
   --color-default: var(--color-g-1000);
   --color-ghost: var(--color-g-600);
   --color-fg-primary: var(--color-neutral-white);
-  --color-fg-secondary: oklch(89.75% 0 0 / 50%);
+  --color-fg-secondary: var(--color-g-100);
   --color-fg-tertiary: var(--color-y-400);
   --color-border: oklch(92.8% 0 0);
   --color-b-light: var(--color-b-600);
@@ -107,15 +107,15 @@
     border-color: var(--color-gray-200, currentColor);
   }
   body {
-    @apply bg-g-50 font-(family-name:--font-custom);
+    @apply bg-g-100/30 font-(family-name:--font-custom);
     h1 {
-      @apply text-h1;
+      @apply text-h1 leading-[1];
     }
     h2 {
-      @apply text-h2 mt-10 mb-4;
+      @apply text-h2 mt-10 mb-4 leading-[0.75];
     }
     h3 {
-      @apply text-body pb-3;
+      @apply text-body mt-6 pb-3 leading-[0.5];
     }
 
     h1,
@@ -141,7 +141,8 @@
     h1,
     h2,
     h3,
-    h4 {
+    h4,
+    ul > li {
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       -webkit-text-size-adjust: 100%;
@@ -151,7 +152,7 @@
       & h1 ~ p {
         @apply text-body text-default;
         & > code {
-          @apply bg-fg-secondary rounded-[6px] text-ghost px-[5px] py-[2px] text-small font-(family-name:--font-geist-code);
+          @apply bg-fg-secondary rounded-[6px] text-ghost px-[5px] py-[2px] text-xsmall font-(family-name:--font-geist-code);
         }
         & a {
           @apply text-body;
@@ -168,12 +169,30 @@
       & ol > li {
         @apply text-default flex gap-3 items-center mb-3;
         & span > code {
-          @apply bg-fg-secondary rounded-[6px] text-ghost px-[5px] py-[2px] text-small font-(family-name:--font-geist-code);
+          @apply bg-fg-secondary rounded-[6px] text-ghost px-[5px] py-[2px] text-xsmall font-(family-name:--font-geist-code);
         }
         &::before {
           content: counter(listNumbers);
           counter-increment: listNumbers;
           @apply w-6 h-6 flex items-center justify-center text-right text-ghost bg-fg-primary border border-border rounded-[8px] text-xsmall;
+        }
+      }
+      ul:has(li > em) {
+        @apply text-default mt-3;
+
+        & li:has(> em) em {
+          @apply font-medium;
+        }
+
+        & li:has(> em)::before {
+          @apply w-full h-full inline ml-2 mr-2 content-["•"];
+        }
+      }
+
+      blockquote:has(p) {
+        @apply relative w-full h-auto block border-border pl-4;
+        &::before {
+          @apply content-[""] absolute left-0 h-full w-2 rounded-[2px] bg-border block;
         }
       }
       .external-link {

@@ -8,7 +8,10 @@ export const MenuToggle = () => {
   };
 
   return (
-    <button className="navbar-icon md:hidden p-[6px]" onClick={toggleMenu}>
+    <button
+      className="navbar-icon md:hidden p-[6px] text-default"
+      onClick={toggleMenu}
+    >
       {!isOpen ? (
         <svg
           width="20"

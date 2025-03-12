@@ -15,7 +15,7 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
       sideNavbarItems.map((section, idx) => (
         <div class="px-5 lg:px-0 mt-5 md:mt-0">
           <h4 class="pb-2 text-small">{section.title}</h4>
-          <ul class="items flex flex-col gap-1 mb-6">
+          <ul class="items flex flex-col gap-[2px] mb-6">
             {sideNavbarItems[idx]?.items?.map(({ href, title }) => (
               <li
                 class:list={[
@@ -24,10 +24,10 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
               >
                 <a
                   href={href}
-                  class="relative z-10 block text-small py-[5px]"
+                  class="relative z-10 block text-small py-[6px]"
                   class:list={[
                     cleanPathname === href &&
-                      "text-default pl-[10px] sidebar-item-active",
+                      "text-default pl-3 sidebar-item-active",
                     cleanPathname !== href &&
                       "text-ghost hover:text-default transition-colors duration-200 sidebar-item",
                   ]}
@@ -67,7 +67,7 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 
     if (item) {
       gsap.to(item, {
-        x: isEnter ? 10 : 0,
+        x: isEnter ? 12 : 0,
         duration: 0.35,
         ease: "power4.out",
       });
