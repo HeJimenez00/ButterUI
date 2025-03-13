@@ -40,10 +40,10 @@ const BtnCopy = ({ code }) => {
     <button
       ref={buttonRef}
       onClick={handleCopy}
-      className="btn p-[5px] text-body rounded-lg text-default bg-fg-primary transition-shadow"
+      className="btn p-[5px] text-body rounded-lg text-default dark:text-default-dark bg-fg-secondary dark:bg-fg-primary-dark transition-shadow"
       aria-label={isCopied ? "Código copiado" : "Copiar código al portapapeles"}
     >
-      <span ref={iconRef} className="text-default">
+      <span ref={iconRef}>
         {isCopied ? (
           <svg
             viewBox="0 0 24 24"

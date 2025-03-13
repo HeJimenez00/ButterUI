@@ -23,7 +23,7 @@ const heads = headings.slice(1) ?? [];
           <li class:list={[depth !== 2 ? "ml-3" : "", "py-[2px]"]}>
             <a
               href={`#${slug}`}
-              class="block text-small text-ghost hover:text-default transition-colors py-[2px]"
+              class="block text-small text-ghost dark:text-ghost-dark hover:text-default dark:hover:text-default-dark transition-colors py-[2px]"
             >
               {text}
             </a>
@@ -37,10 +37,10 @@ const heads = headings.slice(1) ?? [];
       <a
         href={`https://github.com/HeJimenez00/AstraUI/tree/main/src/content${pathname}.mdx`}
         target="_blank"
-        class="flex items-center gap-1 text-small"
+        class="inline-flex items-center gap-1 text-small relative after:content-[''] after:bg-default after:dark:bg-default-dark after:w-full after:h-[1px] after:block after:bottom-0 after:absolute"
       >
-        <Icon name="edit" class="text-default" />
-        <span class="text-default">Edit this page</span>
+        <Icon name="edit" class="text-default dark:text-default-dark" />
+        <span class="text-default dark:text-default-dark">Edit this page</span>
       </a>
     </li>
   </ul>

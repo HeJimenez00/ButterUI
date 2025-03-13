@@ -8,7 +8,9 @@ const { pathname } = Astro.url;
 const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 ---
 
-<nav class="sidebar bg-neutral-white md:border-0 lg:bg-transparent">
+<nav
+  class="sidebar bg-neutral-white lg:bg-transparent dark:bg-fg-secondary-dark dark:lg:bg-transparent md:border-0"
+>
   <SidebarToggle client:load> Menu </SidebarToggle>
   <div class="sidebar-items hidden lg:block">
     {
@@ -19,7 +21,8 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
             {sideNavbarItems[idx]?.items?.map(({ href, title }) => (
               <li
                 class:list={[
-                  cleanPathname === href && "bg-fg-secondary rounded-xl",
+                  cleanPathname === href &&
+                    "bg-fg-secondary dark:bg-fg-primary-dark rounded-xl",
                 ]}
               >
                 <a
@@ -27,9 +30,9 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
                   class="relative z-10 block text-small py-[6px]"
                   class:list={[
                     cleanPathname === href &&
-                      "text-default pl-3 sidebar-item-active",
+                      "text-default dark:text-default-dark pl-3 sidebar-item-active",
                     cleanPathname !== href &&
-                      "text-ghost hover:text-default transition-colors duration-200 sidebar-item",
+                      "text-ghost dark:text-ghost-dark hover:text-default hover:dark:text-default-dark transition-colors duration-200 sidebar-item",
                   ]}
                 >
                   {title}

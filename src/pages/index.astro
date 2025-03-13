@@ -7,8 +7,16 @@ import { Experience } from "@components/experience/Experience";
   title="Butter"
   description="Catalog of UI components as smooth as butter: soft, fluid, and designed for developers."
 >
-  <div class="radial-gradient"></div>
-  <div class="radial-gradient blur-sm"></div>
+  <div
+    class="radial-gradient light:bg-[radial-gradient(ellipse_at_center,_transparent_60%,_var(--color-g-50)_90%)] dark:bg-[radial-gradient(ellipse_at_center,_transparent_60%,_var(--color-g-1000)_90%)]"
+  >
+  </div>
+
+  <div
+    class="radial-gradient blur light:mask-[radial-gradient(ellipse_at_center,_transparent_40%,_var(--color-g-50)_100%)] dark:mask-[radial-gradient(ellipse_at_center,_transparent_40%,_var(--color-g-1000)_100%)] backdrop-blur-[10px]"
+  >
+  </div>
+
   <div class="experience">
     <Experience client:load />
   </div>
@@ -44,5 +52,22 @@ import { Experience } from "@components/experience/Experience";
       var(--color-g-50) 100%
     );
     backdrop-filter: blur(10px);
+  }
+  @media (prefers-color-scheme: dark) {
+    .radial-gradient {
+      background-image: radial-gradient(
+        ellipse at center,
+        transparent 60%,
+        var(--color-g-1000) 90%
+      );
+    }
+
+    .radial-gradient.blur {
+      mask-image: radial-gradient(
+        ellipse at center,
+        transparent 40%,
+        var(--color-g-1000) 100%
+      );
+    }
   }
 </style>

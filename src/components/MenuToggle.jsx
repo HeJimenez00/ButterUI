@@ -9,7 +9,7 @@ export const MenuToggle = () => {
 
   return (
     <button
-      className="navbar-icon md:hidden p-[6px] text-default"
+      className="navbar-icon md:hidden p-[6px] text-default dark:text-default-dark"
       onClick={toggleMenu}
     >
       {!isOpen ? (
