@@ -1,7 +1,8 @@
 {
-  "name": "astra",
+  "name": "butterui",
   "type": "module",
   "version": "0.0.1",
+  "description": "Catalog of UI components as smooth as butter: soft, fluid, and designed for developers.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
