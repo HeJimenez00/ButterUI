@@ -1,6 +1,6 @@
 import type { RegistryEntry } from "./schema";
 
-export const astraRegistry: RegistryEntry[] = [
+export const butterRegistry: RegistryEntry[] = [
   {
     name: "AvatarList",
     type: "butter",
@@ -15,15 +15,5 @@ export const astraRegistry: RegistryEntry[] = [
     name: "Jelly",
     type: "butter",
     files: [{ path: "src/registry/butter/Jelly.astro" }],
-  },
-  {
-    name: "JellyReveal",
-    type: "butter",
-    files: [{ path: "src/registry/butter/JellyReveal.astro" }],
-  },
-  {
-    name: "DeepFocus",
-    type: "butter",
-    files: [{ path: "src/registry/butter/DeepFocus.astro" }],
   },
 ];

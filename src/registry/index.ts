@@ -1,8 +1,8 @@
 import { registrySchema } from "./schema";
-import { astraRegistry } from "./registry-butter";
+import { butterRegistry } from "./registry-butter";
 import { examplesRegistry } from "./registry-examples";
 
-export const registry = [...astraRegistry, ...examplesRegistry];
+export const registry = [...butterRegistry, ...examplesRegistry];
 
 registrySchema.parse(registry);
 
