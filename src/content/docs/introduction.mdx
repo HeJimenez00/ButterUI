@@ -1,7 +1,34 @@
 ---
-title: "Introduction"
-description: "Introduction"
-date: "2025-01-23"
+title: "🧈 Welcome to ButterUI"
+description: "Butter/ui is a simple and easy-to-use user interface (UI) component catalog that feels just like butter: super smooth and open-source!"
+date: "January 23, 2025"
 ---
+import { Image } from 'astro:assets';
+import ogImage from "../../assets/OG.jpg";
+
 
 # {frontmatter.title}
+<span>{frontmatter.date}</span>
+{frontmatter.description}.
+
+<div class="mt-10 overflow-hidden rounded-[15px] w-full h-auto">
+  <Image src={ogImage} alt="Imagen de introduccion a ButterUI" width="auto" height="auto" />
+</div>
+
+## Why Butter?
+This catalog is designed to help you create attractive and enjoyable interfaces in <ExternalLink href="https://astro.build/">Astro.</ExternalLink> Impress your users and clients with smooth interactions and amazing design.
+
+### Easy and straightforward
+Visit the <ExternalLink href="http://localhost:4321/docs/components/avatar">Components</ExternalLink> section, copy the one you like the most, and paste it into your project. Easy peasy!
+
+### Easy customization
+Butter is built with <ExternalLink href="https://tailwindcss.com/">Tailwind</ExternalLink>, but you can also write custom CSS directly below the component using `<style>`.
+
+### Clean and smooth design
+Each component is designed to be simple yet stylish, making it look great in any project.
+
+### Microinteractions  
+Butter adds subtle animations and interactions that enhance the user experience, making your product enjoyable.
+
+## Our principles
+> Butter was born because, as a developer, I always wanted components that were pleasant to look at, easy to integrate, and with animations that weren’t intrusive. After exploring several libraries that, for the most part, didn’t meet my expectations, I decided to create Butter so you can build amazing interfaces without overcomplicating things.

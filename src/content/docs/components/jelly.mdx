@@ -3,47 +3,36 @@ title: Jelly
 description: "A fluid and interactive UI element that adds a playful blob-like animation to your Astro projects. Perfect for creating engaging hover effects or dynamic backgrounds, the Jelly component brings a touch of organic movement to your web designs"
 date: "February 8, 2025"
 ---
-import TerminalBlock from "../../../components/TerminalBlock.astro";
-
 # {frontmatter.title}
 
 <span>{frontmatter.date}</span>
 
 {frontmatter.description}.
 
-<PreviewComponent name="JellyReveal" />
-
-## Installation
-
-To use this component, you first need to install the <ExternalLink href="https://github.com/natemoo-re/astro-icon">Astro Icon</ExternalLink> package:
-<TerminalBlock code="npx astro add astro-icon" />
+<PreviewComponent name="JellyMain" />
 
 ## Root
 
 | Prop             | Default                | Type      | Description                                                                |
 |:-----------------|:-----------------------|:----------|:---------------------------------------------------------------------------|
-| `title`          | -                      | `string`  | Title of the card.                                                         |
-| `owner`          | -                      | `string`  | Name of the owner or author.                                               |
-| `location`       | -                      | `string`  | Location associated with the card.                                         |
-| `src`            | -                      | `string`  | URL of the background image.                                               |
-| `alt`            | -                      | `string`  | Alternative text for the image.                                            |
-| `iconLocation`   | 'location'             | `string`  | Name of the icon for the location.                                         |
-| `width`          | 'w-60'                 | `string`  | Tailwind class for the container width.                                    |
-| `height`         | 'h-72'                 | `string`  | Tailwind class for the container height.                                   |
-| `animate`        | true                   | `boolean` | Determines if the reveal animation is applied on hover.                    |
-| `containerClass` | -                     | `string`  | Additional classes for the main container.                                 |
-| `titleClass`     | -                     | `string`  | Additional classes for the title.                                          |
-| `ownerClass`     | -                     | `string`  | Additional classes for the owner name.                                     |
-| `locationClass`  | -                     | `string`  | Additional classes for the location.                                       |
+| `title`          | -                      | `string`  | Title of the card                                                         |
+| `titleClass`     | -                     | `string`  | Additional classes for the title                                          |
+| `owner`          | -                      | `string`  | Name of the owner or author                                               |
+| `ownerClass`     | -                     | `string`  | Additional classes for the owner name                                     |
+| `location`       | -                      | `string`  | Location associated with the card                                         |
+| `locationClass`  | -                     | `string`  | Additional classes for the location                                       |
+| `containerClass` | -                     | `string`  | Additional classes for the main container                                 |
+| `src`            | -                      | `string`  | URL of the background image                                               |
+| `alt`            | -                      | `string`  | Alternative text for the image                                            |
+| `icon`   | 'location'             | `string`  | Name of the icon for the location                                         |
+| `width`          | 'w-60'                 | `string`  | Tailwind class for the container width                                    |
+| `height`         | 'h-72'                 | `string`  | Tailwind class for the container height                                   |
+| `animate`        | true                   | `boolean` | Determines if the reveal animation is applied on hover                    |
 
 ## Features
 1. <span>Customizable image display</span>
 2. <span>Flexible content structure</span>
-3. <span>Stylish design with rounded corners</span>
 4. <span>Optional hover animations</span>
-5. <span>GSAP-powered smooth animations</span>
-6. <span>Customizable CSS classes</span>
-7. <span>Icon integration with <ExternalLink href="https://github.com/natemoo-re/astro-icon">Astro Icon</ExternalLink></span>
 8. <span>Responsive layout</span>
 
 ## Example
