@@ -1,5 +1,5 @@
 import { registrySchema } from "./schema";
-import { astraRegistry } from "./registry-astra";
+import { astraRegistry } from "./registry-butter";
 import { examplesRegistry } from "./registry-examples";
 
 export const registry = [...astraRegistry, ...examplesRegistry];

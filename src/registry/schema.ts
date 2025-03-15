@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const registryItemTypeSchema = z.enum(["astra", "example"]);
+export const registryItemTypeSchema = z.enum(["butter", "example"]);
 
 export const registryFileSchema = z.object({
   path: z.string(),

@@ -15,3 +15,15 @@ export interface MainNavbarItem extends NavItem {
 }
 
 export interface SideBarNavbarItem extends SidebarNavbarItem {}
+
+export interface AvatarItem {
+  name: string;
+  src: string;
+  alt: string;
+}
+
+export interface ImageItem {
+  src: string;
+  alt: string;
+  href?: string;
+}

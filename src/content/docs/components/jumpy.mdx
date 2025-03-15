@@ -18,23 +18,23 @@ Insipirated by <ExternalLink href="https://x.com/ajfreed_design/status/186385794
 2. <span>Animaciones suaves con GSAP</span>
 3. <span>Interactividad al pasar el mouse</span>
 4. <span>Personalización flexible</span>
-5. <span>Carga perezosa de imágenes 🦥</span>
 7. <span>Compatibilidad con enlaces `anchor`</span>
 
 ## Root
 
 | Prop           | Default                                                   | Type                            | Description                                                  |
 |:---------------|:----------------------------------------------------------|:--------------------------------|-------------------------------------------------------------|
-| `images`       | []                                                         | `Image[]`                       | Array of image objects with `src`, `alt` and `href` (optional) properties      |
+| `images`       | []                            | `Image[]`                     | Array of image objects with `src`, `alt`, and optional `href` property.                             |
+| `size`       | 'medium'                                                         | `'small' \| 'medium' \| 'large'`                       | tamaño de las imagenes (responsive by default)      |
+| `spacing`          | '-ml-6'                                                   | `string`                        | margin between images (use margin-left from Tailwind)                    |
+| `spacingHover`   | 40                                                        | `number`                        | Separation distance when hovering over images               |
 | `minRotation`  | 7                                                         | `number`                        | Minimum rotation angle for images in degrees                |
 | `maxRotation`  | 8                                                         | `number`                        | Maximum rotation angle for images in degrees                |
-| `gap`          | '-ml-5'                                                   | `string`                        | Gap between images (as a Tailwind class)                    |
-| `initEase`     | 'elastic.out(0.5, 0.3)'                                   | `gsap.EaseFunction \| string`   | <ExternalLink href="https://gsap.com/docs/v3/Eases/">GSAP easing</ ExternalLink> function for initial animation                  |
-| `separation`   | 40                                                        | `number`                        | Separation distance when hovering over images               |
-| `hoverEase`    | 'power4.out'                                              | `gsap.EaseFunction \| string`   | GSAP easing function for hover animation                    |
-| `duration`     | 0.5                                                       | `number`                        | Duration of the animations in seconds                       |
+| `initEase`     | 'elastic.out(0.5, 0.4)'                                   | `gsap.EaseFunction \| string`   | <ExternalLink href="https://gsap.com/docs/v3/Eases/">GSAP easing</ ExternalLink> function for initial animation                  |
+| `hoverEase`    | 'power4.out'                                              | `gsap.EaseFunction \| string`   | <ExternalLink href="https://gsap.com/docs/v3/Eases/">GSAP easing</ ExternalLink> function for hover animation                    |
 | `imageStyles`  | -                                                        | `string`                        | Additional classes for the image                            |
-| `wrapperStyles`| - | `string`                     | Additional classes for the image wrapper                    |
+| `wrapperStyles`| - | `string`                     | Additional classes for the wrapper `Image`                   |
+| `duration`     | 0.5                           | `number`                      | Duration of the animations in seconds.                                                            |
 
 ## Examples
 ### Whith text
