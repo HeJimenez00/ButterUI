@@ -1,8 +1,12 @@
 {
-  "name": "butterui",
+  "name": "butter-ui",
   "type": "module",
   "version": "0.0.1",
-  "description": "Catalog of UI components as smooth as butter: soft, fluid, and designed for developers.",
+  "description": "Butter/ui is a simple and easy-to-use user interface (UI) component catalog that feels just like butter: super smooth and open-source!.",
+  "private": false,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -12,6 +16,7 @@
   "dependencies": {
     "@astrojs/mdx": "^4.0.8",
     "@astrojs/react": "^4.2.0",
+    "@butter-js/ui": "^0.1.1",
     "@react-three/drei": "^9.117.3",
     "@react-three/fiber": "^8.17.12",
     "@react-three/postprocessing": "^2.16.3",
