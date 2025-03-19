@@ -29,6 +29,14 @@ export default defineConfig({
           ],
         },
         {
+          "./src/components/TerminalBlock.astro": [
+            ["default", "TerminalBlock"],
+          ],
+        },
+        {
+          "./src/components/Code.astro": [["default", "Code"]],
+        },
+        {
           "./src/components/ExternalLink.astro": [["default", "ExternalLink"]],
         },
         {

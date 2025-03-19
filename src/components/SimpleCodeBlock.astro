@@ -1,0 +1,36 @@
+---
+import { codeToHtml } from "shiki";
+import { transformerMetaHighlight } from "@shikijs/transformers";
+
+interface Props {
+  code: string;
+  meta: string;
+}
+
+const { code, meta } = Astro.props;
+
+const textCode = await codeToHtml(code, {
+  lang: "typescript",
+  themes: {
+    light: "vitesse-light",
+    dark: "vitesse-dark",
+  },
+  transformers: [
+    {
+      code(node) {
+        this.addClassToHast(node, "astro");
+      },
+    },
+    transformerMetaHighlight(),
+  ],
+  meta: {
+    __raw: meta,
+  },
+});
+---
+
+<figure
+  class="rounded-[15px] mt-5 bg-white dark:bg-g-900 border border-border dark:border-border-dark py-2"
+>
+  <pre class="terminal" lang={"astro"} set:html={textCode} />
+</figure>
