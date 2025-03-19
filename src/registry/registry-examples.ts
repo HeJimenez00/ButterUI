@@ -7,14 +7,14 @@ export const examplesRegistry: RegistryEntry[] = [
     files: [{ path: "src/registry/examples/AvatarListMain.astro" }],
   },
   {
-    name: "VerticalAvatarList",
+    name: "AvatarListVertical",
     type: "example",
-    files: [{ path: "src/registry/examples/VerticalAvatarList.astro" }],
+    files: [{ path: "src/registry/examples/AvatarListVertical.astro" }],
   },
   {
-    name: "AvatarBlog",
+    name: "AvatarListBlog",
     type: "example",
-    files: [{ path: "src/registry/examples/AvatarBlog.astro" }],
+    files: [{ path: "src/registry/examples/AvatarListBlog.astro" }],
   },
   {
     name: "JumpyMain",

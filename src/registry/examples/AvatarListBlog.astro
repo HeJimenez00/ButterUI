@@ -1,0 +1,62 @@
+---
+import { AvatarList, type AvatarItem } from "@butter-js/ui";
+
+const avatars: AvatarItem[] = [
+  {
+    name: "Gsap",
+    src: "https://pbs.twimg.com/profile_images/1713633504431394816/h28jJ1qM_400x400.jpg",
+    alt: "Gsap logo",
+  },
+  {
+    name: "FredKSchott",
+    src: "https://pbs.twimg.com/profile_images/1272979356529221632/sxvncugt_400x400.jpg",
+    alt: "Heeector logo",
+  },
+];
+
+let text = "";
+
+function getNames() {
+  for (let i = 0; i < avatars.length; i++) {
+    if (avatars.length > 1 && i === avatars.length - 1) {
+      text += ` and <span class="text-zinc-900">${avatars[i].name}</span>`;
+    } else if (i > 0 && i < avatars.length - 1) {
+      text += `, <span class="text-zinc-900">${avatars[i].name}</span>`;
+    } else {
+      text += `<span class="text-zinc-900">${avatars[i].name}</span>`;
+    }
+  }
+}
+getNames();
+---
+
+<section
+  class="max-w-[95%] md:max-w-[70%] p-5 bg-zinc-100 rounded-xl dark:bg-white"
+>
+  <h1 class="text-zinc-800 text-xl md:text-2xl lg:text-3xl font-medium">
+    Create animated avatars for stunning UI 😎
+  </h1>
+  <p class="py-2 lg:py-5 text-zinc-600 text-small lg:text-body">
+    Learn how to design and animate <span class="text-zinc-900">avatars</span> that
+    bring life to your UI. Using <span class="text-zinc-900">GSAP</span>, you
+    can create <span class="text-zinc-900"
+      >dynamic hover effects, smooth scaling</span
+    >, and <span class="text-zinc-900">interactive transitions</span>. These
+    animated avatars are perfect for adding <span class="text-zinc-900"
+      >personality</span
+    > to your project, whether it's a website, app, or portfolio. Stand out with
+    engaging and <span class="text-zinc-900">visually appealing animations</span
+    > that captivate your audience!
+  </p>
+  <div class="flex items-center gap-3">
+    <AvatarList
+      data={avatars}
+      size="small"
+      imageStyles="!ring-zinc-100 !shadow-none"
+    />
+    <div>
+      <p class="text-xs text-zinc-900">Created by</p>
+      <p class="text-xs text-zinc-900" set:html={text} />
+    </div>
+  </div>
+</section>

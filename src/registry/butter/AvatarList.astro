@@ -1,0 +1,177 @@
+---
+import { Image } from "astro:assets";
+import { cva } from "class-variance-authority";
+import type { AvatarItem } from "../../types/index.ts";
+
+interface AvatarList {
+  data: AvatarItem[];
+  direction?: "horizontal" | "vertical-left" | "vertical-right";
+  size?: "medium" | "small";
+  shape?: "circle" | "rounded";
+  imageStyles?: string;
+  nameStyles?: string;
+}
+
+const avatar = cva("", {
+  variants: {
+    direction: {
+      horizontal: [""],
+      "vertical-left": ["flex-col"],
+      "vertical-right": ["flex-col"],
+    },
+    size: {
+      small: ["w-9 h-9"],
+      medium: ["w-16 h-16 max-sm:w-14 max-sm:h-14"],
+    },
+    shape: {
+      circle: ["rounded-full"],
+      rounded: ["rounded-xl"],
+    },
+  },
+  defaultVariants: {
+    direction: "horizontal",
+  },
+});
+
+const {
+  data = [],
+  direction = "horizontal",
+  size = "medium",
+  shape = "circle",
+  nameStyles = "",
+  imageStyles = "",
+} = Astro.props as AvatarList;
+---
+
+<ul
+  class:list={[
+    "avatar flex relative",
+    direction !== "horizontal" && avatar({ direction }),
+  ]}
+>
+  {
+    data.map(({ name, src, alt }) => (
+      <li
+        class:list={[
+          "avatar-item relative first:ml-0 first:mt-0",
+          direction === "horizontal"
+            ? size === "medium"
+              ? "-ml-5"
+              : "-ml-3"
+            : direction === "vertical-left" || direction === "vertical-right"
+              ? size === "medium"
+                ? "-mt-5"
+                : "-mb-3"
+              : "",
+        ]}
+      >
+        <Image
+          src={src || "/placeholder.svg"}
+          alt={alt}
+          width={size === "small" ? 36 : 64}
+          height={size === "small" ? 36 : 64}
+          widths={[36, 64]}
+          sizes="(max-width: 360px) 36px, 64px"
+          loading="lazy"
+          class:list={[
+            "avatar-image object-cover aspect-square ring-white shadow-xl shadow-black/15 dark:ring-zinc-100",
+            size === "small" ? "ring-[3px]" : "ring-[3px] md:ring-[4px]",
+            avatar({ size, shape }),
+            imageStyles,
+          ]}
+        />
+        <span
+          class:list={[
+            "avatar-name absolute opacity-100 -translate-y-1/2 px-[6px] py-[1px] text-zinc-700 rounded-full bg-white ring-1 ring-zinc-300 dark:ring-zinc-100 dark:bg-zinc-300",
+            nameStyles,
+            size === "medium" ? "text-sm" : "text-xs",
+
+            direction === "horizontal" && "left-1/2 -translate-x-1/2",
+
+            (direction === "vertical-left" || direction === "vertical-right") &&
+              "top-1/2",
+
+            direction === "horizontal"
+              ? size === "medium"
+                ? "-top-8"
+                : size === "small"
+                  ? "-top-6"
+                  : ""
+              : "",
+
+            direction === "vertical-right"
+              ? size === "medium"
+                ? "left-full ml-4"
+                : size === "small"
+                  ? "left-full ml-4"
+                  : ""
+              : direction === "vertical-left"
+                ? size === "medium"
+                  ? "right-full mr-4"
+                  : size === "small"
+                    ? "right-full mr-4"
+                    : ""
+                : "",
+          ]}
+        >
+          {name}
+        </span>
+      </li>
+    ))
+  }
+</ul>
+
+<script>
+  import { gsap } from "gsap";
+
+  function initAvatar() {
+    const $avatarList = document.querySelectorAll(".avatar");
+    if (!$avatarList.length) return;
+
+    $avatarList.forEach(($avatarItem) => {
+      const handleAvatar = (ev: Event, isEnter: boolean) => {
+        const $item = (ev.target as HTMLElement).closest(".avatar-item");
+        if ($item && $avatarItem.contains($item)) {
+          const $name = $item.querySelector(".avatar-name") as HTMLElement;
+
+          gsap.to($item, {
+            y: isEnter ? -10 : 0,
+            duration: 0.6,
+            ease: "elastic.out(0.6, 0.3)",
+          });
+
+          gsap.to($name, {
+            opacity: isEnter ? 1 : 0,
+            scale: isEnter ? 1 : 0.9,
+            filter: isEnter ? " blur(0px)" : "blur(4px)",
+            duration: 0.3,
+            ease: "power1",
+          });
+        }
+      };
+
+      $avatarItem.addEventListener(
+        "mouseenter",
+        (ev) => handleAvatar(ev, true),
+        true,
+      );
+      $avatarItem.addEventListener(
+        "mouseleave",
+        (ev) => handleAvatar(ev, false),
+        true,
+      );
+    });
+  }
+  initAvatar();
+</script>
+
+<style>
+  .avatar-name {
+    visibility: hidden;
+    scale: 0.9;
+    transition: visibility 0.3s ease;
+  }
+  .avatar-item:hover .avatar-name {
+    visibility: visible;
+  }
+</style>
