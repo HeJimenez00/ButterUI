@@ -87,7 +87,7 @@
   --color-fg-secondary: var(--color-g-100);
   --color-fg-tertiary: var(--color-y-400);
   --color-border: var(--color-g-100);
-  --color-b-light: var(--color-b-600);
+  --color-blue: var(--color-b-700);
 
   /* darkmode */
   --color-primary-dark: var(--color-y-500);
@@ -97,6 +97,7 @@
   --color-fg-primary-dark: oklch(36% 0 0 / 50%);
   --color-fg-secondary-dark: var(--color-g-900);
   --color-fg-tertiary-dark: var(--color-y-500);
+  --color-blue-dark: var(--color-b-600);
 }
 
 /*
@@ -172,6 +173,10 @@
         @apply text-small inline-block mt-2 mb-6 text-ghost dark:text-ghost-dark;
       }
 
+      & p > code {
+        @apply font-normal bg-fg-secondary dark:bg-fg-primary-dark dark:text-ghost-dark inline-block rounded-[6px] text-ghost px-[5px] py-[2px] text-xsmall font-(family-name:--font-geist-code);
+      }
+
       & ol {
         counter-reset: listNumbers;
         counter-increment: listNumbers 0;
@@ -184,7 +189,7 @@
         &::before {
           content: counter(listNumbers);
           counter-increment: listNumbers;
-          @apply w-6 h-6 flex items-center justify-center text-right text-ghost border border-border rounded-[8px] text-xsmall dark:text-ghost-dark dark:bg-fg-primary-dark dark:border-border-dark;
+          @apply w-6 h-6 flex items-center justify-center text-right text-ghost border border-border rounded-[8px] text-xsmall bg-fg-primary dark:text-ghost-dark dark:bg-fg-secondary-dark dark:border-border-dark;
         }
       }
       ul:has(li > em) {
@@ -283,22 +288,38 @@
           @apply border-l-3 border-l-transparent text-small/[1.8];
         }
         .line.highlighted {
-          @apply bg-b-light/10 inline-block w-full border-b-light;
+          @apply bg-blue/10 inline-block w-full border-blue dark:border-blue-dark dark:bg-blue-dark/10;
         }
       }
     }
   }
   /* code */
-  pre:not(.terminal) code {
+  pre:not(.terminal) code,
+  pre:not(.terminal) pre code {
     counter-reset: lineNumbers;
     counter-increment: lineNumbers 0;
     font-family: var(--font-geist-code);
   }
 
-  pre:not(.terminal) code .line::before {
+  /* Similarly for the line numbering */
+  pre:not(.terminal) code .line::before,
+  pre:not(.terminal) pre code .line::before {
     content: counter(lineNumbers);
     counter-increment: lineNumbers;
     @apply text-ghost dark:text-ghost-dark text-right inline-block ml-[0.25rem] mr-[1.2rem] w-[1.5rem];
+  }
+
+  pre.terminal pre code {
+    counter-reset: none;
+    counter-increment: none;
+  }
+  pre.terminal pre code .line {
+    @apply pl-2;
+  }
+
+  pre.terminal pre code .line::before {
+    content: none;
+    counter-increment: none;
   }
 
   /* scrollbar */
