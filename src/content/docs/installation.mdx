@@ -1,9 +1,34 @@
 ---
 title: "Installation"
-description: "How to install Astra UI components"
+description: "Step-by-Step Guide to Installing ButterUI in Your Astro Project"
 date: "2025-01-23"
 ---
 
 # {frontmatter.title}
+<span>{frontmatter.date}</span>
 
 {frontmatter.description}.
+
+## How to install
+
+### 1. Install Butter/ui
+Install butter/ui via npm.
+
+<TerminalCodeBlock code={`npm i @butter-js/ui`} />
+
+### 2. Install TailwindCSS
+To add Tailwind CSS, use the following <ExternalLink href="https://docs.astro.build/en/guides/styling/#tailwind">Astro command</ExternalLink>.
+
+<TerminalCodeBlock code={`npx astro add tailwind`} />
+
+### 3. Install GSAP
+Install GSAP to achieve silky-smooth animations in Butter components.
+
+<TerminalCodeBlock code={`npm i gsap`} />
+
+### 4. Install CVA
+CVA simplifies the creation and management of dynamic classes with variants, optimizing `classList` handling to make Butter components flexible and easy to maintain.
+
+<TerminalCodeBlock code={`npm i class-variance-authority`} />
+
+> Building... 🔧
