@@ -1,0 +1,136 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+export interface JellyProps {
+  title: string;
+  owner: string;
+  location: string;
+  src: string;
+  alt: string;
+  iconLocation?: string;
+  width?: string;
+  height?: string;
+  containerClass?: string;
+  titleClass?: string;
+  ownerClass?: string;
+  locationClass?: string;
+  animate?: boolean;
+}
+
+const {
+  title,
+  owner,
+  location,
+  iconLocation = "location",
+  alt,
+  src,
+  width = "w-60",
+  height = "h-72",
+  containerClass,
+  titleClass,
+  ownerClass,
+  locationClass,
+  animate = true,
+} = Astro.props as JellyProps;
+
+let transformInfoY = animate ? "80%" : 0;
+let transformTextsY = animate ? "30%" : 0;
+let blur = animate ? "4px" : 0;
+let opacity = animate ? 0 : 1;
+---
+
+<div
+  class:list={["rounded-3xl overflow-hidden", width, height, containerClass]}
+>
+  <div
+    data-animate={animate}
+    class:list={["jelly-reveal-container relative", width, height]}
+  >
+    <Image
+      src={src}
+      alt={alt}
+      height={288}
+      width={240}
+      loading="lazy"
+      class="jelly-image size-full object-cover absolute inset-0"
+    />
+    <div class="flex flex-col justify-end h-full">
+      <div
+        class="jelly-reveal-info relative bg-black/50 backdrop-blur-md saturate-100 contrast-125"
+      >
+        <div class="p-4 block">
+          <h4 class:list={["text-xl font-bold text-white", titleClass]}>
+            {title}
+          </h4>
+          <span class:list={["text-sm block text-white/50", ownerClass]}
+            >{owner}</span
+          >
+        </div>
+        <footer class="jelly-reveal-footer p-4 block">
+          <span
+            class:list={[
+              "text-sm flex items-center gap-1 text-white",
+              locationClass,
+            ]}
+          >
+            <span><Icon name={iconLocation} class="text-white" /></span>{
+              location
+            }</span
+          >
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import gsap from "gsap";
+
+  document.querySelectorAll(".jelly-reveal-container").forEach((el) => {
+    const container = el as HTMLElement;
+
+    const animate = container.dataset.animate === "true";
+    if (!animate) return;
+
+    const info = container.querySelector(".jelly-reveal-info");
+    const texts = container.querySelectorAll(
+      ".jelly-reveal-info h4, .jelly-reveal-info span",
+    );
+
+    function jellyReveaAnimation(isAnimated: boolean) {
+      gsap.to(info, {
+        y: isAnimated ? 0 : "80%",
+        opacity: isAnimated ? 1 : 0,
+        duration: 0.6,
+        ease: isAnimated ? "expo.out" : "back.out",
+      });
+
+      gsap.to(texts, {
+        opacity: isAnimated ? 1 : 0,
+        y: isAnimated ? 0 : "30%",
+        filter: isAnimated ? "blur(0px)" : "blur(4px)",
+        stagger: 0.06,
+        duration: 0.6,
+        ease: "power4.out",
+        delay: isAnimated ? 0.1 : 0,
+      });
+    }
+
+    container.addEventListener("mouseenter", () => jellyReveaAnimation(true));
+    container.addEventListener("mouseleave", () => jellyReveaAnimation(false));
+  });
+</script>
+
+<style define:vars={{ transformInfoY, transformTextsY, opacity, blur }}>
+  .jelly-reveal-info {
+    transform: translateY(var(--transformInfoY));
+    opacity: var(--opacity);
+  }
+  .jelly-reveal-info h4,
+  .jelly-reveal-info span {
+    transform: translateY(var(--transformTextsY));
+    filter: blur(var(--blur));
+    opacity: var(--opacity);
+  }
+</style>
