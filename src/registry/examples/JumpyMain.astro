@@ -1,0 +1,29 @@
+---
+import type { ImageItem } from "src/types";
+import Jumpy from "../butter/Jumpy.astro";
+
+const example: ImageItem[] = [
+  {
+    src: "https://a0.muscache.com/im/pictures/hosting/Hosting-1124010734237889235/original/5d19481e-59be-49ab-a820-4af2ef1052aa.jpeg?im_w=720&im_format=avif",
+    alt: "Imagen 1",
+  },
+  {
+    src: "https://a0.muscache.com/im/pictures/hosting/Hosting-1124010734237889235/original/0dedcab2-8e2d-4aa9-9209-41abaa775b26.jpeg?im_w=720&im_format=avif",
+    alt: "Imagen 2",
+  },
+  {
+    src: "https://a0.muscache.com/im/pictures/hosting/Hosting-1124010734237889235/original/d97467a3-fe5a-4a2d-a15b-9870257eec66.jpeg?im_w=720&im_format=avif",
+    alt: "Imagen 3",
+  },
+  {
+    src: "https://a0.muscache.com/im/pictures/hosting/Hosting-1124010734237889235/original/7c1d094c-8e8d-4e5d-83e8-7fca80de7486.jpeg?im_w=720&im_format=avif",
+    alt: "Imagen 4",
+  },
+  {
+    src: "https://a0.muscache.com/im/pictures/hosting/Hosting-1124010734237889235/original/4449af5d-53a5-4909-b416-db802314894b.jpeg?im_w=720&im_format=avif",
+    alt: "Imagen 5",
+  },
+];
+---
+
+<Jumpy images={example} />

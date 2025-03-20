@@ -1,5 +1,5 @@
 ---
-import JellyReveal from "../astra/JellyReveal.astro";
+import JellyReveal from "../butter/Jelly.astro";
 
 const cardsData = [
   {
@@ -33,22 +33,24 @@ const cardsData = [
 ];
 ---
 
-<div class="grid grid-cols-2 gap-4 mx-auto max-w-[27rem] place-items-center">
-  {
-    cardsData.map(({ title, owner, location, src, alt }) => (
-      <JellyReveal
-        title={title}
-        owner={owner}
-        location={location}
-        src={src}
-        alt={alt}
-        width="w-52"
-        height="h-52"
-        containerClass="shadow-lg"
-        titleClass="!text-body"
-        ownerClass="italic"
-        locationClass="font-semibold"
-      />
-    ))
-  }
+<div class="w-full flex justify-center">
+  <div class="grid grid-cols-2 gap-4 place-items-center">
+    {
+      cardsData.map(({ title, owner, location, src, alt }) => (
+        <JellyReveal
+          title={title}
+          owner={owner}
+          location={location}
+          src={src}
+          alt={alt}
+          width="w-52"
+          height="h-52"
+          containerClass="shadow-lg"
+          titleClass="!text-body"
+          ownerClass="italic"
+          locationClass="font-semibold"
+        />
+      ))
+    }
+  </div>
 </div>

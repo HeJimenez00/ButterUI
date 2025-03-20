@@ -1,0 +1,22 @@
+---
+import Jelly from "../butter/Jelly.astro";
+
+const data = [
+  {
+    title: "The Alpes",
+    owner: "@wickedmishra on Dribbble",
+    location: "Zugspitze, Alemania",
+    alt: "text alternative",
+    src: "https://w0.peakpx.com/wallpaper/980/128/HD-wallpaper-sunset-over-the-village-wamberg-bavarian-alps-trees-germany-mountains-cabin-clouds-sky.jpg",
+    width: "w-60",
+    height: "h-72",
+    containerClass: "",
+    titleClass: "",
+    ownerClass: "",
+    locationClass: "",
+    animate: true,
+  },
+];
+---
+
+{data.map((item) => <Jelly {...item} />)}

@@ -1,5 +1,5 @@
 ---
-import Jumpy from "../astra/Jumpy.astro";
+import Jumpy from "../butter/Jumpy.astro";
 
 const images = [
   {
@@ -20,15 +20,19 @@ const images = [
 ];
 ---
 
-<h1 class="text-center text-6xl/tight">
-  <span class="text-white">Thanks for visiting!</span>
-  <span class="flex items-center gap-5 text-white"
-    >Reach me on <Jumpy
-      images={images}
-      wrapperStyles="w-12 h-12 rounded-md overflow-hidden shadow-xl shadow-black"
-      duration={0.4}
-      gap="-ml-2"
-      separation={13}
-    /></span
-  >
+<h1
+  class="text-center text-black dark:text-white text-4xl/tight md:text-5xl/tight lg:text-6xl/tight"
+>
+  <span>Thanks for visiting!</span>
+  <span class="flex items-center gap-4"
+    >Reach me on <div>
+      <Jumpy
+        images={images}
+        wrapperStyles="!ring-0"
+        size="small"
+        spacing="-ml-4 md:-ml-5"
+        spacingHover={20}
+      />
+    </div>
+  </span>
 </h1>
