@@ -10,11 +10,34 @@ const { title, description } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
-    <link rel="icon" href="/src/icons/logo.svg" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:url" content="https://butterui.com/" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="Catalog of UI components as smooth as butter: soft, fluid, and designed for developers"
+    />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/HeJimenez00/ButterUI/refs/heads/main/src/assets/OG.jpg"
+    />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="sumary_large_image" />
+    <meta name="twitter:site" content="@heeector00" />
+    <meta name="twitter:creator" content="@heeector00" />
+    <meta
+      name="twitter:title"
+      content="A catalog of UI components as smooth as butter — soft, fluid, and developer-friendly"
+    />
+    <meta
+      name="twitter:description"
+      content="Catalog of UI components as smooth as butter: soft, fluid, and designed for developers"
+    />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
     <NavbarMain />
