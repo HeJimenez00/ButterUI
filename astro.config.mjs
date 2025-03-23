@@ -5,8 +5,6 @@ import tailwindcss from "@tailwindcss/vite";
 
 import react from "@astrojs/react";
 
-import icon from "astro-icon";
-
 import mdx from "@astrojs/mdx";
 
 import AutoImport from "astro-auto-import";
@@ -20,7 +18,6 @@ export default defineConfig({
   },
   integrations: [
     react(),
-    icon(),
     AutoImport({
       imports: [
         {
