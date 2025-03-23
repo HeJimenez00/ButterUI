@@ -11,8 +11,10 @@
       "@components/*": ["./src/components/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@sections/*": ["./src/sections/*"],
-      "@icons/*": ["./src/icons/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@icons/*": ["./src/assets/svgs/*"],
+      "@types/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@consts/*": ["./src/consts/*"]
     }
   }
 }
