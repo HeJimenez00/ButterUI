@@ -1,9 +1,11 @@
 ---
-import { Icon } from "astro-icon/components";
+import Icon from "./Icon.astro";
 
 const { headings } = Astro.props;
 const { pathname } = Astro.url;
 const heads = headings.slice(1) ?? [];
+
+const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 ---
 
 <aside class="sidebar hidden lg:block">
@@ -35,11 +37,13 @@ const heads = headings.slice(1) ?? [];
   <ul class="pt-6">
     <li>
       <a
-        href={`https://github.com/HeJimenez00/AstraUI/tree/main/src/content${pathname}.mdx`}
+        href={`https://github.com/HeJimenez00/AstraUI/tree/main/src/content${cleanPathname}.mdx`}
         target="_blank"
         class="inline-flex items-center gap-1 text-small relative after:content-[''] after:bg-default after:dark:bg-default-dark after:w-full after:h-[1px] after:block after:bottom-0 after:absolute"
       >
-        <Icon name="edit" class="text-default dark:text-default-dark" />
+        <div class="text-default dark:text-default-dark">
+          <Icon id="edit" size="20" />
+        </div>
         <span class="text-default dark:text-default-dark">Edit this page</span>
       </a>
     </li>

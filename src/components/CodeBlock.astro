@@ -1,8 +1,8 @@
 ---
-import { Icon } from "astro-icon/components";
 import { codeToHtml } from "shiki";
 import { transformerMetaHighlight } from "@shikijs/transformers";
 import BtnCopy from "./BtnCopy.jsx";
+import Icon from "./Icon.astro";
 
 const { code, name, meta } = Astro.props;
 
@@ -33,7 +33,7 @@ const textCode = await codeToHtml(code, {
     class="flex items-center justify-between px-[15px] py-[10px] border-b border-border dark:border-border-dark"
   >
     <figcaption class="sticky top-0 flex items-center gap-2">
-      <Icon name="astro" class="text-small" />
+      <Icon id="astro-icon" size="18" class="text-ghost dark:text-ghost-dark" />
       {
         hasFileName && (
           <p class="filename text-small flex">

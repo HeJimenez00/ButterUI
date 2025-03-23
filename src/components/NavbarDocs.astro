@@ -1,7 +1,7 @@
 ---
 import { navigationConfig } from "src/config/navigation-config";
-import { MenuToggle } from "../components/MenuToggle.jsx";
-import { Icon } from "astro-icon/components";
+import MenuToggle from "../components/MenuToggle.jsx";
+import Icon from "./Icon.astro";
 
 const mainNavbarItems = navigationConfig.mainNavbar[0].items ?? [];
 ---
@@ -13,7 +13,7 @@ const mainNavbarItems = navigationConfig.mainNavbar[0].items ?? [];
     class="flex justify-between items-center navbar w-full max-w-[1100px] mx-auto"
   >
     <a href="/" class="flex items-center gap-1">
-      <Icon name="logo" width="35" height="35" />
+      <Icon id="logo" size="36" />
     </a>
     <MenuToggle client:load />
     <ul

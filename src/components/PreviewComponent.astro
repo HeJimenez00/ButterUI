@@ -1,7 +1,7 @@
 ---
 import { Index } from "../__registry__/index";
 import CodeBlock from "./CodeBlock.astro";
-import { Icon } from "astro-icon/components";
+import Icon from "./Icon.astro";
 
 const { name, meta } = Astro.props;
 
@@ -26,10 +26,10 @@ try {
     {description && <p set:html={description} />}
     <div class="switch">
       <button type="button" class="button switch-active" data-action="preview">
-        <Icon name="preview" />
+        <Icon id="preview" class="p-[2px]" />
       </button>
       <button type="button" data-action="code">
-        <Icon name="code" />
+        <Icon id="code" class="p-[2px]" />
       </button>
     </div>
   </header>
