@@ -260,7 +260,7 @@
       @apply flex gap-[5px] p-1 bg-fg-primary dark:bg-fg-secondary-dark border border-border dark:border-border-dark rounded-xl w-max text-small;
     }
     .switch > button {
-      @apply bg-transparent border border-transparent rounded-[8px] p-2;
+      @apply bg-transparent border border-transparent rounded-[8px] px-[6px] py-[2px];
       svg {
         @apply w-5;
       }
