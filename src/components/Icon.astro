@@ -1,0 +1,23 @@
+---
+const { id, class: className, size = 24 } = Astro.props;
+
+const iconComponents = {
+ "arrow-right": () => import("@icons/ArrowRight.astro"),
+  "arrow-top": () => import("@icons/ArrowTop.astro"),
+  "astro-icon": () => import("@icons/Astro.astro"),
+  code: () => import("@icons/Code.astro"),
+  copy: () => import("@icons/Copy.astro"),
+  docs: () => import("@icons/Docs.astro"),
+  dots: () => import("@icons/Dots.astro"),
+  edit: () => import("@icons/Edit.astro"),
+  logo: () => import("@icons/Logo.astro"),
+  link: () => import("@icons/Link.astro"),
+  preview: () => import("@icons/Preview.astro"),
+  terminal: () => import("@icons/Terminal.astro"),
+  x: () => import("@icons/X.astro"),
+};
+
+const IconComponent = await iconComponents[id]?.();
+---
+
+{IconComponent && <IconComponent.default class={className} size={size} />}
