@@ -13,14 +13,14 @@ const mainNavbarItems = navigationConfig.mainNavbar[0].items ?? [];
       <Icon id="logo" size={36} />
     </a>
     <ul
-      class="navbar-items gap-5 hidden absolute right-5 left-5 top-16 border border-border dark:lg:bg-transparent dark:border-border-dark bg-g-50 dark:bg-fg-secondary-dark backdrop-blur-xl md:backdrop-blur-none rounded-2xl md:border-0 p-3 space-y-2 md:space-y-0 md:flex md:relative md:top-0 md:left-0 md:right-0 md:bg-transparent md:text-body dark:bg-"
+      class="navbar-items gap-5 hidden absolute right-5 left-5 top-16 border border-border dark:lg:bg-transparent dark:border-border-dark bg-g-50 dark:bg-fg-secondary-dark backdrop-blur-xl md:backdrop-blur-none rounded-2xl md:border-0 p-3 space-y-2 md:space-y-0 md:flex md:relative md:top-0 md:left-0 md:right-0 md:bg-transparent md:text-body dark:md:bg-transparent"
     >
       {
         mainNavbarItems.map(({ title, href }) => (
           <li>
             <a
               href={href}
-              class="block md:inline px-4 py-2 md:p-0 hover:text-default dark:hover:text-default-dark hover:bg-fg-secondary lg:hover:bg-transparent dark:lg:hover:bg-transparent dark:hover:bg-fg-primary-dark dark:lg:bg-transparent transition-colors duration-100 rounded-xl md:text-small text-ghost dark:text-ghost-dark"
+              class="block md:inline px-4 py-2 md:p-0 hover:text-default dark:hover:text-default-dark dark:hover:md:bg-transparent hover:bg-fg-secondary lg:hover:bg-transparent dark:lg:hover:bg-transparent dark:hover:bg-fg-primary-dark dark:lg:bg-transparent transition-colors duration-100 rounded-xl md:text-small text-ghost dark:text-ghost-dark"
             >
               {title}
             </a>
