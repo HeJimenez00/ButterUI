@@ -4,14 +4,14 @@ description: "Butter/ui is a simple and easy-to-use user interface (UI) componen
 date: "January 23, 2025"
 ---
 import { Image } from 'astro:assets';
-import ogImage from "../../assets/OG.jpg";
+import ogImage from "../../../public/OG.jpg";
 
 
 # {frontmatter.title}
 <span>{frontmatter.date}</span>
 {frontmatter.description}.
 
-<div class="mt-10 overflow-hidden rounded-[15px] w-full h-auto">
+<div class="mt-10 overflow-hidden rounded-[15px] w-full h-auto border-1 border-border dark:border-border-dark">
   <Image src={ogImage} alt="Imagen de introduccion a ButterUI" width="auto" height="auto" />
 </div>
 
