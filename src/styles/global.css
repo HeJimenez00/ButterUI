@@ -163,7 +163,7 @@
       & h1 ~ p {
         @apply text-body dark:text-default-dark text-default;
         & > code {
-          @apply bg-fg-secondary dark:bg-fg-primary-dark dark:text-ghost-dark inline-block rounded-[6px] text-ghost px-[5px] py-[2px] text-xsmall font-(family-name:--font-geist-code);
+          @apply bg-fg-secondary dark:bg-fg-primary-dark dark:text-ghost-dark inline-block rounded-[6px] text-ghost px-[5px] py-[1px] text-xsmall font-(family-name:--font-geist-code);
         }
         & a {
           @apply text-body;
@@ -174,7 +174,7 @@
       }
 
       & p > code {
-        @apply font-normal bg-fg-secondary dark:bg-fg-primary-dark dark:text-ghost-dark inline-block rounded-[6px] text-ghost px-[5px] py-[2px] text-xsmall font-(family-name:--font-geist-code);
+        @apply font-normal bg-fg-secondary dark:bg-fg-primary-dark dark:text-ghost-dark inline-block rounded-[6px] text-ghost px-[5px] py-[1px] text-xsmall font-(family-name:--font-geist-code);
       }
 
       & ol {
@@ -221,7 +221,7 @@
         @apply bg-neutral-white dark:bg-fg-secondary-dark border border-border dark:border-border-dark rounded-xl w-full block overflow-x-auto;
 
         code {
-          @apply bg-fg-secondary dark:bg-fg-primary-dark dark:text-ghost-dark inline-block rounded-[6px] text-ghost px-[5px] py-[2px] text-xsmall font-(family-name:--font-geist-code);
+          @apply bg-fg-secondary dark:bg-fg-primary-dark dark:text-ghost-dark inline-block rounded-[6px] text-ghost px-[5px] py-[1px] text-xsmall font-(family-name:--font-geist-code);
         }
         .external-link {
           @apply text-small;
