@@ -9,9 +9,9 @@
 }
 
 @theme {
-  --font-custom: "X, -apple-system, BlinkMacSystemFont, " Segoe UI ", " Roboto
-    ", " Oxygen ", " Ubuntu ", " Cantarell ", " Fira Sans ", " Droid Sans ", "
-    Helvetica Neue ", sans-serif";
+  --font-custom: Sohne, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
 
   --font-geist-code: "geist-mono", sans-serif;
 
@@ -43,7 +43,7 @@
 
   /*gray*/
   --color-g-50: oklch(98.59% 0.0011 0);
-  --color-g-100: oklch(95.81% 0 0);
+  --color-g-100: oklch(93.81% 0 0);
   --color-g-200: oklch(89.75% 0 0);
   --color-g-300: oklch(83.9% 0 0);
   --color-g-400: oklch(71.87% 0 0);
@@ -117,7 +117,7 @@
     border-color: var(--color-gray-200, currentColor);
   }
   body {
-    @apply bg-g-100/30 dark:bg-g-1000 font-(family-name:--font-custom);
+    @apply bg-g-50/50 dark:bg-g-1000 font-(family-name:--font-custom);
     h1 {
       @apply text-h1 leading-[1];
     }
@@ -189,7 +189,7 @@
         &::before {
           content: counter(listNumbers);
           counter-increment: listNumbers;
-          @apply w-6 h-6 flex items-center justify-center text-right text-ghost border border-border rounded-[8px] text-xsmall bg-fg-primary dark:text-ghost-dark dark:bg-fg-secondary-dark dark:border-border-dark;
+          @apply w-6 h-6 flex items-center z-10 justify-center text-right text-ghost border border-border rounded-[8px] text-xsmall bg-fg-primary dark:text-ghost-dark dark:bg-fg-secondary-dark dark:border-border-dark;
         }
       }
       ul:has(li > em) {
@@ -207,11 +207,11 @@
       blockquote:has(p) {
         @apply relative w-full h-auto block pl-4;
         &::before {
-          @apply content-[""] absolute left-0 h-full w-2 rounded-[2px] bg-border dark:bg-border-dark block;
+          @apply content-[""] absolute left-0 h-full w-1 bg-fg-secondary dark:bg-fg-secondary block;
         }
       }
       .external-link {
-        @apply text-default dark:text-default-dark relative inline-block text-body after:content-[""] after:bg-default after:dark:bg-default-dark after:w-full after:h-[1px] after:block after:bottom-0 after:absolute;
+        @apply text-default dark:text-default-dark relative inline-block text-body decoration-ghost dark:decoration-ghost-dark underline decoration-1 underline-offset-4;
       }
 
       /* API Reference table */
@@ -301,7 +301,7 @@
     font-family: var(--font-geist-code);
   }
 
-  /* Similarly for the line numbering */
+  /* Numeración de líneas los que  NO tienen la clase .terminal */
   pre:not(.terminal) code .line::before,
   pre:not(.terminal) pre code .line::before {
     content: counter(lineNumbers);
@@ -309,14 +309,25 @@
     @apply text-ghost dark:text-ghost-dark text-right inline-block ml-[0.25rem] mr-[1.2rem] w-[1.5rem];
   }
 
+  /* Reglas específicas para elementos con clase .terminal */
+  .terminal pre code,
+  .terminal code,
+  pre.terminal code,
   pre.terminal pre code {
     counter-reset: none;
     counter-increment: none;
   }
+
+  .terminal pre code .line,
+  .terminal code .line,
+  pre.terminal code .line,
   pre.terminal pre code .line {
     @apply pl-2;
   }
 
+  .terminal pre code .line::before,
+  .terminal code .line::before,
+  pre.terminal code .line::before,
   pre.terminal pre code .line::before {
     content: none;
     counter-increment: none;
