@@ -1,7 +1,7 @@
 ---
 title: "Installation"
 description: "Step-by-Step Guide to Installing ButterUI in Your Astro Project"
-date: "2025-01-23"
+date: "January 23, 2025"
 ---
 
 # {frontmatter.title}
@@ -11,24 +11,20 @@ date: "2025-01-23"
 
 ## How to install
 
-### 1. Install Butter/ui
-Install butter/ui via npm.
+<Steps>
+  <Step title="Install Butter/ui" description="Install Butter/ui via npm to get access to all core components.">
+    <TerminalCodeBlock code={`npm i @butter-js/ui`} />
+  </Step>
 
-<TerminalCodeBlock code={`npm i @butter-js/ui`} />
+  <Step title="Install Tailwindcss" description="To add Tailwind CSS, use the following <a class='external-link' href='https://docs.astro.build/en/guides/styling/#tailwind' target='_blank' rel='noopener noreferrer'>Astro command</a>.">
+    <TerminalCodeBlock code={`npx astro add tailwind`} />
+  </Step>
 
-### 2. Install TailwindCSS
-To add Tailwind CSS, use the following <ExternalLink href="https://docs.astro.build/en/guides/styling/#tailwind">Astro command</ExternalLink>.
+  <Step title="Install GSAP" description="Install GSAP to enable smooth and performant animations in Butter components." >
+    <TerminalCodeBlock code={`npm i gsap`} />
+  </Step>
 
-<TerminalCodeBlock code={`npx astro add tailwind`} />
-
-### 3. Install GSAP
-Install GSAP to achieve silky-smooth animations in Butter components.
-
-<TerminalCodeBlock code={`npm i gsap`} />
-
-### 4. Install CVA
-CVA simplifies the creation and management of dynamic classes with variants, optimizing `classList` handling to make Butter components flexible and easy to maintain.
-
-<TerminalCodeBlock code={`npm i class-variance-authority`} />
-
-> Building... 🔧
+  <Step title="Install CVA" description='CVA helps manage conditional classes using variants, making your components cleaner and easier to maintain.'>
+    <TerminalCodeBlock code={`npm i class-variance-authority`} />
+  </Step>
+</Steps>
