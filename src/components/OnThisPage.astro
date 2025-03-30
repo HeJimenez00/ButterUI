@@ -39,12 +39,12 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
       <a
         href={`https://github.com/HeJimenez00/AstraUI/tree/main/src/content${cleanPathname}.mdx`}
         target="_blank"
-        class="inline-flex items-center gap-1 text-small relative after:content-[''] after:bg-default after:dark:bg-default-dark after:w-full after:h-[1px] after:block after:bottom-0 after:absolute"
+        class="text-default dark:text-default-dark w-auto relative inline-flex gap-1 items-center text-small after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-ghost dark:after:bg-ghost-dark"
       >
-        <div class="text-default dark:text-default-dark">
-          <Icon id="edit" size="20" />
-        </div>
-        <span class="text-default dark:text-default-dark">Edit this page</span>
+        <Icon id="edit" size="20" />
+        <span class="text-small text-default dark:text-default-dark"
+          >Edit this page</span
+        >
       </a>
     </li>
   </ul>
