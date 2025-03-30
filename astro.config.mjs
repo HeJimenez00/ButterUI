@@ -41,6 +41,12 @@ export default defineConfig({
         {
           "./src/components/HTMLRender.astro": [["default", "HTMLRender"]],
         },
+        {
+          "./src/components/Step.astro": [["default", "Step"]],
+        },
+        {
+          "./src/components/Steps.astro": [["default", "Steps"]],
+        },
       ],
     }),
     MDXCodeBlocks(),
