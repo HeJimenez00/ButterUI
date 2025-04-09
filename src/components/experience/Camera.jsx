@@ -6,10 +6,10 @@ export const Camera = () => {
   return (
     <OrthographicCamera
       makeDefault
-      args={[-5, 5, 5, -5]}
-      position={[10, 20, 20]}
+      args={[-1, 1, 1, -1]}
+      position={[5, 10, 10]}
       scale={[scaleValue + 0.04, scaleValue, scaleValue]}
-      zoom={20}
+      zoom={40}
     />
   );
 };

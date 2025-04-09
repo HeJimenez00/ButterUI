@@ -47,7 +47,7 @@ export const Text = ({
       // Animación cuando está en hover (flotar hacia arriba y ligeramente oscilar)
       ref.current.position.z = THREE.MathUtils.lerp(
         ref.current.position.z,
-        1, // Subir en el eje Y
+        0.8, // Subir en el eje Y
         0.1,
       );
       ref.current.rotation.x = Math.sin(t * 2) * 0.05; // Oscilación suave
@@ -73,6 +73,8 @@ export const Text = ({
 
   return (
     <group
+      castShadow
+      receiveShadow
       onPointerMove={handleMouseEnter}
       onPointerLeave={handleMouseLeave}
       rotation={[-Math.PI / 2, 0, 0]}
@@ -80,10 +82,9 @@ export const Text = ({
     >
       <Text3D
         ref={ref}
-        castShadow
         bevelEnabled
         font={font}
-        scale={6}
+        scale={3}
         height={0.2}
         bevelSize={0.01}
         bevelSegments={10}
