@@ -404,7 +404,6 @@ Jelly: {
     component: async () => import("../registry/butter/Jelly.astro"),
     code: `---
 import { Image } from \"astro:assets\";
-import { Icon } from \"astro-icon/components\";
 
 export interface JellyProps {
   title: string;
@@ -412,7 +411,6 @@ export interface JellyProps {
   location: string;
   src: string;
   alt: string;
-  iconLocation?: string;
   width?: string;
   height?: string;
   containerClass?: string;
@@ -426,7 +424,6 @@ const {
   title,
   owner,
   location,
-  iconLocation = \"location\",
   alt,
   src,
   width = \"w-60\",
@@ -478,9 +475,23 @@ let opacity = animate ? 0 : 1;
               locationClass,
             ]}
           >
-            <span><Icon name={iconLocation} class=\"text-white\" /></span>{
-              location
-            }</span
+            <span>
+              <svg
+                width=\"24\"
+                height=\"24\"
+                class=\"p-1\"
+                viewBox=\"0 0 24 24\"
+                fill=\"none\"
+                stroke=\"currentColor\"
+                stroke-width=\"2\"
+                stroke-linecap=\"round\"
+                stroke-linejoin=\"round\"
+                class=\"lucide lucide-map-pin\"
+                ><path
+                  d=\"M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0\"
+                ></path><circle cx=\"12\" cy=\"10\" r=\"3\"></circle></svg
+              >
+            </span>{location}</span
           >
         </footer>
       </div>
@@ -539,6 +550,223 @@ let opacity = animate ? 0 : 1;
   }
 </style>
 `},
+Vault: {
+    name: "Vault",
+    description: ``,
+    type: "butter",
+    files: ["src/registry/butter/Vault.astro"],
+    component: async () => import("../registry/butter/Vault.astro"),
+    code: `<button
+  class=\"cursor-pointer px-6 py-2 bg-zinc-200 dark:bg-zinc-700 rounded-md dark:text-white\"
+  id=\"button-vault\">Vaul</button
+>
+
+<div
+  class=\"fixed z-41 translate-y-full bottom-0 right-0 left-0 w-full h-auto max-h-3/4 bg-zinc-100 rounded-t-xl px-5 dark:bg-zinc-700 origin-bottom-left\"
+  id=\"vault-container\"
+>
+  <div class=\"max-w-xl mx-auto\">
+    <span
+      id=\"vault-notch\"
+      class=\"w-full block py-5 hover:cursor-grab active:cursor-grabbing\"
+    >
+      <div class=\"w-2/12 bg-zinc-300 dark:bg-zinc-600 h-2 mx-auto rounded-full\">
+      </div>
+    </span>
+    <h3 class=\"mt-0 mb-3 p-0\">Motion</h3>
+    <p class=\"mb-3 dark:text-zinc-50\">
+      Beautiful, fluid motions bring the interface to life, conveying status,
+      providing feedback and instruction, and enriching the visual experience of
+      your app or game.
+    </p>
+    <img
+      src=\"https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3cfd178b-66c3-4756-8e9b-63df1ff3e510/deomuk1-4ba9772a-1039-48d0-bbea-f22c34d091da.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzNjZmQxNzhiLTY2YzMtNDc1Ni04ZTliLTYzZGYxZmYzZTUxMFwvZGVvbXVrMS00YmE5NzcyYS0xMDM5LTQ4ZDAtYmJlYS1mMjJjMzRkMDkxZGEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.OZOJClqj5EQ2PgI8U6Rar-UrxDv__jKDCfuO5YUehB4\"
+      alt=\"Imagen\"
+      class=\"rounded-2xl h-[400px] object-cover w-full\"
+    />
+  </div>
+</div>
+
+<div
+  class=\"w-full h-10 fixed z-40 translate-y-full bottom-0 right-0 left-0 bg-zinc-200 dark:bg-zinc-700\"
+  id=\"vault-footer\"
+>
+</div>
+
+<div
+  class=\"bg-black w-screen h-screen fixed top-0 left-0 z-30 opacity-0 invisible\"
+  id=\"vault-overlay\"
+>
+</div>
+
+<script>
+  import { gsap } from \"gsap\";
+
+  const \$ = (selector: string, context: Document | HTMLElement = document) => {
+    return context.querySelector(selector);
+  };
+
+  const btnOpenVault = \$(\"#button-vault\");
+  const vault = \$(\"#vault-container\");
+  const notch = \$(\"#vault-notch\");
+  const vaultFooter = \$(\"#vault-footer\");
+  const overlayVault = \$(\"#vault-overlay\");
+
+  document.addEventListener(\"DOMContentLoaded\", () => {
+    //Pasar el vault al body para que no colapse si se tiene en algun contenedor dentro con valores overflow-hidden, relative etc...
+    document.body.appendChild(vault);
+    document.body.appendChild(vaultFooter);
+    document.body.appendChild(overlayVault);
+
+    // muestra el vault
+    btnOpenVault?.addEventListener(\"click\", () => openVault());
+
+    // activar la sensación de arrastre
+    notch?.addEventListener(\"mousedown\", (event: Event) => vaultDrag(event));
+
+    // cuando se este arrastrando necesitamos que se mueva respecto a la posición actual del mouse
+    window.addEventListener(\"mousemove\", (event) => vaultMove(event));
+
+    // Se ejecuta cuando se suelta el vault
+    window.addEventListener(\"mouseup\", () => vaultDrop());
+
+    // se ejecuta cuando se presiona en el overlay
+    overlayVault?.addEventListener(\"click\", () => showOverlay());
+  });
+
+  //animations
+  const EASE_CONTAINER = \"power4.out\";
+  const EASE_NOTCH = \"elastic(1, 0.75)\";
+  const DURATION_CONTAINER = 0.4;
+  const DURATION_NOTCH = 0.5;
+
+  let isVaultVisible = false;
+  let isDragging = false;
+  let offset = { y: 0 };
+  let startY = 0;
+
+  const animations = {
+    vault: {
+      ease: EASE_CONTAINER,
+      duration: DURATION_CONTAINER,
+    },
+    notch: {
+      ease: EASE_NOTCH,
+      duration: DURATION_NOTCH,
+    },
+    stretch: {
+      ease: EASE_NOTCH,
+      duration: DURATION_CONTAINER,
+    },
+  };
+
+  function openVault(y = 0) {
+    isVaultVisible = true;
+
+    document.body.style.overflow = \"hidden\";
+
+    gsap.to(vault, { y, bottom: 20, ...animations.vault });
+    gsap.to(vaultFooter, { y, ...animations.vault });
+    gsap.to(overlayVault, {
+      opacity: 0.3,
+      duration: 0.3,
+      visibility: \"visible\",
+    });
+  }
+
+  function vaultDrag(event) {
+    event.preventDefault();
+    isDragging = true;
+    //recuperar la posición del vault desde el notch
+    offset.y = event.clientY;
+  }
+
+  function vaultMove(event) {
+    if (isDragging && isVaultVisible) {
+      startY = event.clientY - offset.y;
+
+      if (startY > 0) {
+        gsap.to(vault, {
+          y: startY,
+          // importante que sea 0.3, para que la animación sea natural sino se sentira lenta cuando se coloque un valor mayor
+          duration: 0.3,
+          ease: animations.vault.ease,
+        });
+      } else {
+        // Se deforma el vaul por que se estira demasiado haciá arriba (StartY es menor a 0)
+        //se espera: recuperamos la posición de startY y la multiplicamos por un numero pequeño para que cuando se estire de la sensación de menor movimiento, obligando al usuario a soltar, en otras palabras
+        //-400 (startY) * -0.000113 = -0.0452
+        //-600 (startY) * -0.000113 = -0.0678
+        const stretch = startY * -0.000113;
+        gsap.to(vault, { scaleY: 1 + stretch, ...animations.stretch });
+      }
+    }
+  }
+
+  function vaultDrop() {
+    isDragging = false;
+
+    if (isVaultVisible) {
+      gsap.to(vault, {
+        scaleY: 1,
+        ...animations.notch,
+      });
+
+      if (startY > offset.y * 0.25) {
+        // console.log(\"es menor a 25%\");
+        gsap.to([vault, vaultFooter], {
+          y: \"100%\",
+          bottom: 0,
+          ...animations.vault,
+        });
+
+        gsap.to(overlayVault, { opacity: 0, duration: 0.3 });
+
+        setTimeout(() => {
+          gsap.to(overlayVault, {
+            visibility: \"hidden\",
+          });
+        }, 300);
+
+        isVaultVisible = false;
+
+        document.body.style.overflow = \"visible\";
+      } else {
+        gsap.to(vault, {
+          y: 0,
+          ...animations.notch,
+        });
+      }
+    }
+  }
+
+  function showOverlay() {
+    // verificamos que isVaultVisible este mostrandose y el isDragging no se este moviendo
+    if (isVaultVisible && !isDragging) {
+      gsap.to([vault, vaultFooter], {
+        y: \"100%\",
+        bottom: 0,
+        duration: DURATION_NOTCH,
+        ease: \"power4.out\",
+      });
+
+      gsap.to(overlayVault, {
+        opacity: 0,
+        duration: 0.3,
+      });
+
+      setTimeout(() => {
+        gsap.to(overlayVault, {
+          visibility: \"hidden\",
+        });
+      }, 300);
+
+      document.body.style.overflow = \"visible\";
+      isVaultVisible = false;
+    }
+  }
+</script>
+`},
 AvatarListMain: {
     name: "AvatarListMain",
     description: ``,
@@ -577,7 +805,7 @@ const example: AvatarItem[] = [
 ];
 ---
 
-<AvatarList data={example} direction=\"vertical-right\" />
+<AvatarList data={example} />
 `},
 AvatarListVertical: {
     name: "AvatarListVertical",
@@ -685,10 +913,9 @@ JumpyMain: {
     files: ["src/registry/examples/JumpyMain.astro"],
     component: async () => import("../registry/examples/JumpyMain.astro"),
     code: `---
-import type { ImageItem } from \"src/types\";
-import Jumpy from \"../butter/Jumpy.astro\";
+import { Jumpy, type JumpyItem } from \"@butter-js/ui\";
 
-const example: ImageItem[] = [
+const example: JumpyItem[] = [
   {
     src: \"https://a0.muscache.com/im/pictures/hosting/Hosting-1124010734237889235/original/5d19481e-59be-49ab-a820-4af2ef1052aa.jpeg?im_w=720&im_format=avif\",
     alt: \"Imagen 1\",
@@ -721,9 +948,9 @@ JumpyText: {
     files: ["src/registry/examples/JumpyText.astro"],
     component: async () => import("../registry/examples/JumpyText.astro"),
     code: `---
-import Jumpy from \"../butter/Jumpy.astro\";
+import { Jumpy, type JumpyItem } from \"@butter-js/ui\";
 
-const images = [
+const images: JumpyItem[] = [
   {
     src: \"https://cdn-icons-png.flaticon.com/512/3991/3991951.png\",
     alt: \"Dribbble logo\",
@@ -749,6 +976,7 @@ const images = [
   <span class=\"flex items-center gap-4\"
     >Reach me on <div>
       <Jumpy
+        as=\"a\"
         images={images}
         wrapperStyles=\"!ring-0\"
         size=\"small\"
@@ -759,45 +987,41 @@ const images = [
   </span>
 </h1>
 `},
-JellyMain: {
-    name: "JellyMain",
+GlimpseMain: {
+    name: "GlimpseMain",
     description: ``,
     type: "example",
-    files: ["src/registry/examples/JellyMain.astro"],
-    component: async () => import("../registry/examples/JellyMain.astro"),
+    files: ["src/registry/examples/GlimpseMain.astro"],
+    component: async () => import("../registry/examples/GlimpseMain.astro"),
     code: `---
-import Jelly from \"../butter/Jelly.astro\";
+import { Glimpse, GlimpseProps } from \"@butter-js/ui\";
 
-const data = [
+const data: GlimpseProps = [
   {
-    title: \"The Alpes\",
-    owner: \"@wickedmishra on Dribbble\",
-    location: \"Zugspitze, Alemania\",
-    alt: \"text alternative\",
-    src: \"https://w0.peakpx.com/wallpaper/980/128/HD-wallpaper-sunset-over-the-village-wamberg-bavarian-alps-trees-germany-mountains-cabin-clouds-sky.jpg\",
+    title: \"Oaxaca\",
+    owner: \"@Riven on Dribbble\",
+    location: \"Mont Blanc, Francia\",
+    src: \"https://cms.riven.ch/assets/8c58bd40-da78-4c05-953e-3254c94762b8?key=reduce\",
+    alt: \"image oaxaca\",
     width: \"w-60\",
     height: \"h-72\",
-    containerClass: \"\",
-    titleClass: \"\",
-    ownerClass: \"\",
-    locationClass: \"\",
     animate: true,
   },
 ];
 ---
 
-{data.map((item) => <Jelly {...item} />)}
+{data.map((item: GlimpseProps) => <Glimpse {...item} />)}
 `},
-JellyCards: {
-    name: "JellyCards",
+GlimpseCards: {
+    name: "GlimpseCards",
     description: ``,
     type: "example",
-    files: ["src/registry/examples/JellyCards.astro"],
-    component: async () => import("../registry/examples/JellyCards.astro"),
+    files: ["src/registry/examples/GlimpseCards.astro"],
+    component: async () => import("../registry/examples/GlimpseCards.astro"),
     code: `---
-import JellyReveal from \"../butter/Jelly.astro\";
+import { Glimpse, GlimpseProps } from \"@butter-js/ui\";
 
-const cardsData = [
+const cardsData: GlimpseProps = [
   {
     title: \"Iglesia en Frankfurt\",
     owner: \"@heeector on Twitter\",
@@ -833,7 +1057,7 @@ const cardsData = [
   <div class=\"grid grid-cols-2 gap-4 place-items-center\">
     {
       cardsData.map(({ title, owner, location, src, alt }) => (
-        <JellyReveal
+        <Glimpse
           title={title}
           owner={owner}
           location={location}
