@@ -1,7 +1,7 @@
 ---
-import JellyReveal from "../butter/Jelly.astro";
+import { Glimpse, GlimpseProps } from "@butter-js/ui";
 
-const cardsData = [
+const cardsData: GlimpseProps = [
   {
     title: "Iglesia en Frankfurt",
     owner: "@heeector on Twitter",
@@ -37,7 +37,7 @@ const cardsData = [
   <div class="grid grid-cols-2 gap-4 place-items-center">
     {
       cardsData.map(({ title, owner, location, src, alt }) => (
-        <JellyReveal
+        <Glimpse
           title={title}
           owner={owner}
           location={location}

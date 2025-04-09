@@ -1,0 +1,18 @@
+---
+import { Glimpse, GlimpseProps } from "@butter-js/ui";
+
+const data: GlimpseProps = [
+  {
+    title: "Oaxaca",
+    owner: "@Riven on Dribbble",
+    location: "Mont Blanc, Francia",
+    src: "https://cms.riven.ch/assets/8c58bd40-da78-4c05-953e-3254c94762b8?key=reduce",
+    alt: "image oaxaca",
+    width: "w-60",
+    height: "h-72",
+    animate: true,
+  },
+];
+---
+
+{data.map((item: GlimpseProps) => <Glimpse {...item} />)}

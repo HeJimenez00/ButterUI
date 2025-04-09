@@ -27,13 +27,13 @@ export const examplesRegistry: RegistryEntry[] = [
     files: [{ path: "src/registry/examples/JumpyText.astro" }],
   },
   {
-    name: "JellyMain",
+    name: "GlimpseMain",
     type: "example",
-    files: [{ path: "src/registry/examples/JellyMain.astro" }],
+    files: [{ path: "src/registry/examples/GlimpseMain.astro" }],
   },
   {
-    name: "JellyCards",
+    name: "GlimpseCards",
     type: "example",
-    files: [{ path: "src/registry/examples/JellyCards.astro" }],
+    files: [{ path: "src/registry/examples/GlimpseCards.astro" }],
   },
 ];

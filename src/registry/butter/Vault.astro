@@ -1,0 +1,226 @@
+---
+const { btnName = "Vault", btnClass = "", vaultClass = "" } = Astro.props;
+---
+
+<button
+  class:list={[
+    "cursor-pointer px-6 py-2 bg-zinc-200 dark:bg-zinc-700 rounded-md dark:text-white",
+    btnClass,
+  ]}
+  id="button-vault">{btnName}</button
+>
+
+<div
+  class="fixed z-40 translate-y-full bottom-0 right-0 left-0 w-full px-5 pb-5 bg-zinc-200 dark:bg-zinc-700 origin-bottom-left rounded-t-3xl"
+  id="Vault"
+>
+  <div class="relative w-full max-h-3/4 rounded-t-xl px-5" id="vault-container">
+    <span
+      id="vault-notch"
+      class="w-full block py-5 hover:cursor-grab active:cursor-grabbing"
+    >
+      <div class="w-2/12 bg-zinc-300 dark:bg-zinc-600 h-2 mx-auto rounded-full">
+      </div>
+    </span>
+    <div class="max-w-xl mx-auto">
+      <!-- esto sera el contenido del ussario -->
+      <h3 class="mt-0 mb-3 p-0">Motion</h3>
+      <p class="mb-3 dark:text-zinc-50">
+        Beautiful, fluid motions bring the interface to life, conveying status,
+        providing feedback and instruction, and enriching the visual experience
+        of your app or game.
+      </p>
+      <img
+        src="https://w0.peakpx.com/wallpaper/236/488/HD-wallpaper-mac-os-ventura-dark-macos-ventura-macbook-apple-computer.jpg"
+        alt="Imagen"
+        class="rounded-2xl h-[400px] object-cover w-full"
+      />
+    </div>
+  </div>
+</div>
+
+<div
+  class="w-full h-16 fixed z-39 translate-y-full bottom-0 right-0 left-0 bg-zinc-200 dark:bg-zinc-700"
+  id="vault-footer"
+>
+</div>
+
+<div
+  class="bg-black w-screen h-screen fixed top-0 left-0 z-30 opacity-0 invisible"
+  id="vault-overlay"
+>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+
+  const $ = (selector: string, context: Document | HTMLElement = document) => {
+    return context.querySelector(selector);
+  };
+
+  const vault = $("#Vault");
+  const vaultContainer = $("#vault-container");
+  const btnOpenVault = $("#button-vault");
+  const notch = $("#vault-notch");
+  const vaultFooter = $("#vault-footer");
+  const overlayVault = $("#vault-overlay");
+
+  document.addEventListener("DOMContentLoaded", () => {
+    //Pasar el vault al body para que no colapse si se tiene en algun contenedor dentro con valores overflow-hidden, relative etc...
+    document.body.appendChild(vault as HTMLElement);
+    document.body.appendChild(vaultFooter as HTMLElement);
+    document.body.appendChild(overlayVault as HTMLElement);
+
+    // muestra el vault
+    btnOpenVault?.addEventListener("click", () => openVault());
+
+    // activar la sensación de arrastre
+    notch?.addEventListener("mousedown", (event: Event) => vaultDrag(event));
+
+    // cuando se este arrastrando necesitamos que se mueva respecto a la posición actual del mouse
+    window.addEventListener("mousemove", (event) => vaultMove(event));
+
+    // Se ejecuta cuando se suelta el vault
+    window.addEventListener("mouseup", () => vaultDrop());
+
+    // se ejecuta cuando se presiona en el overlay
+    overlayVault?.addEventListener("click", () => showOverlay());
+  });
+
+  //animations
+  const EASE_CONTAINER = "power4.out";
+  const EASE_NOTCH = "elastic(1, 0.75)";
+  const DURATION_CONTAINER = 0.4;
+  const DURATION_NOTCH = 0.5;
+
+  let isVaultVisible = false;
+  let isDragging = false;
+  let offset = { y: 0 };
+  let startY = 0;
+
+  const animations = {
+    vault: {
+      ease: EASE_CONTAINER,
+      duration: DURATION_CONTAINER,
+    },
+    notch: {
+      ease: EASE_NOTCH,
+      duration: DURATION_NOTCH,
+    },
+    stretch: {
+      ease: EASE_NOTCH,
+      duration: DURATION_CONTAINER,
+    },
+  };
+
+  function openVault(y = 0) {
+    isVaultVisible = true;
+
+    document.body.style.overflow = "hidden";
+
+    gsap.to(vault, { y, ...animations.vault });
+    gsap.to(vaultFooter, { y, ...animations.vault });
+    gsap.to(overlayVault, {
+      opacity: 0.3,
+      duration: 0.3,
+      visibility: "visible",
+    });
+  }
+
+  function vaultDrag(event) {
+    event.preventDefault();
+    isDragging = true;
+    //recuperar la posición del vault desde el notch
+    offset.y = event.clientY;
+  }
+
+  function vaultMove(event) {
+    if (isDragging && isVaultVisible) {
+      startY = event.clientY - offset.y;
+
+      if (startY > 0) {
+        gsap.to(vault, {
+          y: startY,
+          // importante que sea 0.3, para que la animación sea natural sino se sentira lenta cuando se coloque un valor mayor
+          duration: 0.3,
+          ease: animations.vault.ease,
+        });
+      } else {
+        // Se deforma el vaul por que se estira demasiado haciá arriba (StartY es menor a 0)
+        //se espera: recuperamos la posición de startY y la multiplicamos por un numero pequeño para que cuando se estire de la sensación de menor movimiento, obligando al usuario a soltar, en otras palabras
+        //-400 (startY) * -0.000113 = -0.0452
+        //-600 (startY) * -0.000113 = -0.0678
+        const stretch = startY * -0.000113;
+        gsap.to(vault, { scaleY: 1 + stretch, ...animations.stretch });
+      }
+    }
+  }
+
+  function vaultDrop() {
+    isDragging = false;
+
+    if (isVaultVisible) {
+      gsap.to(vault, {
+        scaleY: 1,
+        ...animations.notch,
+      });
+
+      //calculamos el valor del tamaño de pantalla para poder cambiarlo y no haya mucha animación y tenga un limite natural
+      const matchMedia = window.matchMedia("(min-width: 1600px)").matches
+        ? 0.25
+        : 0.4;
+      // console.log(startY, offset.y * matchMedia);
+      //el bug esta en que el valor se queda tal cual cuando borro, por lo que necesito reiniciarlo
+      if (startY > offset.y * matchMedia) {
+        gsap.to([vault, vaultFooter], {
+          y: "100%",
+          ...animations.vault,
+        });
+
+        gsap.to(overlayVault, { opacity: 0, duration: 0.3 });
+
+        setTimeout(() => {
+          gsap.to(overlayVault, {
+            visibility: "hidden",
+          });
+        }, 300);
+
+        isVaultVisible = false;
+        startY = 0;
+
+        document.body.style.overflow = "visible";
+      } else {
+        gsap.to(vault, {
+          y: 0,
+          ...animations.notch,
+        });
+      }
+    }
+  }
+
+  function showOverlay() {
+    // verificamos que isVaultVisible este mostrandose y el isDragging no se este moviendo
+    if (isVaultVisible && !isDragging) {
+      gsap.to([vault, vaultFooter], {
+        y: "100%",
+        bottom: 0,
+        duration: DURATION_NOTCH,
+        ease: "power4.out",
+      });
+
+      gsap.to(overlayVault, {
+        opacity: 0,
+        duration: 0.3,
+      });
+
+      setTimeout(() => {
+        gsap.to(overlayVault, {
+          visibility: "hidden",
+        });
+      }, 300);
+
+      document.body.style.overflow = "visible";
+      isVaultVisible = false;
+    }
+  }
+</script>

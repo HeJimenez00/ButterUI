@@ -1,7 +1,7 @@
 ---
 title: Jumpy
 description: "Animated card component with an elastic effect and cascading scaling when displayed. Its smooth animation, powered by GSAP, adds dynamism and visual appeal to any design. Ideal for highlighting information with style"
-date: "Febraury 3, 2025"
+date: "February 3, 2025"
 ---
 
 # {frontmatter.title}
@@ -14,18 +14,18 @@ Insipirated by <ExternalLink href="https://x.com/ajfreed_design/status/186385794
 <PreviewComponent name="JumpyMain" />
 
 ## Features
-1. <span>Rotación aleatoria de imágenes</span>
-2. <span>Animaciones suaves con GSAP</span>
-3. <span>Interactividad al pasar el mouse</span>
-4. <span>Personalización flexible</span>
-7. <span>Compatibilidad con enlaces `anchor`</span>
+1. <span>Random image rotation</span>
+3. <span>Mouse hover interactivity</span>
+4. <span>Flexible customization</span>
+5. <span>Compatibility with `anchor` links</span>
 
 ## Root
 
 | Prop           | Default                                                   | Type                            | Description                                                  |
 |:---------------|:----------------------------------------------------------|:--------------------------------|-------------------------------------------------------------|
-| `images`       | []                            | `Image[]`                     | Array of image objects with `src`, `alt`, and optional `href` property.                             |
-| `size`       | 'medium'                                                         | `'small' \| 'medium' \| 'large'`                       | tamaño de las imagenes (responsive by default)      |
+| `as`           | 'div'                                                     | `string`                        | HTML element to render as the container component            |
+| `images`       | []                            | `JumpyItem[]`                     | Array of image objects with `src`, `alt`, and optional `href` property.                             |
+| `size`       | 'large'                                                         | `'small' \| 'medium' \| 'large'`                       | tamaño de las imagenes (responsive by default)      |
 | `spacing`          | '-ml-6'                                                   | `string`                        | margin between images (use margin-left from Tailwind)                    |
 | `spacingHover`   | 40                                                        | `number`                        | Separation distance when hovering over images               |
 | `minRotation`  | 7                                                         | `number`                        | Minimum rotation angle for images in degrees                |
@@ -34,9 +34,27 @@ Insipirated by <ExternalLink href="https://x.com/ajfreed_design/status/186385794
 | `hoverEase`    | 'power4.out'                                              | `gsap.EaseFunction \| string`   | <ExternalLink href="https://gsap.com/docs/v3/Eases/">GSAP easing</ ExternalLink> function for hover animation                    |
 | `imageStyles`  | -                                                        | `string`                        | Additional classes for the image                            |
 | `wrapperStyles`| - | `string`                     | Additional classes for the wrapper `Image`                   |
-| `duration`     | 0.5                           | `number`                      | Duration of the animations in seconds.                                                            |
+| `duration`     | 0.4                           | `number`                      | Duration of the animations in seconds.                                                            |
+
+<br />
+<br />
+**Type:** `JumpyItem[]`
+
+<SimpleCodeBlock meta="{1,3}" code={`import { Jumpy, type JumpyItem } from "@butter-js/ui";
+
+const example: JumpyItem[] = [
+    {
+      src: "https://...",
+      alt: "Image 1",
+      href: "https://example.com", //To use links, set as="a" on the component
+    },
+    //...
+];`} />
+
+<br />
+> **Note:** For links (`href` property) to work properly, make sure to set `as="a"` on the Jumpy component.
 
 ## Examples
-### Whith text
+### With text
 
 <PreviewComponent name="JumpyText" />

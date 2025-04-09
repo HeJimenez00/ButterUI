@@ -1,7 +1,7 @@
 ---
-import Jumpy from "../butter/Jumpy.astro";
+import { Jumpy, type JumpyItem } from "@butter-js/ui";
 
-const images = [
+const images: JumpyItem[] = [
   {
     src: "https://cdn-icons-png.flaticon.com/512/3991/3991951.png",
     alt: "Dribbble logo",
@@ -27,6 +27,7 @@ const images = [
   <span class="flex items-center gap-4"
     >Reach me on <div>
       <Jumpy
+        as="a"
         images={images}
         wrapperStyles="!ring-0"
         size="small"

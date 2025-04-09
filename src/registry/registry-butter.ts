@@ -16,4 +16,9 @@ export const butterRegistry: RegistryEntry[] = [
     type: "butter",
     files: [{ path: "src/registry/butter/Jelly.astro" }],
   },
+  {
+    name: "Vault",
+    type: "butter",
+    files: [{ path: "src/registry/butter/Vault.astro" }],
+  },
 ];
