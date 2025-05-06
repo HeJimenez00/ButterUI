@@ -47,6 +47,9 @@ export default defineConfig({
         {
           "./src/components/Steps.astro": [["default", "Steps"]],
         },
+        {
+          "./src/components/CallOut.astro": [["default", "CallOut"]],
+        },
       ],
     }),
     MDXCodeBlocks(),
