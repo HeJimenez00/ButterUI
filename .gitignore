@@ -87,3 +87,8 @@ node_modules/
 *.sqlite-wal
 *.sqlite-shm
 *.db
+
+# Playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/
