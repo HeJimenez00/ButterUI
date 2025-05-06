@@ -11,7 +11,13 @@ date: "February 8, 2025"
 
 <PreviewComponent name="GlimpseMain" />
 
-## Root
+## Features
+1. <span>Customizable image display</span>
+2. <span>Flexible content structure</span>
+4. <span>Optional hover animations</span>
+8. <span>Responsive layout</span>
+
+## API Reference
 
 | Prop             | Default                | Type      | Description                                                                |
 |:-----------------|:-----------------------|:----------|:---------------------------------------------------------------------------|
@@ -28,12 +34,28 @@ date: "February 8, 2025"
 | `height`         | 'h-72'                 | `string`  | Tailwind class for the container height                                   |
 | `animate`        | true                   | `boolean` | Determines if the reveal animation is applied on hover                    |
 
-## Features
-1. <span>Customizable image display</span>
-2. <span>Flexible content structure</span>
-4. <span>Optional hover animations</span>
-8. <span>Responsive layout</span>
+### Usage
+Type: `JumpyItem[]`
+
+<SimpleCodeBlock meta="{2,4}" code={`---
+import { Glimpse, GlimpseProps } from "@butter-js/ui";
+
+const data: GlimpseProps = {
+    title: "your-title",
+    owner: "butter-ui",
+    location: "Mont Blanc, Francia",
+    src: "url",
+    alt: "image butter",
+    width: "w-60",
+    height: "h-72",
+    animate: true,
+  }
+---
+
+<Glimpse {...item} />`} />
 
 ## Example
 ### Card Gallery
+
+Animated cards gallery.
 <PreviewComponent name="GlimpseCards" meta="{39-51}" />

@@ -1,0 +1,68 @@
+---
+title: Text
+description: "Transform your static content into dynamic experiences with our Text component. This versatile animation tool brings elegance and motion to your words, making information more engaging and memorable without complex setup"
+date: "April 30, 2025"
+---
+import TextHacker from "../../../registry/butter/TextHacker.astro";
+
+# {frontmatter.title}
+<span>{frontmatter.date}</span>
+
+{frontmatter.description}.
+
+<PreviewComponent name="TextMain" />
+
+## Features
+1. <span>Character, word, and line animations</span>
+2. <span>Staggered animation effects</span>
+3. <span>No conflicting animations</span>
+4. <span>Text masking support</span>
+5. <span>Font-loading aware</span>
+6. <span>Reusable with unique instances</span>
+
+## API Reference
+
+| Prop            | Default          | Type                          | Description                                                                                                       |
+| --------------- | ---------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `as`            | 'p'            | `string`                      | HTML element to render (`p`, `h1`, `span`, etc.).                                                                 |
+| `textType`      | 'chars'        | `'chars' \| 'words' \| 'lines'` | Animation granularity.                                                                                            |
+| `class`         | -             | `string`                      | Additional CSS classes to apply to the wrapper.                                                                  |
+| `mask`          | 'false'        | `true \| false`             | Enables text masking effect.                                                                                     |
+| `tweenFrom`     | {}             | `TweenAnimation`              | Initial GSAP config (see <ExternalLink href="https://greensock.com/docs/v3/GSAP/TweenVars">TweenConfig</ExternalLink>). |
+| `duration`      | 0.7            | `number`                      | Animation duration in seconds.                                                                                   |
+| `opacity`       | -              | `number`                      | Initial opacity (0–1).                                                                                            |
+| `y`             | -              | `number`                      | Initial vertical offset in pixels.                                                                               |
+| `x`             | -      | `number`                      | Initial horizontal offset in pixels.                                                                             |
+| `delay`         | -      | `number`                      | Delay before animation starts, in seconds.                                                                        |
+| `ease`          | 'power4.out'   | `string`                      | <ExternalLink href="https://greensock.com/docs/v3/Eases">GSAP easing</ExternalLink> type.                          |
+| `staggerAmount` | 0.1            | `number`                      | Time (in seconds) between each element’s animation.                                                              |
+| `staggerFrom`   | 'start'        | `string`                      | Starting point for stagger (see <ExternalLink href="https://greensock.com/docs/v3/GSAP/Timeline/stagger">stagger docs</ExternalLink>). |
+
+## Examples
+### Words + Mask
+A mask effect is implemented that allows text to gradually emerge from below, revealing individual words in a random yet staggered sequence.
+
+<PreviewComponent name="TextWords" />
+
+### Lines
+In this example, we can see five `span` elements that animate one by one in a staggered sequence. This creates a flowing effect ideal for multi-line text blocks where you want each line to appear with precise timing and movement control.
+<PreviewComponent name="TextLines" />
+
+## Bonus Text
+### Hacker
+A scramble text effect that creates a "decoding" animation, perfect for displaying dates or numerical information with a technical, cyberpunk feel.
+<PreviewComponent name="TextHackerMain" />
+
+## API Reference
+
+| Prop            | Default       | Type                                                                 | Description                                                                                         |
+| --------------- | ------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `as`            |'p'         | `string`                                                             | HTML element to render (e.g. `p`, `h1`, `a`, etc.).                                                 |
+| `href`          | -   | `string`                                                             | URL to use when `as="a"`.                                                                           |
+| `class`         | -          | `string`                                                             | Additional CSS classes to apply to the wrapper.                                                     |
+| `tweenFrom`     | `{}`          | `object` | <ExternalLink href="https://gsap.com/docs/v3/GSAP/Tween/">TweenAnimation</ExternalLink> Additional GSAP config for the initial animation state.                                             |
+| `duration`      | 0.7         | `number`                                                             | Animation duration in seconds.                                                                      |
+| `ease`          | 'none'      | `string`                                                             | <ExternalLink href="https://greensock.com/docs/v3/Eases">GSAP easing</ExternalLink> function.      |
+| `delay`         | -   | `number`                                                             | Delay before the animation starts, in seconds.                                                      |
+| `stagger`       | 0.1         | `number`                                                             | Time between each character’s animation in seconds (see <ExternalLink href="https://gsap.com/resources/getting-started/Staggers/">stagger docs</ExternalLink>). |
+| `scrambleChars` |  'upperCase'                  | `'upperCase' \| 'lowerCase' \| 'upperCase' \| 'upperAndLowerCase'`                                                            | Characters or mode used for the scramble effect (see <ExternalLink href="https://gsap.com/docs/v3/Plugins/ScrambleTextPlugin/#config-object">ScrambleTextPlugin</ExternalLink>). |

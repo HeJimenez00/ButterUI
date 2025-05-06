@@ -1,6 +1,6 @@
 ---
 title: Vault
-description: "Vault para mostrar contenido"
+description: "A bottom sheet component with drag gesture support that slides up from the bottom of the screen. Perfect for displaying additional content, forms, or navigation options without leaving the current view"
 date: "March 31, 2025"
 ---
 # {frontmatter.title}
@@ -9,4 +9,24 @@ date: "March 31, 2025"
 
 {frontmatter.description}.
 
-<PreviewComponent name="Vault" />
+<PreviewComponent name="VaultMain" />
+
+## Features
+1. <span>Draggable interface</span>
+2. <span>Smooth animations</span>
+3. <span>Content scrolling</span>
+4. <span>Interactive notch</span>
+
+## API Reference
+
+| Prop            | Default                 | Type       | Description                                           |
+|:----------------|:------------------------|:-----------|:------------------------------------------------------|
+| `label`         | 'Vault'                 | `string`   | Text for the button that opens the Vault component    |
+| `labelClass`    | -                      | `string`   | Additional CSS classes for the button           |
+| `vaultClass`    | -                      | `string`   | Additional CSS classes for the main container         |
+| `footerClass`   | -                      | `string`   | Additional CSS classes for the Vault footer           |
+| `notchClass`    | -                      | `string`   | Additional CSS classes for the drag indicator (notch) |
+| `easeOpen`      | 'power4.out'            | `string`   | <ExternalLink href="https://gsap.com/docs/v3/Eases/">GSAP animation</ExternalLink> function for opening the Vault         |
+| `easeStretch`   | 'elastic(1, 0.75)'      | `string`   | <ExternalLink href="https://gsap.com/docs/v3/Eases/">GSAP animation</ExternalLink> function for stretching effect         |
+| `durationOpen`  | 0.4                     | `number`   | Duration (in seconds) of the opening animation        |
+| `durationStretch` | 0.5                   | `number`   | Duration (in seconds) of the stretching animation     |
