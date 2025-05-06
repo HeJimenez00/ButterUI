@@ -40,7 +40,7 @@ const BtnCopy = ({ code }) => {
     <button
       ref={buttonRef}
       onClick={handleCopy}
-      className="btn p-[5px] text-body rounded-lg text-default dark:text-default-dark bg-fg-secondary dark:bg-fg-primary-dark transition-shadow"
+      className="btn p-[5px] text-body rounded-lg bg-fg-secondary dark:bg-fg-primary-dark transition-shadow"
       aria-label={isCopied ? "Código copiado" : "Copiar código al portapapeles"}
     >
       <span ref={iconRef}>
@@ -52,7 +52,7 @@ const BtnCopy = ({ code }) => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="lucide lucide-check w-5 h-5 p-[2px]"
+            className="lucide lucide-check w-5 h-5 p-[2px] text-primary dark:text-primary-dark"
           >
             <path d="M20 6 9 17l-5-5" />
           </svg>
@@ -64,7 +64,7 @@ const BtnCopy = ({ code }) => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="lucide lucide-copy w-5 h-5 p-[2px]"
+            className="lucide lucide-copy w-5 h-5 p-[2px] text-primary dark:text-primary-dark"
           >
             <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
             <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />

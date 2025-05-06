@@ -1,6 +1,7 @@
 ---
 import { navigationConfig } from "src/config/navigation-config";
 import { SidebarToggle } from "../components/SidebarToggle.jsx";
+import Spotlight from "./Spotlight.astro";
 
 const sideNavbarItems = navigationConfig.sidebarNavbar ?? [];
 const { pathname } = Astro.url;
@@ -9,10 +10,12 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 ---
 
 <nav
+  id="sidebar"
   class="sidebar bg-neutral-white lg:bg-transparent dark:bg-fg-secondary-dark dark:lg:bg-transparent md:border-0"
 >
   <SidebarToggle client:load> Menu </SidebarToggle>
-  <div class="sidebar-items hidden lg:block">
+  <Spotlight />
+  <div id="sidebar-content" class="sidebar-items hidden lg:block">
     {
       sideNavbarItems.map((section, idx) => (
         <div class="px-5 lg:px-0 mt-5 md:mt-0">
@@ -22,7 +25,7 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
               <li
                 class:list={[
                   cleanPathname === href &&
-                    "bg-fg-secondary dark:bg-fg-primary-dark rounded-xl",
+                    "bg-fg-secondary dark:bg-fg-secondary-dark rounded-xl",
                 ]}
               >
                 <a
@@ -30,9 +33,9 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
                   class="relative z-10 block text-small py-[6px]"
                   class:list={[
                     cleanPathname === href &&
-                      "text-default dark:text-default-dark pl-3 sidebar-item-active",
+                      "text-primary dark:text-primary-dark pl-3 sidebar-item-active",
                     cleanPathname !== href &&
-                      "text-ghost dark:text-ghost-dark hover:text-default hover:dark:text-default-dark transition-colors duration-200 sidebar-item",
+                      "text-ghost dark:text-ghost-dark hover:text-primary hover:dark:text-primary-dark transition-colors duration-200 sidebar-item",
                   ]}
                 >
                   {title}
@@ -47,7 +50,7 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 </nav>
 
 <script>
-  import gsap from "gsap";
+  import { gsap } from "gsap";
 
   const sidebarLeft = document.querySelector(".sidebar") as HTMLElement;
   const items = sidebarLeft?.querySelector(".sidebar-items");
@@ -79,4 +82,31 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 
   sidebarLeft?.addEventListener("mouseenter", (ev) => foo(ev, true), true);
   sidebarLeft?.addEventListener("mouseleave", (ev) => foo(ev, false), true);
+</script>
+
+<script>
+  import { gsap } from "gsap";
+  import { $ } from "../utils/selector.ts";
+
+  const panel = $("#panel");
+  const sidebarContent = $("#sidebar-content"); // Cambiamos a seleccionar solo el contenido
+  const search = $("#search");
+  let isVisible = true;
+
+  const threshold = sidebarContent.clientWidth;
+
+  panel?.addEventListener("click", () => {
+    gsap.to([sidebarContent, search], {
+      autoAlpha: isVisible ? 0 : 1,
+      duration: 0.6,
+      x: isVisible ? -20 : 0,
+      ease: "power4.out",
+    });
+    gsap.to(panel, {
+      x: isVisible ? -threshold + 32.98 : 0,
+      duration: 0.6,
+      ease: "power4.out",
+    });
+    isVisible = !isVisible;
+  });
 </script>

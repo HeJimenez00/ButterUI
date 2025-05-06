@@ -5,9 +5,9 @@ const { title = "step-title", description = "step-description" } = Astro.props;
 ---
 
 <li class="first:pt-4 pb-10 mb-0 relative flex items-start">
-  <div class="relative top-2 w-full">
+  <div class="relative w-full">
     <h3 class="p-0">{title}</h3>
-    <div class="relative flex mt-4 flex-col">
+    <div class="relative flex mt-3 flex-col">
       <HTMLRender text={description} />
       <!-- Here goes the code for the step -->
       <slot />

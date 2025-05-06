@@ -1,0 +1,21 @@
+---
+import Panel from "@icons/Panel.astro";
+import Search from "@icons/Search.astro";
+---
+
+<div class="flex items-center justify-between mb-6 gap-3">
+  <div
+    id="search"
+    class="flex gap-[5px] items-center rounded-[10px] px-2 py-[4.5px] bg-fg-secondary dark:bg-fg-secondary-dark w-full"
+  >
+    <Search class="text-ghost dark:text-ghost-dark px-[3px]" />
+    <span class="text-ghost dark:text-ghost-dark text-small">Search...</span>
+  </div>
+
+  <div
+    id="panel"
+    class="bg-fg-secondary dark:bg-fg-secondary-dark grid items-center p-[4.5px] justify-center rounded-[10px]"
+  >
+    <Panel class="text-primary dark:text-primary-dark p-[2px]" />
+  </div>
+</div>

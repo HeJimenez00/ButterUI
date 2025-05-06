@@ -25,7 +25,7 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
           <li class:list={[depth !== 2 ? "ml-3" : "", "py-[2px]"]}>
             <a
               href={`#${slug}`}
-              class="block text-small text-ghost dark:text-ghost-dark hover:text-default dark:hover:text-default-dark transition-colors py-[2px]"
+              class="block text-small text-ghost dark:text-ghost-dark hover:text-primary dark:hover:text-primary-dark transition-colors py-[2px]"
             >
               {text}
             </a>
@@ -39,10 +39,10 @@ const cleanPathname = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
       <a
         href={`https://github.com/HeJimenez00/AstraUI/tree/main/src/content${cleanPathname}.mdx`}
         target="_blank"
-        class="text-default dark:text-default-dark w-auto relative inline-flex gap-1 items-center text-small after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-ghost dark:after:bg-ghost-dark"
+        class="text-primary dark:text-primary-dark w-auto relative inline-flex gap-1 items-center text-small"
       >
         <Icon id="edit" size="20" />
-        <span class="text-small text-default dark:text-default-dark"
+        <span class="text-small text-primary dark:text-primary-dark"
           >Edit this page</span
         >
       </a>

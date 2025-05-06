@@ -1,13 +1,10 @@
 ---
 import { Index } from "../__registry__/index";
 import CodeBlock from "./CodeBlock.astro";
-import Icon from "./Icon.astro";
 
 const { name, meta } = Astro.props;
 
 const entry = Index[name];
-
-let description = entry.description;
 
 let DynamicComponent;
 let codeSnippet;
@@ -21,18 +18,17 @@ try {
 }
 ---
 
-<section class="pt-8">
-  <header class="header flex items-center mb-4">
-    {description && <p set:html={description} />}
-    <div class="switch">
-      <button type="button" class="button switch-active" data-action="preview">
-        <Icon id="preview" class="p-[2px]" />
-      </button>
-      <button type="button" data-action="code">
-        <Icon id="code" class="p-[2px]" />
-      </button>
+<section
+  class="slider-wrapper w-full h-auto relative bg-fg-secondary dark:bg-neutral-black overflow-hidden rounded-[15px] first-of-type:mb-0 mt-10 mb-10 grid grid-cols-[100%_100%] gap-3"
+>
+  <div
+    class="notch-wrapper absolute top-[90%] w-full h-12 z-30 hover:cursor-grab active:cursor-grabbing"
+  >
+    <div
+      class="notch h-[6px] w-[20%] bg-neutral-black dark:bg-neutral-white rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+    >
     </div>
-  </header>
+  </div>
   <div class="preview">
     <div class="preview-wrapper">
       <div class="component">
@@ -46,37 +42,15 @@ try {
       </div>
     </div>
   </div>
-  <div class="code hidden">
+  <div class="code">
     <CodeBlock name={name} code={codeSnippet} meta={meta} />
   </div>
 </section>
 
 <script>
-  const $switches = document.querySelectorAll(".switch");
-  const $preview = document.querySelectorAll(".preview");
-  const $code = document.querySelectorAll(".code");
+  import { initSlider } from "../utils/slider.ts";
 
-  const SWITCH = "switch-active";
-  const HIDDEN = "hidden";
-
-  $switches.forEach(($switch, idx) => {
-    $switch.addEventListener("click", (ev) => {
-      const target = ev.target as HTMLElement | null;
-      const btnActive = target?.closest("button") as HTMLButtonElement;
-
-      if (!btnActive || btnActive?.classList.contains(SWITCH)) return;
-
-      const currentActive = $switch.querySelector(`.${SWITCH}`);
-      currentActive?.classList.remove(SWITCH);
-      btnActive?.classList.add(SWITCH);
-
-      if (btnActive.dataset.action === "preview") {
-        $preview[idx].classList.remove(HIDDEN);
-        $code[idx].classList.add(HIDDEN);
-      } else if (btnActive.dataset.action === "code") {
-        $preview[idx].classList.add(HIDDEN);
-        $code[idx].classList.remove(HIDDEN);
-      }
-    });
-  });
+  document
+    .querySelectorAll<HTMLElement>(".slider-wrapper")
+    .forEach((root) => initSlider(root));
 </script>

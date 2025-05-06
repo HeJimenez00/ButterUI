@@ -1,0 +1,29 @@
+---
+import { cva } from "class-variance-authority";
+
+type calloutType = "note" | "success" | "idea" | "error";
+
+interface CallOut {
+  type?: calloutType;
+}
+
+const blockquote = cva("butter-blockquote", {
+  variants: {
+    callout: {
+      note: "",
+      success: "",
+      idea: "",
+      error: "",
+    },
+  },
+  defaultVariants: {
+    callout: "note",
+  },
+});
+
+const { type = "note" } = Astro.props as CallOut;
+---
+
+<p class:list={[blockquote({ callout: type }), "mt-6"]}>
+  <slot />
+</p>
