@@ -42,7 +42,7 @@
   --color-y-1000: oklch(29.91% 0.0644 62.03);
 
   /*gray*/
-  --color-g-50: oklch(98.59% 0.0011 0);
+  --color-g-50: oklch(0.97 0 0);
   --color-g-100: oklch(93.81% 0 0);
   --color-g-200: oklch(89.75% 0 0);
   --color-g-300: oklch(83.9% 0 0);
@@ -80,12 +80,12 @@
   --color-neutral-black: oklch(16.84% 0 0);
 
   /* lightmode */
-  --color-primary: var(--color-y-400);
+  --color-primary: var(--color-y-600);
   --color-default: var(--color-g-1000);
   --color-ghost: var(--color-g-600);
   --color-fg-primary: var(--color-neutral-white);
   --color-fg-secondary: var(--color-g-100);
-  --color-fg-tertiary: var(--color-y-400);
+  --color-fg-tertiary: var(--color-y-600);
   --color-border: var(--color-g-100);
   --color-blue: var(--color-b-700);
 
@@ -117,15 +117,34 @@
     border-color: var(--color-gray-200, currentColor);
   }
   body {
-    @apply bg-g-50/50 dark:bg-g-1000 font-(family-name:--font-custom);
+    @apply bg-g-50 dark:bg-g-1000 font-(family-name:--font-custom);
     h1 {
-      @apply text-h1 leading-[1];
+      @apply text-h1;
     }
     h2 {
-      @apply text-h2 pt-10 mb-4 leading-[0.75];
+      @apply text-h2 mt-10 mb-6;
+    }
+    h2:has(+ h3) {
+      @apply mb-3;
+    }
+    h2:has(+ p) {
+      @apply mb-1;
     }
     h3 {
-      @apply text-body pt-6 pb-3 leading-[0.5];
+      @apply text-body mb-1;
+    }
+    #usage {
+      @apply mt-6;
+    }
+
+    #easy-and-straightforward,
+    #easy-customization,
+    #clean-and-smooth-design,
+    #microinteractions {
+      @apply mt-6;
+    }
+    .slider-wrapper + h3 + p ~ h3 {
+      @apply !mt-6;
     }
 
     h1,
@@ -140,7 +159,10 @@
     a,
     p,
     span {
-      @apply text-default dark:text-default-dark  font-normal;
+      @apply text-default dark:text-default-dark font-normal;
+    }
+    p {
+      line-height: 1.6;
     }
 
     button,
@@ -182,14 +204,14 @@
         counter-increment: listNumbers 0;
       }
       & ol > li {
-        @apply text-default flex gap-3 items-center mb-3;
+        @apply text-default flex gap-3 items-center mb-3 last-of-type:mb-0;
         & span > code {
           @apply bg-fg-secondary dark:bg-fg-primary-dark dark:text-ghost-dark inline-block rounded-[6px] text-ghost px-[5px] py-[2px] text-xsmall font-(family-name:--font-geist-code);
         }
         &::before {
           content: counter(listNumbers);
           counter-increment: listNumbers;
-          @apply w-6 h-6 flex items-center z-10 justify-center text-right text-ghost border border-border rounded-[8px] text-xsmall bg-fg-primary dark:text-ghost-dark dark:bg-fg-secondary-dark dark:border-border-dark;
+          @apply w-6 h-6 flex items-center z-10 justify-center text-right text-ghost rounded-[8px] text-xsmall bg-fg-primary dark:text-ghost-dark dark:bg-fg-secondary-dark border border-border dark:border-border-dark;
         }
       }
       ul:has(li > em) {
@@ -204,12 +226,6 @@
         }
       }
 
-      blockquote:has(p) {
-        @apply relative w-full h-auto block pl-4;
-        &::before {
-          @apply content-[""] absolute left-0 h-full w-1 bg-fg-secondary dark:bg-fg-secondary block;
-        }
-      }
       .external-link {
         @apply text-default dark:text-default-dark relative inline-block text-body decoration-ghost dark:decoration-ghost-dark underline decoration-1 underline-offset-4;
       }
@@ -218,7 +234,7 @@
       table {
         border-collapse: separate;
         border-spacing: 0;
-        @apply bg-neutral-white dark:bg-fg-secondary-dark border border-border dark:border-border-dark rounded-xl w-full block overflow-x-auto;
+        @apply bg-neutral-white dark:bg-fg-secondary-dark rounded-xl w-full block overflow-x-auto border border-border dark:border-border-dark;
 
         code {
           @apply bg-fg-secondary dark:bg-fg-primary-dark dark:text-ghost-dark inline-block rounded-[6px] text-ghost px-[5px] py-[1px] text-xsmall font-(family-name:--font-geist-code);
@@ -228,7 +244,7 @@
         }
       }
       th {
-        @apply text-left text-default dark:text-default-dark font-semibold p-[15px] text-small border-b border-border dark:border-border-dark;
+        @apply text-left text-default dark:text-default-dark font-semibold p-[15px] text-small;
       }
       tbody:has(> tr) tr {
         /* @apply bg-light; */
@@ -244,7 +260,7 @@
     }
     .preview,
     .code {
-      @apply bg-fg-primary dark:bg-fg-secondary-dark z-20 w-full max-w-[42rem] min-w-full relative h-[28.125rem] rounded-[15px] overflow-hidden border-1 border-border dark:border-border-dark;
+      @apply bg-fg-primary dark:bg-fg-secondary-dark z-20 w-full max-w-[43rem] min-w-full relative h-[28.125rem] rounded-[12px] shadow-2xl shadow-neutral-black/5 overflow-hidden;
     }
     .preview {
       @apply p-[6px];
@@ -257,10 +273,10 @@
     }
 
     .switch {
-      @apply flex gap-[5px] p-1 bg-fg-primary dark:bg-fg-secondary-dark border border-border dark:border-border-dark rounded-xl w-max text-small;
+      @apply flex gap-[5px] p-1 bg-fg-primary dark:bg-fg-secondary-dark rounded-xl w-max text-small;
     }
     .switch > button {
-      @apply bg-transparent border border-transparent rounded-[8px] px-[6px] py-[2px];
+      @apply bg-transparent rounded-[8px] px-[6px] py-[2px];
       svg {
         @apply w-5;
       }
@@ -367,6 +383,11 @@
   }
   ::selection {
     @apply bg-y-400 text-g-1000;
+  }
+  @media (prefers-color-scheme: dark) {
+    ::selection {
+      @apply bg-y-500 text-g-1000;
+    }
   }
 
   @media (prefers-color-scheme: dark) {
