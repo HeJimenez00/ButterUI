@@ -1,0 +1,131 @@
+---
+import { undefined } from "astro:schema";
+
+interface TweenAnimation {
+  duration?: number;
+  ease?: string;
+  delay?: number;
+  stagger?: number;
+  scramble?: {
+    chars?: "upperCase" | "lowerCase" | "upperAndLowerCase" | string;
+  };
+}
+
+interface TextItem {
+  as: string;
+  href: string;
+  class: string;
+  duration?: number;
+  ease?: string;
+  delay?: number;
+  stagger?: number;
+  scrambleChars: string;
+  tweenFrom: TweenAnimation;
+  id: string;
+}
+
+const GUID = () => {
+  return Math.random().toString(36).substring(2, 9);
+};
+
+const {
+  as = "p",
+  href,
+  duration = 0.7,
+  ease = "none",
+  delay,
+  stagger = 0.1,
+  scrambleChars = "upperCase",
+  tweenFrom,
+  id = GUID(),
+  class: className = "",
+}: TextItem = Astro.props as TextItem;
+
+const animationConfig = {
+  duration,
+  opacity: 0,
+  ease,
+  delay,
+  stagger,
+  scrambleText: {
+    text: "{original}",
+    chars: scrambleChars,
+    newClass: "isnt-scrambling",
+    oldClass: "is-scrambling",
+  },
+  ...tweenFrom,
+};
+
+const tween = JSON.stringify(animationConfig);
+
+const AsComponent = as;
+const uniqueID = `butter-text-${id}`;
+---
+
+<AsComponent
+  href={AsComponent === as ? href : undefined}
+  data-unique-class={uniqueID}
+  data-tween-from-hacker={tween}
+  class:list={["butter-text-hacker", uniqueID, className]}
+>
+  <slot />
+</AsComponent>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+  import { SplitText } from "gsap/SplitText";
+
+  gsap.registerPlugin(ScrambleTextPlugin);
+  gsap.registerPlugin(SplitText);
+
+  function initHackerText(element) {
+    const uniqueClass = element.dataset.uniqueClass;
+    const tweenFromHackerString = element.dataset.tweenFromHacker;
+    const tweenFrom = JSON.parse(tweenFromHackerString);
+    const { duration } = tweenFrom;
+
+    let split;
+    let tl = gsap.timeline({
+      defaults: {
+        duration,
+      },
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(`.${uniqueClass}`, {
+        type: "chars",
+        charsClass: "chars++",
+        onSplit: (self) => {
+          split = tl.from(self.chars, tweenFrom);
+          return split;
+        },
+      });
+    });
+  }
+
+  document.querySelectorAll(".butter-text-hacker").forEach((element) => {
+    initHackerText(element);
+  });
+</script>
+
+<style is:global>
+  .is-scrambling {
+    opacity: 0.7;
+    animation: scrambling 0.2s cubic-bezier(0.48, 0.51, 0.75, 0.74);
+  }
+  .isnt-scrambling {
+    opacity: 1;
+  }
+
+  @keyframes scrambling {
+    0% {
+      opacity: 0.7;
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.7;
+    }
+  }
+</style>

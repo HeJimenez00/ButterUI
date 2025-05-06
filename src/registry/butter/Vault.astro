@@ -1,46 +1,69 @@
 ---
-const { btnName = "Vault", btnClass = "", vaultClass = "" } = Astro.props;
+interface VaultProps {
+  label: string;
+  labelClass: string;
+  vaultClass: string;
+  footerClass: string;
+  overlayClass: string;
+  notchClass: string;
+  easeOpen: string;
+  easeStretch: string;
+  durationOpen: number;
+  durationStretch: number;
+}
+const {
+  // comportamiento
+  label = "Vault",
+  labelClass = "",
+  vaultClass = "",
+  footerClass = "",
+  notchClass = "",
+
+  //animaciones
+  easeOpen = "power4.out",
+  easeStretch = "elastic(1, 0.75)",
+  durationOpen = 0.4,
+  durationStretch = 0.5,
+} = Astro.props as VaultProps;
 ---
 
-<button
-  class:list={[
-    "cursor-pointer px-6 py-2 bg-zinc-200 dark:bg-zinc-700 rounded-md dark:text-white",
-    btnClass,
-  ]}
-  id="button-vault">{btnName}</button
+<button class:list={["cursor-pointer", labelClass]} id="button-vault"
+  >{label}</button
 >
 
 <div
-  class="fixed z-40 translate-y-full bottom-0 right-0 left-0 w-full px-5 pb-5 bg-zinc-200 dark:bg-zinc-700 origin-bottom-left rounded-t-3xl"
+  class:list={[
+    "fixed bottom-0 right-0 left-0 w-full origin-bottom-left max-h-3/4 overflow-y-scroll",
+    vaultClass,
+  ]}
   id="Vault"
+  data-ease-open={easeOpen}
+  data-ease-stretch={easeStretch}
+  data-duration-open={durationOpen}
+  data-duration-stretch={durationStretch}
 >
-  <div class="relative w-full max-h-3/4 rounded-t-xl px-5" id="vault-container">
+  <div
+    class="absolute w-full h-full max-h-3/4 rounded-t-xl"
+    id="vault-container"
+  >
     <span
       id="vault-notch"
-      class="w-full block py-5 hover:cursor-grab active:cursor-grabbing"
+      class="w-full h-full relative block py-5 hover:cursor-grab active:cursor-grabbing"
     >
-      <div class="w-2/12 bg-zinc-300 dark:bg-zinc-600 h-2 mx-auto rounded-full">
-      </div>
+      <div class:list={["w-[10%] h-2 mx-auto rounded-full", notchClass]}></div>
     </span>
     <div class="max-w-xl mx-auto">
       <!-- esto sera el contenido del ussario -->
-      <h3 class="mt-0 mb-3 p-0">Motion</h3>
-      <p class="mb-3 dark:text-zinc-50">
-        Beautiful, fluid motions bring the interface to life, conveying status,
-        providing feedback and instruction, and enriching the visual experience
-        of your app or game.
-      </p>
-      <img
-        src="https://w0.peakpx.com/wallpaper/236/488/HD-wallpaper-mac-os-ventura-dark-macos-ventura-macbook-apple-computer.jpg"
-        alt="Imagen"
-        class="rounded-2xl h-[400px] object-cover w-full"
-      />
+      <slot />
     </div>
   </div>
 </div>
 
 <div
-  class="w-full h-16 fixed z-39 translate-y-full bottom-0 right-0 left-0 bg-zinc-200 dark:bg-zinc-700"
+  class:list={[
+    "w-full h-16 fixed translate-y-full bottom-0 right-0 left-0",
+    footerClass,
+  ]}
   id="vault-footer"
 >
 </div>
@@ -58,24 +81,32 @@ const { btnName = "Vault", btnClass = "", vaultClass = "" } = Astro.props;
     return context.querySelector(selector);
   };
 
-  const vault = $("#Vault");
-  const vaultContainer = $("#vault-container");
-  const btnOpenVault = $("#button-vault");
-  const notch = $("#vault-notch");
-  const vaultFooter = $("#vault-footer");
-  const overlayVault = $("#vault-overlay");
+  const vault = {
+    vault: $("#Vault"),
+    trigger: $("#button-vault"),
+    notch: $("#vault-notch"),
+    footer: $("#vault-footer"),
+    overlay: $("#vault-overlay"),
+  };
+
+  const easeOpen = vault.vault?.dataset.easeOpen;
+  const easeStretch = vault.vault?.dataset.easeStretch;
+  const durationOpen = Number(vault.vault?.dataset.durationOpen);
+  const durationStretch = Number(vault.vault?.dataset.durationStretch);
 
   document.addEventListener("DOMContentLoaded", () => {
     //Pasar el vault al body para que no colapse si se tiene en algun contenedor dentro con valores overflow-hidden, relative etc...
-    document.body.appendChild(vault as HTMLElement);
-    document.body.appendChild(vaultFooter as HTMLElement);
-    document.body.appendChild(overlayVault as HTMLElement);
+    document.body.appendChild(vault.vault as HTMLElement);
+    document.body.appendChild(vault.footer as HTMLElement);
+    document.body.appendChild(vault.overlay as HTMLElement);
 
     // muestra el vault
-    btnOpenVault?.addEventListener("click", () => openVault());
+    vault.trigger?.addEventListener("click", () => openVault());
 
     // activar la sensación de arrastre
-    notch?.addEventListener("mousedown", (event: Event) => vaultDrag(event));
+    vault.notch?.addEventListener("mousedown", (event: Event) =>
+      vaultDrag(event),
+    );
 
     // cuando se este arrastrando necesitamos que se mueva respecto a la posición actual del mouse
     window.addEventListener("mousemove", (event) => vaultMove(event));
@@ -84,32 +115,34 @@ const { btnName = "Vault", btnClass = "", vaultClass = "" } = Astro.props;
     window.addEventListener("mouseup", () => vaultDrop());
 
     // se ejecuta cuando se presiona en el overlay
-    overlayVault?.addEventListener("click", () => showOverlay());
+    vault.overlay?.addEventListener("click", () => showOverlay());
   });
 
   //animations
-  const EASE_CONTAINER = "power4.out";
-  const EASE_NOTCH = "elastic(1, 0.75)";
-  const DURATION_CONTAINER = 0.4;
-  const DURATION_NOTCH = 0.5;
+  const animationDefaults = {
+    easeContainer: easeOpen,
+    easeNotch: easeStretch,
+    durationContainer: durationOpen,
+    durationNotch: durationStretch,
+  };
 
-  let isVaultVisible = false;
-  let isDragging = false;
-  let offset = { y: 0 };
-  let startY = 0;
+  let isVaultVisible = false,
+    isDragging = false,
+    offset = { y: 0 },
+    startY = 0;
 
-  const animations = {
+  const animationSettings = {
     vault: {
-      ease: EASE_CONTAINER,
-      duration: DURATION_CONTAINER,
+      ease: animationDefaults.easeContainer,
+      duration: animationDefaults.durationContainer,
     },
     notch: {
-      ease: EASE_NOTCH,
-      duration: DURATION_NOTCH,
+      ease: animationDefaults.easeNotch,
+      duration: animationDefaults.durationNotch,
     },
     stretch: {
-      ease: EASE_NOTCH,
-      duration: DURATION_CONTAINER,
+      ease: animationDefaults.easeNotch,
+      duration: animationDefaults.durationContainer,
     },
   };
 
@@ -118,9 +151,9 @@ const { btnName = "Vault", btnClass = "", vaultClass = "" } = Astro.props;
 
     document.body.style.overflow = "hidden";
 
-    gsap.to(vault, { y, ...animations.vault });
-    gsap.to(vaultFooter, { y, ...animations.vault });
-    gsap.to(overlayVault, {
+    gsap.to(vault.vault, { y, ...animationSettings.vault });
+    gsap.to(vault.footer, { y, ...animationSettings.vault });
+    gsap.to(vault.overlay, {
       opacity: 0.3,
       duration: 0.3,
       visibility: "visible",
@@ -139,11 +172,11 @@ const { btnName = "Vault", btnClass = "", vaultClass = "" } = Astro.props;
       startY = event.clientY - offset.y;
 
       if (startY > 0) {
-        gsap.to(vault, {
+        gsap.to(vault.vault, {
           y: startY,
           // importante que sea 0.3, para que la animación sea natural sino se sentira lenta cuando se coloque un valor mayor
           duration: 0.3,
-          ease: animations.vault.ease,
+          ease: animationSettings.vault.ease,
         });
       } else {
         // Se deforma el vaul por que se estira demasiado haciá arriba (StartY es menor a 0)
@@ -151,7 +184,10 @@ const { btnName = "Vault", btnClass = "", vaultClass = "" } = Astro.props;
         //-400 (startY) * -0.000113 = -0.0452
         //-600 (startY) * -0.000113 = -0.0678
         const stretch = startY * -0.000113;
-        gsap.to(vault, { scaleY: 1 + stretch, ...animations.stretch });
+        gsap.to(vault.vault, {
+          scaleY: 1 + stretch,
+          ...animationSettings.stretch,
+        });
       }
     }
   }
@@ -160,9 +196,9 @@ const { btnName = "Vault", btnClass = "", vaultClass = "" } = Astro.props;
     isDragging = false;
 
     if (isVaultVisible) {
-      gsap.to(vault, {
+      gsap.to(vault.vault, {
         scaleY: 1,
-        ...animations.notch,
+        ...animationSettings.notch,
       });
 
       //calculamos el valor del tamaño de pantalla para poder cambiarlo y no haya mucha animación y tenga un limite natural
@@ -171,16 +207,17 @@ const { btnName = "Vault", btnClass = "", vaultClass = "" } = Astro.props;
         : 0.4;
       // console.log(startY, offset.y * matchMedia);
       //el bug esta en que el valor se queda tal cual cuando borro, por lo que necesito reiniciarlo
+
       if (startY > offset.y * matchMedia) {
-        gsap.to([vault, vaultFooter], {
+        gsap.to([vault.vault, vault.footer], {
           y: "100%",
-          ...animations.vault,
+          ...animationSettings.vault,
         });
 
-        gsap.to(overlayVault, { opacity: 0, duration: 0.3 });
+        gsap.to(vault.overlay, { opacity: 0, duration: 0.3 });
 
         setTimeout(() => {
-          gsap.to(overlayVault, {
+          gsap.to(vault.overlay, {
             visibility: "hidden",
           });
         }, 300);
@@ -190,9 +227,9 @@ const { btnName = "Vault", btnClass = "", vaultClass = "" } = Astro.props;
 
         document.body.style.overflow = "visible";
       } else {
-        gsap.to(vault, {
+        gsap.to(vault.vault, {
           y: 0,
-          ...animations.notch,
+          ...animationSettings.notch,
         });
       }
     }
@@ -201,20 +238,20 @@ const { btnName = "Vault", btnClass = "", vaultClass = "" } = Astro.props;
   function showOverlay() {
     // verificamos que isVaultVisible este mostrandose y el isDragging no se este moviendo
     if (isVaultVisible && !isDragging) {
-      gsap.to([vault, vaultFooter], {
+      gsap.to([vault.vault, vault.footer], {
         y: "100%",
         bottom: 0,
-        duration: DURATION_NOTCH,
+        duration: animationDefaults.durationNotch,
         ease: "power4.out",
       });
 
-      gsap.to(overlayVault, {
+      gsap.to(vault.overlay, {
         opacity: 0,
         duration: 0.3,
       });
 
       setTimeout(() => {
-        gsap.to(overlayVault, {
+        gsap.to(vault.overlay, {
           visibility: "hidden",
         });
       }, 300);

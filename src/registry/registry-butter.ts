@@ -21,4 +21,14 @@ export const butterRegistry: RegistryEntry[] = [
     type: "butter",
     files: [{ path: "src/registry/butter/Vault.astro" }],
   },
+  {
+    name: "Text",
+    type: "butter",
+    files: [{ path: "src/registry/butter/Text.astro" }],
+  },
+  {
+    name: "TextHacker",
+    type: "butter",
+    files: [{ path: "src/registry/butter/TextHacker.astro" }],
+  },
 ];

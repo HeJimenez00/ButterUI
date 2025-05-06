@@ -36,4 +36,29 @@ export const examplesRegistry: RegistryEntry[] = [
     type: "example",
     files: [{ path: "src/registry/examples/GlimpseCards.astro" }],
   },
+  {
+    name: "VaultMain",
+    type: "example",
+    files: [{ path: "src/registry/examples/VaultMain.astro" }],
+  },
+  {
+    name: "TextMain",
+    type: "example",
+    files: [{ path: "src/registry/examples/TextMain.astro" }],
+  },
+  {
+    name: "TextWords",
+    type: "example",
+    files: [{ path: "src/registry/examples/TextWords.astro" }],
+  },
+  {
+    name: "TextLines",
+    type: "example",
+    files: [{ path: "src/registry/examples/TextLines.astro" }],
+  },
+  {
+    name: "TextHackerMain",
+    type: "example",
+    files: [{ path: "src/registry/examples/TextHackerMain.astro" }],
+  },
 ];

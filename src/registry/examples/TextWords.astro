@@ -1,0 +1,21 @@
+---
+import { Text } from "@butter-js/ui";
+---
+
+<Text
+  class="text-2xl"
+  as="p"
+  textType="words"
+  mask="true"
+  tweenFrom={{
+    y: 30,
+    duration: 0.7,
+    ease: "power4.out",
+    stagger: {
+      amount: 0.2,
+      from: "random",
+    },
+  }}
+>
+  Text separated word by word in random order
+</Text>

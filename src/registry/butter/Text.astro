@@ -1,0 +1,134 @@
+---
+interface TweenAnimation {
+  y?: number;
+  x?: number;
+  opacity?: number;
+  duration?: number;
+  stagger?: {
+    amount?: number;
+    from?: string;
+  };
+  ease?: string;
+  delay?: number;
+  scale?: number;
+  rotation?: number;
+}
+
+interface TextItem {
+  as: string;
+  href: string;
+  class: string;
+  textType: "chars" | "words" | "lines";
+  mask: "true" | "false";
+  duration?: number;
+  opacity?: number;
+  y?: number;
+  x?: number;
+  ease?: string;
+  staggerAmount?: number;
+  staggerFrom?: string;
+  delay?: number;
+  tweenFrom: TweenAnimation;
+  id: string;
+}
+
+const GUID = () => {
+  return Math.random().toString(36).substring(2, 9);
+};
+
+const {
+  as = "p",
+  href,
+  textType = "chars",
+  mask = "false",
+  duration = 0.7,
+  opacity = 0,
+  y = 0,
+  x,
+  ease = "power4.out",
+  staggerAmount = 0.1,
+  staggerFrom = "start",
+  delay,
+  tweenFrom,
+  id = GUID(),
+  class: className = "",
+}: TextItem = Astro.props as TextItem;
+
+const animationConfig = {
+  y,
+  ...(x !== undefined && { x }),
+  opacity,
+  duration,
+  ease,
+  stagger: {
+    amount: staggerAmount,
+    from: staggerFrom,
+  },
+  ...(delay !== undefined && { delay }),
+  ...tweenFrom,
+};
+const tween = JSON.stringify(animationConfig);
+
+const AsComponent = as;
+const uniqueID = `butter-text-${id}`;
+---
+
+<AsComponent
+  href={AsComponent === as ? href : undefined}
+  data-text-type={textType}
+  data-is-mask={mask}
+  data-unique-class={uniqueID}
+  data-tween-from={tween}
+  class:list={["butter-text", uniqueID, className]}
+>
+  <slot />
+</AsComponent>
+
+<script>
+  import { gsap } from "gsap";
+  import { SplitText } from "gsap/SplitText";
+
+  const initTextAnimation = (element) => {
+    const type = element.dataset.textType;
+    const isMask = element.dataset.isMask !== "false";
+    const uniqueClass = element.dataset.uniqueClass;
+    const tweenFromString = element.dataset.tweenFrom;
+    const tweenFrom = JSON.parse(tweenFromString);
+
+    let split;
+
+    const typeText = (type, self) => {
+      let option =
+        type === "chars"
+          ? self.chars
+          : type === "words"
+            ? self.words
+            : self.lines;
+      return option;
+    };
+
+    document.fonts.ready.then(() => {
+      split = SplitText.create(`.${uniqueClass}`, {
+        type: type,
+        autoSplit: true,
+        mask: isMask && type,
+        onSplit: (self) => {
+          return gsap.from(typeText(type, self), tweenFrom);
+        },
+      });
+      return split;
+    });
+  };
+
+  document.querySelectorAll(".butter-text").forEach((element) => {
+    initTextAnimation(element);
+  });
+</script>
+
+<style is:global>
+  .word,
+  .char {
+    outline: 1px dashed;
+    border-radius: 10px;
+  }
+</style>

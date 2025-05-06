@@ -1,0 +1,27 @@
+---
+import { Text } from "@butter-js/ui";
+---
+
+<Text
+  class="text-2xl font-light flex flex-col"
+  as="p"
+  textType="lines"
+  mask="true"
+  tweenFrom={{
+    y: 100,
+    rotation: 90,
+    duration: 0.7,
+    ease: "power4.out",
+    transformOrigin: "left 50%",
+    stagger: {
+      amount: 0.5,
+      from: "start",
+    },
+  }}
+>
+  <span>Text separated line by line</span>
+  <span>Text separated line by line</span>
+  <span>Text separated line by line</span>
+  <span>Text separated line by line</span>
+  <span>Text separated line by line</span>
+</Text>
