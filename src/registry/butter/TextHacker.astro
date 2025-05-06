@@ -1,5 +1,5 @@
 ---
-import { undefined } from "astro:schema";
+import { GUID } from "../../utils/generateID.ts";
 
 interface TweenAnimation {
   duration?: number;
@@ -23,10 +23,6 @@ interface TextItem {
   tweenFrom: TweenAnimation;
   id: string;
 }
-
-const GUID = () => {
-  return Math.random().toString(36).substring(2, 9);
-};
 
 const {
   as = "p",
