@@ -16,7 +16,7 @@
   "dependencies": {
     "@astrojs/mdx": "^4.2.1",
     "@astrojs/react": "^4.2.1",
-    "@butter-js/ui": "^0.1.1",
+    "@butter-js/ui": "^0.3.1",
     "@react-three/drei": "^9.117.3",
     "@react-three/fiber": "^8.17.12",
     "@react-three/postprocessing": "^2.16.3",
@@ -28,7 +28,7 @@
     "astro-auto-import": "^0.4.4",
     "astro-mdx-code-blocks": "^0.0.6",
     "class-variance-authority": "^0.7.1",
-    "gsap": "^3.12.7",
+    "gsap": "^3.13.0",
     "leva": "^0.9.35",
     "prettier-plugin-astro": "^0.14.1",
     "react": "^18.3.1",
@@ -37,5 +37,9 @@
     "tailwindcss": "^4.0.0",
     "three": "^0.172.0",
     "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.14.1"
   }
 }
