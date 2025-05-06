@@ -16,7 +16,7 @@
   "dependencies": {
     "@astrojs/mdx": "^4.2.1",
     "@astrojs/react": "^4.2.1",
-    "@butter-js/ui": "^0.3.1",
+    "@butter-js/ui": "^0.3.2",
     "@react-three/drei": "^9.117.3",
     "@react-three/fiber": "^8.17.12",
     "@react-three/postprocessing": "^2.16.3",
