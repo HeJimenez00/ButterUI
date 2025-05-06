@@ -556,39 +556,72 @@ Vault: {
     type: "butter",
     files: ["src/registry/butter/Vault.astro"],
     component: async () => import("../registry/butter/Vault.astro"),
-    code: `<button
-  class=\"cursor-pointer px-6 py-2 bg-zinc-200 dark:bg-zinc-700 rounded-md dark:text-white\"
-  id=\"button-vault\">Vaul</button
+    code: `---
+interface VaultProps {
+  label: string;
+  labelClass: string;
+  vaultClass: string;
+  footerClass: string;
+  overlayClass: string;
+  notchClass: string;
+  easeOpen: string;
+  easeStretch: string;
+  durationOpen: number;
+  durationStretch: number;
+}
+const {
+  // comportamiento
+  label = \"Vault\",
+  labelClass = \"\",
+  vaultClass = \"\",
+  footerClass = \"\",
+  notchClass = \"\",
+
+  //animaciones
+  easeOpen = \"power4.out\",
+  easeStretch = \"elastic(1, 0.75)\",
+  durationOpen = 0.4,
+  durationStretch = 0.5,
+} = Astro.props as VaultProps;
+---
+
+<button class:list={[\"cursor-pointer\", labelClass]} id=\"button-vault\"
+  >{label}</button
 >
 
 <div
-  class=\"fixed z-41 translate-y-full bottom-0 right-0 left-0 w-full h-auto max-h-3/4 bg-zinc-100 rounded-t-xl px-5 dark:bg-zinc-700 origin-bottom-left\"
-  id=\"vault-container\"
+  class:list={[
+    \"fixed bottom-0 right-0 left-0 w-full origin-bottom-left max-h-3/4 overflow-y-scroll\",
+    vaultClass,
+  ]}
+  id=\"Vault\"
+  data-ease-open={easeOpen}
+  data-ease-stretch={easeStretch}
+  data-duration-open={durationOpen}
+  data-duration-stretch={durationStretch}
 >
-  <div class=\"max-w-xl mx-auto\">
+  <div
+    class=\"absolute w-full h-full max-h-3/4 rounded-t-xl\"
+    id=\"vault-container\"
+  >
     <span
       id=\"vault-notch\"
-      class=\"w-full block py-5 hover:cursor-grab active:cursor-grabbing\"
+      class=\"w-full h-full relative block py-5 hover:cursor-grab active:cursor-grabbing\"
     >
-      <div class=\"w-2/12 bg-zinc-300 dark:bg-zinc-600 h-2 mx-auto rounded-full\">
-      </div>
+      <div class:list={[\"w-[10%] h-2 mx-auto rounded-full\", notchClass]}></div>
     </span>
-    <h3 class=\"mt-0 mb-3 p-0\">Motion</h3>
-    <p class=\"mb-3 dark:text-zinc-50\">
-      Beautiful, fluid motions bring the interface to life, conveying status,
-      providing feedback and instruction, and enriching the visual experience of
-      your app or game.
-    </p>
-    <img
-      src=\"https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3cfd178b-66c3-4756-8e9b-63df1ff3e510/deomuk1-4ba9772a-1039-48d0-bbea-f22c34d091da.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzNjZmQxNzhiLTY2YzMtNDc1Ni04ZTliLTYzZGYxZmYzZTUxMFwvZGVvbXVrMS00YmE5NzcyYS0xMDM5LTQ4ZDAtYmJlYS1mMjJjMzRkMDkxZGEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.OZOJClqj5EQ2PgI8U6Rar-UrxDv__jKDCfuO5YUehB4\"
-      alt=\"Imagen\"
-      class=\"rounded-2xl h-[400px] object-cover w-full\"
-    />
+    <div class=\"max-w-xl mx-auto\">
+      <!-- esto sera el contenido del ussario -->
+      <slot />
+    </div>
   </div>
 </div>
 
 <div
-  class=\"w-full h-10 fixed z-40 translate-y-full bottom-0 right-0 left-0 bg-zinc-200 dark:bg-zinc-700\"
+  class:list={[
+    \"w-full h-16 fixed translate-y-full bottom-0 right-0 left-0\",
+    footerClass,
+  ]}
   id=\"vault-footer\"
 >
 </div>
@@ -606,23 +639,32 @@ Vault: {
     return context.querySelector(selector);
   };
 
-  const btnOpenVault = \$(\"#button-vault\");
-  const vault = \$(\"#vault-container\");
-  const notch = \$(\"#vault-notch\");
-  const vaultFooter = \$(\"#vault-footer\");
-  const overlayVault = \$(\"#vault-overlay\");
+  const vault = {
+    vault: \$(\"#Vault\"),
+    trigger: \$(\"#button-vault\"),
+    notch: \$(\"#vault-notch\"),
+    footer: \$(\"#vault-footer\"),
+    overlay: \$(\"#vault-overlay\"),
+  };
+
+  const easeOpen = vault.vault?.dataset.easeOpen;
+  const easeStretch = vault.vault?.dataset.easeStretch;
+  const durationOpen = Number(vault.vault?.dataset.durationOpen);
+  const durationStretch = Number(vault.vault?.dataset.durationStretch);
 
   document.addEventListener(\"DOMContentLoaded\", () => {
     //Pasar el vault al body para que no colapse si se tiene en algun contenedor dentro con valores overflow-hidden, relative etc...
-    document.body.appendChild(vault);
-    document.body.appendChild(vaultFooter);
-    document.body.appendChild(overlayVault);
+    document.body.appendChild(vault.vault as HTMLElement);
+    document.body.appendChild(vault.footer as HTMLElement);
+    document.body.appendChild(vault.overlay as HTMLElement);
 
     // muestra el vault
-    btnOpenVault?.addEventListener(\"click\", () => openVault());
+    vault.trigger?.addEventListener(\"click\", () => openVault());
 
     // activar la sensación de arrastre
-    notch?.addEventListener(\"mousedown\", (event: Event) => vaultDrag(event));
+    vault.notch?.addEventListener(\"mousedown\", (event: Event) =>
+      vaultDrag(event),
+    );
 
     // cuando se este arrastrando necesitamos que se mueva respecto a la posición actual del mouse
     window.addEventListener(\"mousemove\", (event) => vaultMove(event));
@@ -631,32 +673,34 @@ Vault: {
     window.addEventListener(\"mouseup\", () => vaultDrop());
 
     // se ejecuta cuando se presiona en el overlay
-    overlayVault?.addEventListener(\"click\", () => showOverlay());
+    vault.overlay?.addEventListener(\"click\", () => showOverlay());
   });
 
   //animations
-  const EASE_CONTAINER = \"power4.out\";
-  const EASE_NOTCH = \"elastic(1, 0.75)\";
-  const DURATION_CONTAINER = 0.4;
-  const DURATION_NOTCH = 0.5;
+  const animationDefaults = {
+    easeContainer: easeOpen,
+    easeNotch: easeStretch,
+    durationContainer: durationOpen,
+    durationNotch: durationStretch,
+  };
 
-  let isVaultVisible = false;
-  let isDragging = false;
-  let offset = { y: 0 };
-  let startY = 0;
+  let isVaultVisible = false,
+    isDragging = false,
+    offset = { y: 0 },
+    startY = 0;
 
-  const animations = {
+  const animationSettings = {
     vault: {
-      ease: EASE_CONTAINER,
-      duration: DURATION_CONTAINER,
+      ease: animationDefaults.easeContainer,
+      duration: animationDefaults.durationContainer,
     },
     notch: {
-      ease: EASE_NOTCH,
-      duration: DURATION_NOTCH,
+      ease: animationDefaults.easeNotch,
+      duration: animationDefaults.durationNotch,
     },
     stretch: {
-      ease: EASE_NOTCH,
-      duration: DURATION_CONTAINER,
+      ease: animationDefaults.easeNotch,
+      duration: animationDefaults.durationContainer,
     },
   };
 
@@ -665,9 +709,9 @@ Vault: {
 
     document.body.style.overflow = \"hidden\";
 
-    gsap.to(vault, { y, bottom: 20, ...animations.vault });
-    gsap.to(vaultFooter, { y, ...animations.vault });
-    gsap.to(overlayVault, {
+    gsap.to(vault.vault, { y, ...animationSettings.vault });
+    gsap.to(vault.footer, { y, ...animationSettings.vault });
+    gsap.to(vault.overlay, {
       opacity: 0.3,
       duration: 0.3,
       visibility: \"visible\",
@@ -686,11 +730,11 @@ Vault: {
       startY = event.clientY - offset.y;
 
       if (startY > 0) {
-        gsap.to(vault, {
+        gsap.to(vault.vault, {
           y: startY,
           // importante que sea 0.3, para que la animación sea natural sino se sentira lenta cuando se coloque un valor mayor
           duration: 0.3,
-          ease: animations.vault.ease,
+          ease: animationSettings.vault.ease,
         });
       } else {
         // Se deforma el vaul por que se estira demasiado haciá arriba (StartY es menor a 0)
@@ -698,7 +742,10 @@ Vault: {
         //-400 (startY) * -0.000113 = -0.0452
         //-600 (startY) * -0.000113 = -0.0678
         const stretch = startY * -0.000113;
-        gsap.to(vault, { scaleY: 1 + stretch, ...animations.stretch });
+        gsap.to(vault.vault, {
+          scaleY: 1 + stretch,
+          ...animationSettings.stretch,
+        });
       }
     }
   }
@@ -707,34 +754,40 @@ Vault: {
     isDragging = false;
 
     if (isVaultVisible) {
-      gsap.to(vault, {
+      gsap.to(vault.vault, {
         scaleY: 1,
-        ...animations.notch,
+        ...animationSettings.notch,
       });
 
-      if (startY > offset.y * 0.25) {
-        // console.log(\"es menor a 25%\");
-        gsap.to([vault, vaultFooter], {
+      //calculamos el valor del tamaño de pantalla para poder cambiarlo y no haya mucha animación y tenga un limite natural
+      const matchMedia = window.matchMedia(\"(min-width: 1600px)\").matches
+        ? 0.25
+        : 0.4;
+      // console.log(startY, offset.y * matchMedia);
+      //el bug esta en que el valor se queda tal cual cuando borro, por lo que necesito reiniciarlo
+
+      if (startY > offset.y * matchMedia) {
+        gsap.to([vault.vault, vault.footer], {
           y: \"100%\",
-          bottom: 0,
-          ...animations.vault,
+          ...animationSettings.vault,
         });
 
-        gsap.to(overlayVault, { opacity: 0, duration: 0.3 });
+        gsap.to(vault.overlay, { opacity: 0, duration: 0.3 });
 
         setTimeout(() => {
-          gsap.to(overlayVault, {
+          gsap.to(vault.overlay, {
             visibility: \"hidden\",
           });
         }, 300);
 
         isVaultVisible = false;
+        startY = 0;
 
         document.body.style.overflow = \"visible\";
       } else {
-        gsap.to(vault, {
+        gsap.to(vault.vault, {
           y: 0,
-          ...animations.notch,
+          ...animationSettings.notch,
         });
       }
     }
@@ -743,20 +796,20 @@ Vault: {
   function showOverlay() {
     // verificamos que isVaultVisible este mostrandose y el isDragging no se este moviendo
     if (isVaultVisible && !isDragging) {
-      gsap.to([vault, vaultFooter], {
+      gsap.to([vault.vault, vault.footer], {
         y: \"100%\",
         bottom: 0,
-        duration: DURATION_NOTCH,
+        duration: animationDefaults.durationNotch,
         ease: \"power4.out\",
       });
 
-      gsap.to(overlayVault, {
+      gsap.to(vault.overlay, {
         opacity: 0,
         duration: 0.3,
       });
 
       setTimeout(() => {
-        gsap.to(overlayVault, {
+        gsap.to(vault.overlay, {
           visibility: \"hidden\",
         });
       }, 300);
@@ -766,6 +819,277 @@ Vault: {
     }
   }
 </script>
+`},
+Text: {
+    name: "Text",
+    description: ``,
+    type: "butter",
+    files: ["src/registry/butter/Text.astro"],
+    component: async () => import("../registry/butter/Text.astro"),
+    code: `---
+interface TweenAnimation {
+  y?: number;
+  x?: number;
+  opacity?: number;
+  duration?: number;
+  stagger?: {
+    amount?: number;
+    from?: string;
+  };
+  ease?: string;
+  delay?: number;
+  scale?: number;
+  rotation?: number;
+}
+
+interface TextItem {
+  as: string;
+  class: string;
+  textType: \"chars\" | \"words\" | \"lines\";
+  mask: \"true\" | \"false\";
+  duration?: number;
+  opacity?: number;
+  y?: number;
+  x?: number;
+  ease?: string;
+  staggerAmount?: number;
+  staggerFrom?: string;
+  delay?: number;
+  tweenFrom: TweenAnimation;
+  id: string;
+}
+
+const GUID = () => {
+  return Math.random().toString(36).substring(2, 9);
+};
+
+const {
+  as = \"p\",
+  textType = \"chars\",
+  mask = \"false\",
+  duration = 0.7,
+  opacity = 0,
+  y = 0,
+  x,
+  ease = \"power4.out\",
+  staggerAmount = 0.1,
+  staggerFrom = \"start\",
+  delay,
+  tweenFrom,
+  id = GUID(),
+  class: className = \"\",
+}: TextItem = Astro.props as TextItem;
+
+const animationConfig = {
+  y,
+  ...(x !== undefined && { x }),
+  opacity,
+  duration,
+  ease,
+  stagger: {
+    amount: staggerAmount,
+    from: staggerFrom,
+  },
+  ...(delay !== undefined && { delay }),
+  ...tweenFrom,
+};
+const tween = JSON.stringify(animationConfig);
+
+const AsComponent = as;
+const uniqueID = \`butter-text-\${id}\`;
+---
+
+<AsComponent
+  data-text-type={textType}
+  data-is-mask={mask}
+  data-unique-class={uniqueID}
+  data-tween-from={tween}
+  class:list={[\"butter-text\", uniqueID, className]}
+>
+  <slot />
+</AsComponent>
+
+<script>
+  import { gsap } from \"gsap\";
+  import { SplitText } from \"gsap/SplitText\";
+
+  const initTextAnimation = (element) => {
+    const type = element.dataset.textType;
+    const isMask = element.dataset.isMask !== \"false\";
+    const uniqueClass = element.dataset.uniqueClass;
+    const tweenFromString = element.dataset.tweenFrom;
+    const tweenFrom = JSON.parse(tweenFromString);
+
+    let split;
+
+    const typeText = (type, self) => {
+      let option =
+        type === \"chars\"
+          ? self.chars
+          : type === \"words\"
+            ? self.words
+            : self.lines;
+      return option;
+    };
+
+    document.fonts.ready.then(() => {
+      split = SplitText.create(\`.\${uniqueClass}\`, {
+        type: type,
+        autoSplit: true,
+        mask: isMask && type,
+        onSplit: (self) => {
+          return gsap.from(typeText(type, self), tweenFrom);
+        },
+      });
+      return split;
+    });
+  };
+
+  document.querySelectorAll(\".butter-text\").forEach((element) => {
+    initTextAnimation(element);
+  });
+</script>
+
+<style is:global>
+  .word,
+  .char {
+    outline: 1px dashed;
+    border-radius: 10px;
+  }
+</style>
+`},
+TextHacker: {
+    name: "TextHacker",
+    description: ``,
+    type: "butter",
+    files: ["src/registry/butter/TextHacker.astro"],
+    component: async () => import("../registry/butter/TextHacker.astro"),
+    code: `---
+interface TweenAnimation {
+  duration?: number;
+  ease?: string;
+  delay?: number;
+  stagger?: number;
+  scramble?: {
+    chars?: \"upperCase\" | \"lowerCase\" | \"upperAndLowerCase\" | string;
+  };
+}
+
+interface TextItem {
+  as: string;
+  class: string;
+  duration?: number;
+  ease?: string;
+  delay?: number;
+  stagger?: number;
+  scrambleChars: string;
+  tweenFrom: TweenAnimation;
+  id: string;
+}
+
+const GUID = () => {
+  return Math.random().toString(36).substring(2, 9);
+};
+
+const {
+  as = \"p\",
+  duration = 0.7,
+  ease = \"none\",
+  delay,
+  stagger = 0.1,
+  scrambleChars = \"upperCase\",
+  tweenFrom,
+  id = GUID(),
+  class: className = \"\",
+}: TextItem = Astro.props as TextItem;
+
+const animationConfig = {
+  duration,
+  opacity: 0,
+  ease,
+  delay,
+  stagger,
+  scrambleText: {
+    text: \"{original}\",
+    chars: scrambleChars,
+    newClass: \"isnt-scrambling\",
+    oldClass: \"is-scrambling\",
+  },
+  ...tweenFrom,
+};
+
+const tween = JSON.stringify(animationConfig);
+
+const AsComponent = as;
+const uniqueID = \`butter-text-\${id}\`;
+---
+
+<AsComponent
+  data-unique-class={uniqueID}
+  data-tween-from-hacker={tween}
+  class:list={[\"butter-text-hacker\", uniqueID, className]}
+>
+  <slot />
+</AsComponent>
+
+<script>
+  import { gsap } from \"gsap\";
+  import { ScrambleTextPlugin } from \"gsap/ScrambleTextPlugin\";
+  import { SplitText } from \"gsap/SplitText\";
+
+  gsap.registerPlugin(ScrambleTextPlugin);
+  gsap.registerPlugin(SplitText);
+
+  function initHackerText(element) {
+    const uniqueClass = element.dataset.uniqueClass;
+    const tweenFromHackerString = element.dataset.tweenFromHacker;
+    const tweenFrom = JSON.parse(tweenFromHackerString);
+    const { duration } = tweenFrom;
+
+    let split;
+    let tl = gsap.timeline({
+      defaults: {
+        duration,
+      },
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(\`.\${uniqueClass}\`, {
+        type: \"chars\",
+        charsClass: \"chars++\",
+        onSplit: (self) => {
+          split = tl.from(self.chars, tweenFrom);
+          return split;
+        },
+      });
+    });
+  }
+
+  document.querySelectorAll(\".butter-text-hacker\").forEach((element) => {
+    initHackerText(element);
+  });
+</script>
+
+<style is:global>
+  .is-scrambling {
+    opacity: 0.7;
+    animation: scrambling 0.2s cubic-bezier(0.48, 0.51, 0.75, 0.74);
+  }
+  .isnt-scrambling {
+    opacity: 1;
+  }
+
+  @keyframes scrambling {
+    0% {
+      opacity: 0.7;
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.7;
+    }
+  }
+</style>
 `},
 AvatarListMain: {
     name: "AvatarListMain",
@@ -1074,5 +1398,137 @@ const cardsData: GlimpseProps = [
     }
   </div>
 </div>
+`},
+VaultMain: {
+    name: "VaultMain",
+    description: ``,
+    type: "example",
+    files: ["src/registry/examples/VaultMain.astro"],
+    component: async () => import("../registry/examples/VaultMain.astro"),
+    code: `---
+import { Vault } from \"@butter-js/ui\";
+---
+
+<Vault
+  labelClass={\`bg-zinc-200 dark:bg-zinc-700 px-5 py-2 rounded-xl\`}
+  vaultClass=\"z-41 bg-zinc-100 dark:bg-zinc-800 pb-5 px-5 rounded-2xl\"
+  notchClass=\"bg-zinc-300 dark:bg-zinc-600\"
+  footerClass=\"bg-zinc-100 dark:bg-zinc-800 z-40\"
+>
+  <h3 class=\"mt-0 mb-3 p-0\">Motion</h3>
+  <p class=\"mb-3 dark:text-zinc-50\">
+    Beautiful, fluid motions bring the interface to life, conveying status,
+    providing feedback and instruction, and enriching the visual experience of
+    your app or game.
+  </p>
+  <img
+    src=\"https://w0.peakpx.com/wallpaper/236/488/HD-wallpaper-mac-os-ventura-dark-macos-ventura-macbook-apple-computer.jpg\"
+    alt=\"Imagen\"
+    class=\"rounded-2xl h-[400px] object-cover w-full\"
+  />
+</Vault>
+`},
+TextMain: {
+    name: "TextMain",
+    description: ``,
+    type: "example",
+    files: ["src/registry/examples/TextMain.astro"],
+    component: async () => import("../registry/examples/TextMain.astro"),
+    code: `---
+import { Text } from \"@butter-js/ui\";
+---
+
+<Text
+  class=\"text-2xl font-normal\"
+  as=\"h2\"
+  y={100}
+  duration={1}
+  textType=\"chars\"
+  staggerAmount={0.5}
+  staggerFrom=\"random\"
+>
+  This text appears from below
+</Text>
+`},
+TextWords: {
+    name: "TextWords",
+    description: ``,
+    type: "example",
+    files: ["src/registry/examples/TextWords.astro"],
+    component: async () => import("../registry/examples/TextWords.astro"),
+    code: `---
+import { Text } from \"@butter-js/ui\";
+---
+
+<Text
+  class=\"text-2xl\"
+  as=\"p\"
+  textType=\"words\"
+  mask=\"true\"
+  tweenFrom={{
+    y: 30,
+    duration: 0.7,
+    ease: \"power4.out\",
+    stagger: {
+      amount: 0.2,
+      from: \"random\",
+    },
+  }}
+>
+  Text separated word by word in random order
+</Text>
+`},
+TextLines: {
+    name: "TextLines",
+    description: ``,
+    type: "example",
+    files: ["src/registry/examples/TextLines.astro"],
+    component: async () => import("../registry/examples/TextLines.astro"),
+    code: `---
+import { Text } from \"@butter-js/ui\";
+---
+
+<Text
+  class=\"text-2xl font-light flex flex-col\"
+  as=\"p\"
+  textType=\"lines\"
+  mask=\"true\"
+  tweenFrom={{
+    y: 100,
+    duration: 0.7,
+    ease: \"power4.out\",
+    stagger: {
+      amount: 0.4,
+      from: \"start\",
+    },
+  }}
+>
+  <span>Text separated line by line</span>
+  <span>Text separated line by line</span>
+  <span>Text separated line by line</span>
+  <span>Text separated line by line</span>
+  <span>Text separated line by line</span>
+</Text>
+`},
+TextHackerMain: {
+    name: "TextHackerMain",
+    description: ``,
+    type: "example",
+    files: ["src/registry/examples/TextHackerMain.astro"],
+    component: async () => import("../registry/examples/TextHackerMain.astro"),
+    code: `---
+import { TextHacker } from \"@butter-js/ui\";
+
+const defaultChars =
+  \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\";
+---
+
+<TextHacker
+  class=\"text-2xl font-geist-code\"
+  stagger={0.1}
+  duration={0.5}
+  delay={0.5}
+  scrambleChars={defaultChars}>April 30, 2025</TextHacker
+>
 `}
 };
