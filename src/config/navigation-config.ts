@@ -63,6 +63,10 @@ export const navigationConfig: DocsConfig = {
           title: "Vault",
           href: "/docs/components/vault",
         },
+        {
+          title: "Text",
+          href: "/docs/components/text",
+        },
       ],
     },
   ],
